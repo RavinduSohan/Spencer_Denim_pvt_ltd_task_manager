@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      String   @default("user")
+  phone     String?
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tasks           Task[]
+  assignedTasks   Task[] @relation("AssignedTo")
+  documents       Document[]
+  orders          Order[]
+  activities      Activity[]
+
+  @@map("users")
+}
+
+model Task {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus  @default(PENDING)
+  priority    Priority    @default(MEDIUM)
+  category    TaskCategory
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  createdBy   User    @relation(fields: [createdById], references: [id])
+  createdById String
+  assignedTo  User?   @relation("AssignedTo", fields: [assignedToId], references: [id])
+  assignedToId String?
+  order       Order?  @relation(fields: [orderId], references: [id])
+  orderId     String?
+
+  @@map("tasks")
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  client      String
+  product     String
+  quantity    Int
+  shipDate    DateTime
+  status      OrderStatus @default(PENDING)
+  progress    Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  createdBy   User       @relation(fields: [createdById], references: [id])
+  createdById String
+  tasks       Task[]
+  documents   Document[]
+
+  @@map("orders")
+}
+
+model Document {
+  id          String         @id @default(cuid())
+  name        String
+  fileName    String
+  filePath    String
+  fileSize    Int
+  mimeType    String
+  category    DocumentCategory
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  // Relations
+  uploadedBy  User    @relation(fields: [uploadedById], references: [id])
+  uploadedById String
+  order       Order?  @relation(fields: [orderId], references: [id])
+  orderId     String?
+
+  @@map("documents")
+}
+
+model Activity {
+  id          String       @id @default(cuid())
+  type        ActivityType
+  title       String
+  description String?
+  metadata    Json?
+  createdAt   DateTime     @default(now())
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("activities")
+}
+
+// Enums
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  URGENT
+  ON_HOLD
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TaskCategory {
+  SAMPLING
+  PRODUCTION
+  QUALITY
+  SHIPPING
+  COSTING
+  DESIGN
+  PLANNING
+}
+
+enum OrderStatus {
+  PENDING
+  SAMPLING
+  CUTTING
+  PRODUCTION
+  QUALITY_CHECK
+  PACKING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum DocumentCategory {
+  TECH_PACK
+  PURCHASE_ORDER
+  QUALITY_REPORT
+  SHIPPING_DOCUMENT
+  COST_SHEET
+  DESIGN_FILE
+  CONTRACT
+  INVOICE
+}
+
+enum ActivityType {
+  TASK_CREATED
+  TASK_UPDATED
+  TASK_COMPLETED
+  ORDER_CREATED
+  ORDER_UPDATED
+  DOCUMENT_UPLOADED
+  USER_LOGIN
+  STATUS_CHANGED
+}

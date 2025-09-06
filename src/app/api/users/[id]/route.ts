@@ -1,0 +1,173 @@
+import { NextRequest } from 'next/server';
+import { db } from '@/lib/db';
+import { UpdateUserSchema } from '@/lib/validations';
+import { handleError, successResponse, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
+
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const user = await db.user.findUnique({
+      where: { id: params.id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        phone: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+        tasks: {
+          take: 5,
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            title: true,
+            status: true,
+            priority: true,
+            category: true,
+            dueDate: true,
+          },
+        },
+        assignedTasks: {
+          take: 5,
+          orderBy: { createdAt: 'desc' },
+          select: {
+            id: true,
+            title: true,
+            status: true,
+            priority: true,
+            category: true,
+            dueDate: true,
+          },
+        },
+        _count: {
+          select: {
+            tasks: true,
+            assignedTasks: true,
+            documents: true,
+            orders: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      return handleError(new Error('User not found'));
+    }
+
+    return successResponse(user);
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json();
+    const validatedData = UpdateUserSchema.parse(body);
+    
+    const currentUserId = getUserIdFromRequest(request);
+    if (!currentUserId) {
+      return handleError(new Error('User not authenticated'));
+    }
+
+    // Check if user exists
+    const existingUser = await db.user.findUnique({
+      where: { id: params.id },
+    });
+
+    if (!existingUser) {
+      return handleError(new Error('User not found'));
+    }
+
+    // Check if email is being changed and if it's already taken
+    if (validatedData.email && validatedData.email !== existingUser.email) {
+      const emailExists = await db.user.findUnique({
+        where: { email: validatedData.email },
+      });
+
+      if (emailExists) {
+        return handleError(new Error('User with this email already exists'));
+      }
+    }
+
+    // Update user
+    const user = await db.user.update({
+      where: { id: params.id },
+      data: validatedData,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        phone: true,
+        avatar: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    // Create activity log
+    await createActivityLog(
+      'USER_LOGIN',
+      `User updated: ${user.name}`,
+      currentUserId,
+      `User profile information updated`,
+      { userId: user.id, changes: Object.keys(validatedData) }
+    );
+
+    return successResponse(user, 'User updated successfully');
+  } catch (error) {
+    return handleError(error);
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const currentUserId = getUserIdFromRequest(request);
+    if (!currentUserId) {
+      return handleError(new Error('User not authenticated'));
+    }
+
+    // Check if user exists
+    const user = await db.user.findUnique({
+      where: { id: params.id },
+    });
+
+    if (!user) {
+      return handleError(new Error('User not found'));
+    }
+
+    // Prevent self-deletion
+    if (params.id === currentUserId) {
+      return handleError(new Error('Cannot delete your own account'));
+    }
+
+    // Delete user
+    await db.user.delete({
+      where: { id: params.id },
+    });
+
+    // Create activity log
+    await createActivityLog(
+      'USER_LOGIN',
+      `User deleted: ${user.name}`,
+      currentUserId,
+      `User account removed from system`,
+      { userId: user.id, email: user.email }
+    );
+
+    return successResponse(null, 'User deleted successfully');
+  } catch (error) {
+    return handleError(error);
+  }
+}
