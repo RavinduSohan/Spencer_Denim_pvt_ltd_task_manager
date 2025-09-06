@@ -2,9 +2,12 @@ import { NextRequest } from 'next/server';
 import { db } from '@/lib/db';
 import { CreateUserSchema, PaginationSchema } from '@/lib/validations';
 import { handleError, successResponse, getQueryParams, getPaginationMeta, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
+import { requireRole } from '@/lib/auth-utils';
 
 export async function GET(request: NextRequest) {
   try {
+    await requireRole(request, ['admin', 'manager']);
+    
     const queryParams = getQueryParams(request);
     
     // Validate query parameters
@@ -67,13 +70,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const currentUser = await requireRole(request, ['admin']);
     const body = await request.json();
     const validatedData = CreateUserSchema.parse(body);
-    
-    const currentUserId = await getUserIdFromRequest(request);
-    if (!currentUserId) {
-      return handleError(new Error('User not authenticated'));
-    }
 
     // Check if user already exists
     const existingUser = await db.user.findUnique({
@@ -103,7 +102,7 @@ export async function POST(request: NextRequest) {
     await createActivityLog(
       'USER_LOGIN',
       `User created: ${user.name}`,
-      currentUserId,
+      currentUser.id,
       `New user registered with email ${user.email}`,
       { userId: user.id, email: user.email, role: user.role }
     );

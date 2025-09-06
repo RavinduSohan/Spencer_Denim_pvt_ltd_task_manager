@@ -8,8 +8,10 @@ import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
 import { PlusIcon, ChartBarIcon, DocumentTextIcon, ClipboardDocumentListIcon, Cog6ToothIcon, BellIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function EnhancedDashboard() {
+  const { user, isLoading: authLoading } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);

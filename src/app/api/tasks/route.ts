@@ -2,9 +2,12 @@ import { NextRequest } from 'next/server';
 import { db } from '@/lib/db';
 import { CreateTaskSchema, TaskFilterSchema, PaginationSchema } from '@/lib/validations';
 import { handleError, successResponse, getQueryParams, getPaginationMeta, buildWhereClause, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
+import { requireAuth } from '@/lib/auth-utils';
 
 export async function GET(request: NextRequest) {
   try {
+    const user = await requireAuth(request);
+    
     const queryParams = getQueryParams(request);
     
     // Validate query parameters
@@ -75,20 +78,16 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await requireAuth(request);
     const body = await request.json();
     const validatedData = CreateTaskSchema.parse(body);
     
-    const userId = await getUserIdFromRequest(request);
-    if (!userId) {
-      return handleError(new Error('User not authenticated'));
-    }
-
     // Create task
     const task = await db.task.create({
       data: {
         ...validatedData,
         dueDate: validatedData.dueDate ? new Date(validatedData.dueDate) : null,
-        createdById: userId,
+        createdById: user.id,
       },
       include: {
         createdBy: {
@@ -121,7 +120,7 @@ export async function POST(request: NextRequest) {
       await createActivityLog(
         'TASK_CREATED',
         `Task created: ${task.title}`,
-        userId,
+        user.id,
         `New task created in ${task.category} category`,
         { taskId: task.id, category: task.category }
       );
