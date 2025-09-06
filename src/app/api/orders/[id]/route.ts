@@ -5,11 +5,12 @@ import { handleError, successResponse, createActivityLog, getUserIdFromRequest }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const order = await db.order.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         createdBy: {
           select: {
@@ -61,20 +62,21 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const validatedData = UpdateOrderSchema.parse(body);
     
-    const userId = getUserIdFromRequest(request);
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if order exists
     const existingOrder = await db.order.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingOrder) {
@@ -83,7 +85,7 @@ export async function PUT(
 
     // Update order
     const order = await db.order.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...validatedData,
         shipDate: validatedData.shipDate ? new Date(validatedData.shipDate) : undefined,
@@ -149,17 +151,18 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = getUserIdFromRequest(request);
+    const { id } = await params;
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if order exists
     const order = await db.order.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!order) {
@@ -168,7 +171,7 @@ export async function DELETE(
 
     // Delete order (cascade will handle related records)
     await db.order.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     // Create activity log

@@ -103,6 +103,14 @@ export async function GET(request: NextRequest) {
       },
     });
 
+    // Task distribution by priority
+    const tasksByPriority = await db.task.groupBy({
+      by: ['priority'],
+      _count: {
+        priority: true,
+      },
+    });
+
     // Order distribution by status
     const ordersByStatus = await db.order.groupBy({
       by: ['status'],
@@ -161,6 +169,18 @@ export async function GET(request: NextRequest) {
           count: item._count.status,
         })),
       },
+      tasksByStatus: tasksByStatus.map((item: any) => ({
+        status: item.status,
+        count: item._count.status,
+      })),
+      tasksByPriority: tasksByPriority.map((item: any) => ({
+        priority: item.priority,
+        count: item._count.priority,
+      })),
+      tasksByCategory: tasksByCategory.map((item: any) => ({
+        category: item.category,
+        count: item._count.category,
+      })),
       recentActivities,
     };
 

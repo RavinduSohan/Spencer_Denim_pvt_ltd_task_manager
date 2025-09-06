@@ -5,11 +5,12 @@ import { handleError, successResponse, createActivityLog, getUserIdFromRequest }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const user = await db.user.findUnique({
-      where: { id: params.id },
+      where: { id },
       select: {
         id: true,
         email: true,
@@ -66,20 +67,21 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const validatedData = UpdateUserSchema.parse(body);
     
-    const currentUserId = getUserIdFromRequest(request);
+    const { id } = await params;
+    const currentUserId = await getUserIdFromRequest(request);
     if (!currentUserId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if user exists
     const existingUser = await db.user.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingUser) {
@@ -99,7 +101,7 @@ export async function PUT(
 
     // Update user
     const user = await db.user.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
       select: {
         id: true,
@@ -130,17 +132,18 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const currentUserId = getUserIdFromRequest(request);
+    const { id } = await params;
+    const currentUserId = await getUserIdFromRequest(request);
     if (!currentUserId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if user exists
     const user = await db.user.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!user) {
@@ -148,13 +151,13 @@ export async function DELETE(
     }
 
     // Prevent self-deletion
-    if (params.id === currentUserId) {
+    if (id === currentUserId) {
       return handleError(new Error('Cannot delete your own account'));
     }
 
     // Delete user
     await db.user.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     // Create activity log

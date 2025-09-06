@@ -156,11 +156,24 @@ export async function createActivityLog(
 }
 
 // Extract user ID from headers (for authentication)
-export function getUserIdFromRequest(request: NextRequest): string | null {
+export async function getUserIdFromRequest(request: NextRequest): Promise<string | null> {
   // This would typically extract from JWT token or session
   // For now, returning a default user ID
   const userId = request.headers.get('x-user-id');
-  return userId || 'default-user-id';
+  
+  if (userId && userId !== 'default-user-id') {
+    return userId;
+  }
+  
+  // Fallback to first user in database
+  try {
+    const { db } = await import('./db');
+    const firstUser = await db.user.findFirst();
+    return firstUser?.id || null;
+  } catch (error) {
+    console.warn('Failed to get default user:', error);
+    return null;
+  }
 }
 
 // CORS headers

@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
     const paginationMeta = getPaginationMeta(total, pagination.page, pagination.limit);
 
     return successResponse({
-      tasks,
+      data: tasks,
       pagination: paginationMeta,
     });
   } catch (error) {
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = CreateTaskSchema.parse(body);
     
-    const userId = getUserIdFromRequest(request);
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
@@ -116,14 +116,19 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Create activity log
-    await createActivityLog(
-      'TASK_CREATED',
-      `Task created: ${task.title}`,
-      userId,
-      `New task created in ${task.category} category`,
-      { taskId: task.id, category: task.category }
-    );
+    // Create activity log (optional - don't fail if user doesn't exist)
+    try {
+      await createActivityLog(
+        'TASK_CREATED',
+        `Task created: ${task.title}`,
+        userId,
+        `New task created in ${task.category} category`,
+        { taskId: task.id, category: task.category }
+      );
+    } catch (activityError) {
+      // Log the error but don't fail the task creation
+      console.warn('Failed to create activity log:', activityError);
+    }
 
     return successResponse(task, 'Task created successfully');
   } catch (error) {

@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = CreateDocumentSchema.parse(body);
     
-    const userId = getUserIdFromRequest(request);
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }

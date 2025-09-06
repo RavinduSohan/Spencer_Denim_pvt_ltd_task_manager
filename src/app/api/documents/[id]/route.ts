@@ -5,11 +5,12 @@ import { handleError, successResponse, createActivityLog, getUserIdFromRequest }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const document = await db.document.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         uploadedBy: {
           select: {
@@ -41,20 +42,21 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const validatedData = UpdateDocumentSchema.parse(body);
     
-    const userId = getUserIdFromRequest(request);
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if document exists
     const existingDocument = await db.document.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingDocument) {
@@ -63,7 +65,7 @@ export async function PUT(
 
     // Update document
     const document = await db.document.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
       include: {
         uploadedBy: {
@@ -101,17 +103,18 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = getUserIdFromRequest(request);
+    const { id } = await params;
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if document exists
     const document = await db.document.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!document) {
@@ -120,7 +123,7 @@ export async function DELETE(
 
     // Delete document
     await db.document.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     // Create activity log

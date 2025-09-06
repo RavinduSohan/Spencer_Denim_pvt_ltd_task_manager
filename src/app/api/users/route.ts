@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = CreateUserSchema.parse(body);
     
-    const currentUserId = getUserIdFromRequest(request);
+    const currentUserId = await getUserIdFromRequest(request);
     if (!currentUserId) {
       return handleError(new Error('User not authenticated'));
     }

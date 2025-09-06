@@ -5,11 +5,12 @@ import { handleError, successResponse, createActivityLog, getUserIdFromRequest }
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const task = await db.task.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         createdBy: {
           select: {
@@ -48,20 +49,21 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const validatedData = UpdateTaskSchema.parse(body);
     
-    const userId = getUserIdFromRequest(request);
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if task exists
     const existingTask = await db.task.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existingTask) {
@@ -70,7 +72,7 @@ export async function PUT(
 
     // Update task
     const task = await db.task.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         ...validatedData,
         dueDate: validatedData.dueDate ? new Date(validatedData.dueDate) : undefined,
@@ -102,18 +104,23 @@ export async function PUT(
       },
     });
 
-    // Create activity log
-    const activityTitle = validatedData.status === 'COMPLETED' 
-      ? `Task completed: ${task.title}`
-      : `Task updated: ${task.title}`;
+    // Create activity log (optional - don't fail if user doesn't exist)
+    try {
+      const activityTitle = validatedData.status === 'COMPLETED' 
+        ? `Task completed: ${task.title}`
+        : `Task updated: ${task.title}`;
 
-    await createActivityLog(
-      validatedData.status === 'COMPLETED' ? 'TASK_COMPLETED' : 'TASK_UPDATED',
-      activityTitle,
-      userId,
-      `Task status changed to ${task.status}`,
-      { taskId: task.id, oldStatus: existingTask.status, newStatus: task.status }
-    );
+      await createActivityLog(
+        validatedData.status === 'COMPLETED' ? 'TASK_COMPLETED' : 'TASK_UPDATED',
+        activityTitle,
+        userId,
+        `Task status changed to ${task.status}`,
+        { taskId: task.id, oldStatus: existingTask.status, newStatus: task.status }
+      );
+    } catch (activityError) {
+      // Log the error but don't fail the task update
+      console.warn('Failed to create activity log:', activityError);
+    }
 
     return successResponse(task, 'Task updated successfully');
   } catch (error) {
@@ -123,17 +130,18 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = getUserIdFromRequest(request);
+    const { id } = await params;
+    const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
     }
 
     // Check if task exists
     const task = await db.task.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!task) {
@@ -142,17 +150,22 @@ export async function DELETE(
 
     // Delete task
     await db.task.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
-    // Create activity log
-    await createActivityLog(
-      'TASK_UPDATED',
-      `Task deleted: ${task.title}`,
-      userId,
-      `Task removed from ${task.category} category`,
-      { taskId: task.id, category: task.category }
-    );
+    // Create activity log (optional - don't fail if user doesn't exist)
+    try {
+      await createActivityLog(
+        'TASK_UPDATED',
+        `Task deleted: ${task.title}`,
+        userId,
+        `Task removed from ${task.category} category`,
+        { taskId: task.id, category: task.category }
+      );
+    } catch (activityError) {
+      // Log the error but don't fail the task deletion
+      console.warn('Failed to create activity log:', activityError);
+    }
 
     return successResponse(null, 'Task deleted successfully');
   } catch (error) {

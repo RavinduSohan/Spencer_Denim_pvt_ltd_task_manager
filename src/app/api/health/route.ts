@@ -14,6 +14,12 @@ export async function GET() {
       timestamp: now,
       database: 'connected',
       status: 'operational',
+      services: {
+        database: 'connected',
+        app: 'running'
+      },
+      version: process.env.APP_VERSION || '1.0.0',
+      environment: process.env.NODE_ENV || 'development'
     });
   } catch (error) {
     return NextResponse.json({
@@ -21,7 +27,13 @@ export async function GET() {
       message: 'API health check failed',
       database: 'disconnected',
       status: 'error',
+      services: {
+        database: 'disconnected',
+        app: 'running'
+      },
       error: error instanceof Error ? error.message : 'Unknown error',
+      version: process.env.APP_VERSION || '1.0.0',
+      environment: process.env.NODE_ENV || 'development'
     }, { status: 500 });
   }
 }
