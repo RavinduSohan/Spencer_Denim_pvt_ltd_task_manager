@@ -56,11 +56,44 @@ export const tasksApi = {
   delete: async (id: string): Promise<void> => {
     await api.delete(`/tasks/${id}`);
   },
+
+  // Export tasks to Excel
+  exportToExcel: async (filters?: TaskFilters): Promise<void> => {
+    const params = new URLSearchParams();
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.status) params.append('status', filters.status);
+    if (filters?.priority) params.append('priority', filters.priority);
+    if (filters?.category) params.append('category', filters.category);
+    if (filters?.assignedToId) params.append('assignedToId', filters.assignedToId);
+    if (filters?.orderId) params.append('orderId', filters.orderId);
+
+    const url = `/api/tasks/export?${params.toString()}`;
+    const response = await fetch(url);
+    
+    if (response.ok) {
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      
+      // Get filename from response headers
+      const contentDisposition = response.headers.get('content-disposition');
+      const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || 'tasks_export.xlsx';
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } else {
+      throw new Error('Export failed');
+    }
+  },
 };
 
 // Orders API
 export const ordersApi = {
-  getAll: async (filters?: OrderFilters): Promise<PaginatedResponse<Order>> => {
+  getAll: async (filters?: OrderFilters): Promise<{ orders: Order[]; pagination: any }> => {
     const response = await api.get('/orders', { params: filters });
     return response.data.data;
   },
@@ -82,6 +115,36 @@ export const ordersApi = {
 
   delete: async (id: string): Promise<void> => {
     await api.delete(`/orders/${id}`);
+  },
+
+  // Export orders to Excel
+  exportToExcel: async (filters?: OrderFilters): Promise<void> => {
+    const params = new URLSearchParams();
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.status) params.append('status', filters.status);
+    if (filters?.client) params.append('client', filters.client);
+
+    const url = `/api/orders/export?${params.toString()}`;
+    const response = await fetch(url);
+    
+    if (response.ok) {
+      const blob = await response.blob();
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      
+      // Get filename from response headers
+      const contentDisposition = response.headers.get('content-disposition');
+      const filename = contentDisposition?.split('filename=')[1]?.replace(/"/g, '') || 'orders_export.xlsx';
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(downloadUrl);
+    } else {
+      throw new Error('Export failed');
+    }
   },
 };
 

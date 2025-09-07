@@ -1,21 +1,6 @@
-# Spencer Denim Task Manager - Complete Development Environment
+# Spencer Denim Task Manager - Development Environment (Supabase)
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: spencer-postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: spencer_taskmanager
-      POSTGRES_USER: spencer_admin
-      POSTGRES_PASSWORD: SpencerDenim2024!
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - spencer-network
-
   redis:
     image: redis:7-alpine
     container_name: spencer-redis
@@ -24,8 +9,6 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    networks:
-      - spencer-network
     command: redis-server --appendonly yes
 
   app:
@@ -34,12 +17,11 @@ services:
       dockerfile: Dockerfile.dev
     container_name: spencer-app
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://spencer_admin:SpencerDenim2024!@postgres:5432/spencer_taskmanager?sslmode=disable
       - REDIS_URL=redis://redis:6379
-      - NEXTAUTH_SECRET=spencer-denim-super-secret-key-change-in-production-2024
-      - NEXTAUTH_URL=http://localhost:3000
       - NEXT_TELEMETRY_DISABLED=1
     ports:
       - "3000:3000"
@@ -47,16 +29,8 @@ services:
       - .:/app
       - /app/node_modules
       - /app/.next
-    networks:
-      - spencer-network
     depends_on:
-      - postgres
       - redis
 
-networks:
-  spencer-network:
-    driver: bridge
-
 volumes:
-  postgres_data:
   redis_data:

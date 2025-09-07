@@ -7,6 +7,7 @@ import { ProgressDonutChart, TasksByPriorityChart, WeeklyProgressChart, Producti
 import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
+import { ExportModal } from '@/components/ExportModal';
 import { PlusIcon, ChartBarIcon, DocumentTextIcon, ClipboardDocumentListIcon, Cog6ToothIcon, BellIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -21,6 +22,8 @@ export default function EnhancedDashboard() {
   // Modal states
   const [showTaskModal, setShowTaskModal] = useState(false);
   const [showOrderModal, setShowOrderModal] = useState(false);
+  const [showTasksExportModal, setShowTasksExportModal] = useState(false);
+  const [showOrdersExportModal, setShowOrdersExportModal] = useState(false);
   
   // Form states
   const [taskForm, setTaskForm] = useState<CreateTaskForm>({
@@ -55,7 +58,7 @@ export default function EnhancedDashboard() {
       
       setStats(statsData);
       setTasks(tasksData.data || []);
-      setOrders(ordersData.data || []);
+      setOrders(ordersData.orders || []);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -147,6 +150,25 @@ export default function EnhancedDashboard() {
       loadData(); // Refresh stats
     } catch (error) {
       console.error('Error deleting order:', error);
+    }
+  };
+
+  // Export handlers
+  const handleTasksExport = async (filters: any) => {
+    try {
+      await tasksApi.exportToExcel(filters);
+    } catch (error) {
+      console.error('Error exporting tasks:', error);
+      throw error;
+    }
+  };
+
+  const handleOrdersExport = async (filters: any) => {
+    try {
+      await ordersApi.exportToExcel(filters);
+    } catch (error) {
+      console.error('Error exporting orders:', error);
+      throw error;
     }
   };
 
@@ -331,10 +353,18 @@ export default function EnhancedDashboard() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold text-gray-900">Tasks</h3>
-                <Button onClick={() => setShowTaskModal(true)}>
-                  <PlusIcon className="h-4 w-4 mr-2" />
-                  Add Task
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => setShowTasksExportModal(true)}
+                    variant="secondary"
+                  >
+                    📊 Export
+                  </Button>
+                  <Button onClick={() => setShowTaskModal(true)}>
+                    <PlusIcon className="h-4 w-4 mr-2" />
+                    Add Task
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="p-6">
@@ -352,10 +382,18 @@ export default function EnhancedDashboard() {
             <div className="p-6 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold text-gray-900">Orders</h3>
-                <Button onClick={() => setShowOrderModal(true)}>
-                  <PlusIcon className="h-4 w-4 mr-2" />
-                  Add Order
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={() => setShowOrdersExportModal(true)}
+                    variant="secondary"
+                  >
+                    📊 Export
+                  </Button>
+                  <Button onClick={() => setShowOrderModal(true)}>
+                    <PlusIcon className="h-4 w-4 mr-2" />
+                    Add Order
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="p-6">
@@ -508,6 +546,21 @@ export default function EnhancedDashboard() {
           </div>
         </div>
       </Modal>
+
+      {/* Export Modals */}
+      <ExportModal
+        isOpen={showTasksExportModal}
+        onClose={() => setShowTasksExportModal(false)}
+        type="tasks"
+        onExport={handleTasksExport}
+      />
+
+      <ExportModal
+        isOpen={showOrdersExportModal}
+        onClose={() => setShowOrdersExportModal(false)}
+        type="orders"
+        onExport={handleOrdersExport}
+      />
     </div>
   );
 }

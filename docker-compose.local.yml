@@ -1,0 +1,105 @@
+# Spencer Denim Task Manager - Complete Local Development Environment
+
+services:
+  # PostgreSQL Database (Local)
+  postgres:
+    image: postgres:16-alpine
+    container_name: spencer-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: spencer_taskmanager
+      POSTGRES_USER: spencer_admin
+      POSTGRES_PASSWORD: SpencerDenim2024!
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - spencer-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spencer_admin -d spencer_taskmanager"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for Caching
+  redis:
+    image: redis:7-alpine
+    container_name: spencer-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - spencer-network
+    command: redis-server --appendonly yes --requirepass ""
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PgAdmin - Database Management UI
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: spencer-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@spencer-denim.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    networks:
+      - spencer-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Next.js Application (Development) - Local Database
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: spencer-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://spencer_admin:SpencerDenim2024!@postgres:5432/spencer_taskmanager?sslmode=disable
+      - REDIS_URL=redis://redis:6379
+      - NEXTAUTH_SECRET=spencer-denim-super-secret-key-change-in-production-2024
+      - NEXTAUTH_URL=http://localhost:3000
+      - APP_NAME=Spencer Denim Task Manager
+      - NEXT_TELEMETRY_DISABLED=1
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - spencer-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+networks:
+  spencer-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  pgadmin_data:
+    driver: local

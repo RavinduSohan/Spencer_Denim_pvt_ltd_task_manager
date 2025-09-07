@@ -169,6 +169,7 @@ export async function getUserIdFromRequest(request: NextRequest): Promise<string
   try {
     const { db } = await import('./db');
     const firstUser = await db.user.findFirst();
+    console.log('Using fallback user:', firstUser?.id, firstUser?.email);
     return firstUser?.id || null;
   } catch (error) {
     console.warn('Failed to get default user:', error);

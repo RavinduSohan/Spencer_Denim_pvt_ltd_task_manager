@@ -27,11 +27,11 @@ export const UpdateTaskSchema = CreateTaskSchema.partial();
 
 // Order schemas
 export const CreateOrderSchema = z.object({
-  orderNumber: z.string().min(1),
+  orderNumber: z.string().min(1).optional(),
   client: z.string().min(1),
   product: z.string().min(1),
   quantity: z.number().positive(),
-  shipDate: z.string().datetime(),
+  shipDate: z.string().min(1), // Accept any date string, convert to Date in API
   status: z.enum(['PENDING', 'SAMPLING', 'CUTTING', 'PRODUCTION', 'QUALITY_CHECK', 'PACKING', 'SHIPPED', 'DELIVERED', 'CANCELLED']).default('PENDING'),
   progress: z.number().min(0).max(100).default(0),
 });
