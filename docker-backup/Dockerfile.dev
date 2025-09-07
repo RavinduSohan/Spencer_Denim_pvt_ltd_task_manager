@@ -1,0 +1,31 @@
+# Spencer Denim Task Manager - Development Dockerfile
+FROM node:20-alpine
+
+# Install dependencies for development and SSL support
+RUN apk add --no-cache libc6-compat ca-certificates curl
+
+# Update CA certificates
+RUN update-ca-certificates
+
+WORKDIR /app
+
+# Install dependencies
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Expose port
+EXPOSE 3000
+
+# Set environment variables for SSL and development
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max_old_space_size=4096"
+
+# Start development server with proper host binding
+CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]

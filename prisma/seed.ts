@@ -1,9 +1,13 @@
 import { db } from '../src/lib/db';
+import bcrypt from 'bcryptjs';
 
 async function main() {
   console.log('🌱 Starting database seeding...');
 
-  // Create users
+  // Hash password for all users
+  const hashedPassword = await bcrypt.hash('password123', 12);
+
+  // Create users with passwords
   const users = await Promise.all([
     db.user.upsert({
       where: { email: 'madusanka@spencerdenimsl.com' },
@@ -13,6 +17,7 @@ async function main() {
         name: 'T. Madusanka',
         role: 'Senior Merchandiser',
         phone: '+94751591577',
+        password: hashedPassword,
       },
     }),
     db.user.upsert({
@@ -23,6 +28,7 @@ async function main() {
         name: 'Production Manager',
         role: 'Production Manager',
         phone: '+94771234567',
+        password: hashedPassword,
       },
     }),
     db.user.upsert({
@@ -33,6 +39,19 @@ async function main() {
         name: 'Quality Controller',
         role: 'Quality Controller',
         phone: '+94777654321',
+        password: hashedPassword,
+      },
+    }),
+    // Add a test admin user
+    db.user.upsert({
+      where: { email: 'admin@spencer.com' },
+      update: {},
+      create: {
+        email: 'admin@spencer.com',
+        name: 'Admin User',
+        role: 'Administrator',
+        phone: '+94777000000',
+        password: hashedPassword,
       },
     }),
   ]);

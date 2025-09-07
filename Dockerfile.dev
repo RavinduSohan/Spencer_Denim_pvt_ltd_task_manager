@@ -1,17 +1,20 @@
 # Spencer Denim Task Manager - Development Dockerfile
 FROM node:20-alpine
 
-# Install dependencies for development and SSL support
-RUN apk add --no-cache libc6-compat ca-certificates curl
+# Install dependencies for better compatibility and health checks
+RUN apk add --no-cache \
+    libc6-compat \
+    curl \
+    postgresql-client
 
-# Update CA certificates
-RUN update-ca-certificates
-
+# Set working directory
 WORKDIR /app
 
+# Copy package files
+COPY package*.json ./
+
 # Install dependencies
-COPY package.json package-lock.json* ./
-RUN npm install
+RUN npm ci
 
 # Copy source code
 COPY . .
@@ -19,13 +22,15 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
+# Create health check endpoint directory
+RUN mkdir -p src/app/api/health
+
 # Expose port
 EXPOSE 3000
 
-# Set environment variables for SSL and development
-ENV NODE_ENV=development
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max_old_space_size=4096"
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
 
-# Start development server with proper host binding
-CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
+# Start development server with turbopack
+CMD ["npm", "run", "dev"]
