@@ -1,0 +1,260 @@
+{
+  "tables": {
+    "employees": {
+      "displayName": "Employees",
+      "description": "Employee management table",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "Employee ID",
+          "default": "auto"
+        },
+        "firstName": {
+          "type": "text",
+          "required": true,
+          "displayName": "First Name",
+          "maxLength": 50
+        },
+        "lastName": {
+          "type": "text",
+          "required": true,
+          "displayName": "Last Name",
+          "maxLength": 50
+        },
+        "email": {
+          "type": "email",
+          "required": true,
+          "displayName": "Email Address",
+          "unique": true
+        },
+        "position": {
+          "type": "select",
+          "required": true,
+          "displayName": "Position",
+          "options": ["Manager", "Developer", "Designer", "Analyst", "Intern"]
+        },
+        "department": {
+          "type": "select",
+          "required": true,
+          "displayName": "Department",
+          "options": ["Engineering", "Marketing", "Sales", "HR", "Finance"]
+        },
+        "salary": {
+          "type": "number",
+          "required": false,
+          "displayName": "Salary",
+          "min": 0,
+          "format": "currency"
+        },
+        "hireDate": {
+          "type": "date",
+          "required": true,
+          "displayName": "Hire Date"
+        },
+        "isActive": {
+          "type": "boolean",
+          "required": true,
+          "displayName": "Active",
+          "default": true
+        },
+        "notes": {
+          "type": "textarea",
+          "required": false,
+          "displayName": "Notes",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Created At",
+          "default": "now",
+          "readonly": true
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Updated At",
+          "default": "now",
+          "readonly": true
+        }
+      }
+    },
+    "projects": {
+      "displayName": "Projects",
+      "description": "Project management table",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "Project ID",
+          "default": "auto"
+        },
+        "name": {
+          "type": "text",
+          "required": true,
+          "displayName": "Project Name",
+          "maxLength": 100
+        },
+        "description": {
+          "type": "textarea",
+          "required": false,
+          "displayName": "Description",
+          "maxLength": 1000
+        },
+        "status": {
+          "type": "select",
+          "required": true,
+          "displayName": "Status",
+          "options": ["Planning", "In Progress", "On Hold", "Completed", "Cancelled"],
+          "default": "Planning"
+        },
+        "priority": {
+          "type": "select",
+          "required": true,
+          "displayName": "Priority",
+          "options": ["Low", "Medium", "High", "Critical"],
+          "default": "Medium"
+        },
+        "budget": {
+          "type": "number",
+          "required": false,
+          "displayName": "Budget",
+          "min": 0,
+          "format": "currency"
+        },
+        "startDate": {
+          "type": "date",
+          "required": true,
+          "displayName": "Start Date"
+        },
+        "endDate": {
+          "type": "date",
+          "required": false,
+          "displayName": "End Date"
+        },
+        "clientName": {
+          "type": "text",
+          "required": false,
+          "displayName": "Client Name",
+          "maxLength": 100
+        },
+        "projectManager": {
+          "type": "text",
+          "required": false,
+          "displayName": "Project Manager",
+          "maxLength": 100
+        },
+        "progress": {
+          "type": "number",
+          "required": true,
+          "displayName": "Progress (%)",
+          "min": 0,
+          "max": 100,
+          "default": 0
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Created At",
+          "default": "now",
+          "readonly": true
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Updated At",
+          "default": "now",
+          "readonly": true
+        }
+      }
+    },
+    "inventory": {
+      "displayName": "Inventory",
+      "description": "Inventory management table",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "Item ID",
+          "default": "auto"
+        },
+        "itemName": {
+          "type": "text",
+          "required": true,
+          "displayName": "Item Name",
+          "maxLength": 100
+        },
+        "category": {
+          "type": "select",
+          "required": true,
+          "displayName": "Category",
+          "options": ["Raw Materials", "Finished Goods", "Work in Progress", "Supplies", "Tools"]
+        },
+        "quantity": {
+          "type": "number",
+          "required": true,
+          "displayName": "Quantity",
+          "min": 0,
+          "default": 0
+        },
+        "unitPrice": {
+          "type": "number",
+          "required": true,
+          "displayName": "Unit Price",
+          "min": 0,
+          "format": "currency"
+        },
+        "totalValue": {
+          "type": "number",
+          "required": false,
+          "displayName": "Total Value",
+          "format": "currency",
+          "calculated": true,
+          "formula": "quantity * unitPrice"
+        },
+        "supplier": {
+          "type": "text",
+          "required": false,
+          "displayName": "Supplier",
+          "maxLength": 100
+        },
+        "location": {
+          "type": "text",
+          "required": false,
+          "displayName": "Location",
+          "maxLength": 50
+        },
+        "reorderLevel": {
+          "type": "number",
+          "required": false,
+          "displayName": "Reorder Level",
+          "min": 0,
+          "default": 10
+        },
+        "lastRestocked": {
+          "type": "date",
+          "required": false,
+          "displayName": "Last Restocked"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Created At",
+          "default": "now",
+          "readonly": true
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Updated At",
+          "default": "now",
+          "readonly": true
+        }
+      }
+    }
+  }
+}

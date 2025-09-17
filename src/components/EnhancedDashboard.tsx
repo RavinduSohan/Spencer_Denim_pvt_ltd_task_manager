@@ -7,6 +7,7 @@ import { ProgressDonutChart, TasksByPriorityChart, WeeklyProgressChart, Producti
 import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
 import { DatabaseSelector } from '@/components/DatabaseSelector';
+import { DynamicTablesDashboard } from '@/components/dynamic/DynamicTablesDashboard';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
 import { ExportModal } from '@/components/ExportModal';
 import { PlusIcon, ChartBarIcon, DocumentTextIcon, ClipboardDocumentListIcon, Cog6ToothIcon, BellIcon } from '@heroicons/react/24/outline';
@@ -299,6 +300,7 @@ export default function EnhancedDashboard() {
               { id: 'overview', name: 'Overview', icon: ChartBarIcon },
               { id: 'tasks', name: 'Tasks', icon: ClipboardDocumentListIcon },
               { id: 'orders', name: 'Orders', icon: DocumentTextIcon },
+              { id: 'dynamic-tables', name: 'Dynamic Tables', icon: Cog6ToothIcon },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -405,6 +407,12 @@ export default function EnhancedDashboard() {
                 onOrderDelete={handleOrderDelete}
               />
             </div>
+          </div>
+        )}
+
+        {activeTab === 'dynamic-tables' && (
+          <div className="bg-white rounded-lg shadow">
+            <DynamicTablesDashboard />
           </div>
         )}
       </div>
