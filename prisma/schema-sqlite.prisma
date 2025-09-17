@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma-sqlite"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./sqlite-database.db"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  role          String     @default("user")
+  phone         String?
+  avatar        String?
+  isActive      Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  lastLogin     DateTime?
+
+  accounts    Account[]
+  sessions    Session[]
+  assignedTasks Task[]   @relation("AssignedUser")
+  createdTasks  Task[]   @relation("CreatedByUser")
+  orders        Order[]
+  documents     Document[]
+  activities    Activity[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  status      String   @default("pending")
+  priority    String   @default("medium")
+  category    String?
+  dueDate     DateTime?
+  assignedToId String?
+  createdById String
+  orderId     String?
+  attachments String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  assignedTo User?  @relation("AssignedUser", fields: [assignedToId], references: [id])
+  createdBy  User   @relation("CreatedByUser", fields: [createdById], references: [id])
+  order      Order? @relation(fields: [orderId], references: [id])
+
+  @@map("tasks")
+}
+
+model Order {
+  id           String    @id @default(cuid())
+  orderNumber  String    @unique
+  client       String
+  product      String
+  quantity     Int
+  shipDate     DateTime
+  status       String    @default("PENDING")
+  progress     Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  createdById  String
+
+  createdBy User @relation(fields: [createdById], references: [id])
+  tasks     Task[]
+  documents Document[]
+
+  @@map("orders")
+}
+
+model Document {
+  id           String   @id @default(cuid())
+  name         String
+  fileName     String
+  filePath     String
+  fileSize     Int
+  mimeType     String
+  category     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  uploadedById String
+  orderId      String?
+
+  order      Order? @relation(fields: [orderId], references: [id])
+  uploadedBy User   @relation(fields: [uploadedById], references: [id])
+
+  @@map("documents")
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  type        String
+  title       String
+  description String?
+  metadata    String?
+  createdAt   DateTime @default(now())
+  userId      String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("activities")
+}

@@ -1,12 +1,19 @@
 import { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
+import { getDatabaseClient } from '@/lib/server-database';
 import { CreateTaskSchema, TaskFilterSchema, PaginationSchema } from '@/lib/validations';
 import { handleError, successResponse, getQueryParams, getPaginationMeta, buildWhereClause, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth-utils';
 
 export async function GET(request: NextRequest) {
   try {
+    console.log('=== Tasks API GET Request ===');
+    console.log('Headers:', Object.fromEntries(request.headers.entries()));
+    
     const user = await requireAuth(request);
+    console.log('User authenticated:', user?.id);
+    
+    const db = getDatabaseClient(request);
+    console.log('Database client obtained');
     
     const queryParams = getQueryParams(request);
     
@@ -79,6 +86,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const user = await requireAuth(request);
+    const db = getDatabaseClient(request);
     const body = await request.json();
     const validatedData = CreateTaskSchema.parse(body);
     

@@ -1,10 +1,11 @@
 import { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
+import { getDatabaseClient } from '@/lib/server-database';
 import { CreateOrderSchema, OrderFilterSchema, PaginationSchema } from '@/lib/validations';
 import { handleError, successResponse, getQueryParams, getPaginationMeta, buildWhereClause, createActivityLog, getUserIdFromRequest, generateOrderNumber } from '@/lib/utils';
 
 export async function GET(request: NextRequest) {
   try {
+    const db = getDatabaseClient(request);
     const queryParams = getQueryParams(request);
     
     // Validate query parameters
@@ -83,6 +84,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const db = getDatabaseClient(request);
     const body = await request.json();
     const validatedData = CreateOrderSchema.parse(body);
     

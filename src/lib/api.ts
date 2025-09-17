@@ -23,11 +23,16 @@ const api = axios.create({
   },
 });
 
-// Add request interceptor for auth (if needed)
+// Add request interceptor for auth and database selection
 api.interceptors.request.use((config) => {
   // Add auth headers if available
   const userId = localStorage.getItem('userId') || 'default-user-id';
   config.headers['x-user-id'] = userId;
+  
+  // Add database type header
+  const databaseType = localStorage.getItem('database-type') || 'postgres';
+  config.headers['x-database-type'] = databaseType;
+  
   return config;
 });
 
@@ -223,6 +228,32 @@ export const healthApi = {
   check: async (): Promise<ApiResponse> => {
     const response = await api.get('/health');
     return response.data;
+  },
+};
+
+// Database API
+export const databaseApi = {
+  getCurrentType: (): string => {
+    return localStorage.getItem('database-type') || 'postgres';
+  },
+
+  switchDatabase: (type: 'sqlite' | 'postgres'): void => {
+    localStorage.setItem('database-type', type);
+    // Update axios default headers for future requests
+    api.defaults.headers['x-database-type'] = type;
+  },
+
+  // Test database connection
+  testConnection: async (type: 'sqlite' | 'postgres'): Promise<boolean> => {
+    try {
+      const response = await api.get('/health', { 
+        headers: { 'x-database-type': type } 
+      });
+      return response.status === 200;
+    } catch (error) {
+      console.error(`Database connection test failed for ${type}:`, error);
+      return false;
+    }
   },
 };
 

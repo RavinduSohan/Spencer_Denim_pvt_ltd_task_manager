@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Test</title>
+</head>
+<body>
+    <h1>Database Test</h1>
+    <button onclick="testPostgres()">Test PostgreSQL</button>
+    <button onclick="testSQLite()">Test SQLite</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testDatabase(type) {
+            try {
+                const response = await fetch('/api/test-db', {
+                    headers: {
+                        'x-database-type': type
+                    }
+                });
+                const data = await response.json();
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('result').textContent = 'Error: ' + error.message;
+            }
+        }
+
+        function testPostgres() {
+            testDatabase('postgres');
+        }
+
+        function testSQLite() {
+            testDatabase('sqlite');
+        }
+    </script>
+</body>
+</html>

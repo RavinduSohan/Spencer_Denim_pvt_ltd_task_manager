@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { getDatabaseClient } from '@/lib/server-database';
 import { TaskFilterSchema } from '@/lib/validations';
 import { handleError, getQueryParams, buildWhereClause } from '@/lib/utils';
 import * as XLSX from 'xlsx';
@@ -75,6 +75,7 @@ const generateFilename = (type: 'tasks' | 'orders', filters?: ExportFilters): st
 
 export async function GET(request: NextRequest) {
   try {
+    const db = getDatabaseClient(request);
     console.log('Export API called');
     const queryParams = getQueryParams(request);
     console.log('Query params:', queryParams);

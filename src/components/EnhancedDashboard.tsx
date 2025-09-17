@@ -6,6 +6,7 @@ import { tasksApi, ordersApi, dashboardApi } from '@/lib/api';
 import { ProgressDonutChart, TasksByPriorityChart, WeeklyProgressChart, ProductivityChart } from '@/components/charts/ProgressChart';
 import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
+import { DatabaseSelector } from '@/components/DatabaseSelector';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
 import { ExportModal } from '@/components/ExportModal';
 import { PlusIcon, ChartBarIcon, DocumentTextIcon, ClipboardDocumentListIcon, Cog6ToothIcon, BellIcon } from '@heroicons/react/24/outline';
@@ -202,6 +203,7 @@ export default function EnhancedDashboard() {
             </div>
             
             <div className="flex items-center space-x-4">
+              <DatabaseSelector className="mr-4" />
               <button className="p-2 text-gray-400 hover:text-gray-500">
                 <BellIcon className="h-6 w-6" />
               </button>
