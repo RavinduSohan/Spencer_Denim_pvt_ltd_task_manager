@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { TableConfig, FieldConfig, TableRecord, TableListResponse } from '@/types/table-config';
 import { DynamicTableForm } from './DynamicTableForm';
 import { DynamicTableFilters } from './DynamicTableFilters';
@@ -29,11 +29,13 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
   
   const recordsPerPage = 20;
 
-  // Determine which fields to display
-  const displayFields = config.displayFields || Object.keys(config.fields);
+  // Determine which fields to display - memoized to prevent unnecessary re-renders
+  const displayFields = useMemo(() => {
+    return config.displayFields || Object.keys(config.fields);
+  }, [config.displayFields, config.fields]);
   
-  // Load records
-  const loadRecords = async () => {
+  // Load records - memoized to prevent unnecessary re-creation
+  const loadRecords = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -74,12 +76,12 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
     } finally {
       setLoading(false);
     }
-  };
+  }, [tableName, currentPage, filters, sortField, sortOrder, searchTerm, recordsPerPage]);
 
   // Load records when dependencies change
   useEffect(() => {
     loadRecords();
-  }, [tableName, currentPage, filters, sortField, sortOrder, searchTerm]);
+  }, [loadRecords]);
 
   // Handle record deletion
   const handleDelete = async (record: TableRecord) => {

@@ -2,7 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 import { TableConfigService } from './table-config-service';
-import { TableRecord, TableConfig, TableListResponse, TableCreateResponse, TableUpdateResponse } from '@/types/table-config';
+import { TableRecord, TableConfig, FieldConfig, TableListResponse, TableCreateResponse, TableUpdateResponse } from '@/types/table-config';
 
 export class DynamicSQLiteService {
   private static dbPath = path.join(process.cwd(), 'data', 'dynamic-tables.db');
@@ -180,10 +180,24 @@ export class DynamicSQLiteService {
       }
 
       const stmt = db.prepare(query);
-      const records = stmt.all(...params) as TableRecord[];
+      const rawRecords = stmt.all(...params) as TableRecord[];
+
+      // Convert SQLite values back to JavaScript types
+      const convertedRecords = rawRecords.map(record => {
+        const convertedRecord: TableRecord = {};
+        for (const [fieldName, value] of Object.entries(record)) {
+          const fieldConfig = config.fields[fieldName];
+          if (fieldConfig) {
+            convertedRecord[fieldName] = this.convertValueFromSQLite(value, fieldConfig);
+          } else {
+            convertedRecord[fieldName] = value;
+          }
+        }
+        return convertedRecord;
+      });
 
       // Calculate fields for each record
-      const processedRecords = records.map(record => 
+      const processedRecords = convertedRecords.map(record => 
         TableConfigService.calculateFields(record, config)
       );
 
@@ -299,14 +313,38 @@ export class DynamicSQLiteService {
       const sanitizedData = validation.sanitizedData!;
       const processedData = TableConfigService.calculateFields(sanitizedData, config);
 
-      // Build INSERT query
-      const fields = Object.keys(processedData).filter(field => 
-        !config.fields[field]?.calculated
-      );
-      const placeholders = fields.map(() => '?').join(', ');
-      const values = fields.map(field => processedData[field]);
+      // Build INSERT query - include auto-generated fields but exclude truly calculated fields
+      const fields = Object.keys(processedData).filter(field => {
+        const fieldConfig = config.fields[field];
+        if (!fieldConfig) return true; // Include fields without config
+        
+        // Include auto-generated fields (default: 'auto' or 'now') but exclude calculated fields
+        return !fieldConfig.calculated;
+      });
 
+      const placeholders = fields.map(() => '?').join(', ');
+      const values = fields.map(field => {
+        const value = processedData[field];
+        const fieldConfig = config.fields[field];
+        
+        // If no field config exists, treat as text
+        if (!fieldConfig) {
+          console.log(`Warning: No field config for ${field}, treating as text`);
+          return value === null || value === undefined ? null : String(value);
+        }
+        
+        // Convert JavaScript types to SQLite-compatible types
+        const converted = this.convertValueForSQLite(value, fieldConfig);
+        
+        // Debug logging
+        console.log(`Field: ${field}, Original: ${JSON.stringify(value)}, Type: ${typeof value}, Converted: ${JSON.stringify(converted)}, ConvertedType: ${typeof converted}`);
+        
+        return converted;
+      });
+
+      console.log('Final values for SQLite:', values);
       const query = `INSERT INTO "${tableName}" (${fields.map(f => `"${f}"`).join(', ')}) VALUES (${placeholders})`;
+      console.log('SQL Query:', query);
       
       const db = this.getDb();
       const stmt = db.prepare(query);
@@ -388,7 +426,13 @@ export class DynamicSQLiteService {
       }
 
       const setClause = fields.map(field => `"${field}" = ?`).join(', ');
-      const values = fields.map(field => sanitizedData[field]);
+      const values = fields.map(field => {
+        const value = sanitizedData[field];
+        const fieldConfig = config.fields[field];
+        
+        // Convert JavaScript types to SQLite-compatible types
+        return this.convertValueForSQLite(value, fieldConfig);
+      });
       values.push(id);
 
       const query = `UPDATE "${tableName}" SET ${setClause} WHERE "${primaryKeyField}" = ?`;
@@ -485,6 +529,110 @@ export class DynamicSQLiteService {
     } catch (error) {
       console.error(`Error getting stats for ${tableName}:`, error);
       return null;
+    }
+  }
+
+  /**
+   * Convert JavaScript values to SQLite-compatible types
+   */
+  private static convertValueForSQLite(value: any, fieldConfig: FieldConfig): string | number | bigint | Buffer | null {
+    // Handle null/undefined
+    if (value === null || value === undefined) {
+      return null;
+    }
+
+    // Handle different field types
+    switch (fieldConfig.type) {
+      case 'boolean':
+        // Convert boolean to 1/0 for SQLite
+        return Boolean(value) ? 1 : 0;
+
+      case 'number':
+        // Ensure it's a valid number
+        const num = Number(value);
+        return isNaN(num) ? null : num;
+
+      case 'date':
+      case 'timestamp':
+        // Convert dates to ISO string
+        if (value instanceof Date) {
+          return value.toISOString();
+        } else if (typeof value === 'string') {
+          // Try to parse the date and convert to ISO string
+          const date = new Date(value);
+          return isNaN(date.getTime()) ? value : date.toISOString();
+        }
+        return String(value);
+
+      case 'multiselect':
+        // Convert arrays to JSON string
+        if (Array.isArray(value)) {
+          return JSON.stringify(value);
+        }
+        return String(value);
+
+      case 'text':
+      case 'email':
+      case 'url':
+      case 'textarea':
+      case 'select':
+      case 'file':
+      case 'image':
+      default:
+        // Convert to string for text-based fields, ensuring it's a primitive
+        if (typeof value === 'object' && value !== null) {
+          // For any remaining objects, convert to JSON string
+          return JSON.stringify(value);
+        }
+        return String(value);
+    }
+  }
+
+  /**
+   * Convert SQLite values back to JavaScript types
+   */
+  private static convertValueFromSQLite(value: any, fieldConfig: FieldConfig): any {
+    // Handle null/undefined
+    if (value === null || value === undefined) {
+      return null;
+    }
+
+    // Handle different field types
+    switch (fieldConfig.type) {
+      case 'boolean':
+        // Convert SQLite 1/0 back to boolean
+        return value === 1 || value === '1' || value === true;
+
+      case 'number':
+        // Convert to number
+        return Number(value);
+
+      case 'date':
+      case 'timestamp':
+        // Keep as string for date inputs, or convert to Date object if needed
+        return value;
+
+      case 'multiselect':
+        // Parse JSON string back to array
+        if (typeof value === 'string') {
+          try {
+            return JSON.parse(value);
+          } catch {
+            return [];
+          }
+        }
+        return Array.isArray(value) ? value : [];
+
+      case 'text':
+      case 'email':
+      case 'url':
+      case 'textarea':
+      case 'select':
+      case 'file':
+      case 'image':
+      default:
+        // Convert to string for text-based fields
+        return String(value);
     }
   }
 

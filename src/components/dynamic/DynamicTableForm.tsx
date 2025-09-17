@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { TableConfig, FieldConfig, TableRecord, ValidationError } from '@/types/table-config';
 
 interface DynamicTableFormProps {
@@ -19,13 +19,18 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
 
   const isEditing = !!record;
   
-  // Get editable fields
-  const editableFields = config.editableFields || 
-    Object.keys(config.fields).filter(field => 
-      !config.fields[field].readonly && 
-      !config.fields[field].calculated &&
-      (!isEditing || !config.fields[field].primaryKey)
-    );
+  // Get editable fields - memoized to prevent infinite re-renders
+  const editableFields = useMemo(() => {
+    return config.editableFields || 
+      Object.keys(config.fields).filter(field => {
+        const fieldConfig = config.fields[field];
+        return !fieldConfig.readonly && 
+               !fieldConfig.calculated &&
+               fieldConfig.default !== 'now' &&
+               fieldConfig.default !== 'auto' &&
+               (!isEditing || !fieldConfig.primaryKey);
+      });
+  }, [config.editableFields, config.fields, isEditing]);
 
   // Initialize form data
   useEffect(() => {
@@ -77,6 +82,11 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
     editableFields.forEach(fieldName => {
       const fieldConfig = config.fields[fieldName];
       const value = formData[fieldName];
+
+      // Skip validation for fields with auto-generated defaults (now, auto)
+      if (fieldConfig.default === 'now' || fieldConfig.default === 'auto') {
+        return;
+      }
 
       // Required field validation
       if (fieldConfig.required && (value === '' || value === null || value === undefined)) {

@@ -33,13 +33,25 @@
           "type": "select",
           "required": true,
           "displayName": "Position",
-          "options": ["Manager", "Developer", "Designer", "Analyst", "Intern"]
+          "options": [
+            "Manager",
+            "Developer",
+            "Designer",
+            "Analyst",
+            "Intern"
+          ]
         },
         "department": {
           "type": "select",
           "required": true,
           "displayName": "Department",
-          "options": ["Engineering", "Marketing", "Sales", "HR", "Finance"]
+          "options": [
+            "Engineering",
+            "Marketing",
+            "Sales",
+            "HR",
+            "Finance"
+          ]
         },
         "salary": {
           "type": "number",
@@ -108,14 +120,25 @@
           "type": "select",
           "required": true,
           "displayName": "Status",
-          "options": ["Planning", "In Progress", "On Hold", "Completed", "Cancelled"],
+          "options": [
+            "Planning",
+            "In Progress",
+            "On Hold",
+            "Completed",
+            "Cancelled"
+          ],
           "default": "Planning"
         },
         "priority": {
           "type": "select",
           "required": true,
           "displayName": "Priority",
-          "options": ["Low", "Medium", "High", "Critical"],
+          "options": [
+            "Low",
+            "Medium",
+            "High",
+            "Critical"
+          ],
           "default": "Medium"
         },
         "budget": {
@@ -192,7 +215,13 @@
           "type": "select",
           "required": true,
           "displayName": "Category",
-          "options": ["Raw Materials", "Finished Goods", "Work in Progress", "Supplies", "Tools"]
+          "options": [
+            "Raw Materials",
+            "Finished Goods",
+            "Work in Progress",
+            "Supplies",
+            "Tools"
+          ]
         },
         "quantity": {
           "type": "number",
@@ -254,6 +283,40 @@
           "default": "now",
           "readonly": true
         }
+      }
+    },
+    "spencer": {
+      "displayName": "Spencer",
+      "description": "Spencer Denims",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "ID",
+          "default": "auto",
+          "readonly": true,
+          "minLength": 2
+        },
+        "field_2": {
+          "type": "number",
+          "displayName": "numbers",
+          "required": false,
+          "min": 30,
+          "max": 100
+        }
+      },
+      "sortable": true,
+      "filterable": true,
+      "searchable": true,
+      "paginated": true,
+      "exportable": true,
+      "permissions": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "export": true
       }
     }
   }

@@ -173,12 +173,15 @@ export class TableConfigService {
     for (const [fieldName, fieldConfig] of Object.entries(config.fields)) {
       const value = data[fieldName];
 
-      // Skip calculated and readonly fields
-      if (fieldConfig.calculated || (fieldConfig.readonly && isUpdate)) {
+      // Skip calculated, readonly fields, and fields with auto-generated defaults
+      if (fieldConfig.calculated || 
+          (fieldConfig.readonly && isUpdate) ||
+          fieldConfig.default === 'now' ||
+          fieldConfig.default === 'auto') {
         continue;
       }
 
-      // Check required fields
+      // Check required fields (excluding auto-generated ones)
       if (fieldConfig.required && (value === undefined || value === null || value === '')) {
         if (!isUpdate || data.hasOwnProperty(fieldName)) {
           errors.push({
@@ -346,7 +349,13 @@ export class TableConfigService {
     const result = { ...data };
 
     for (const [fieldName, fieldConfig] of Object.entries(config.fields)) {
-      if (fieldConfig.calculated && fieldConfig.formula) {
+      // Handle auto-generated defaults
+      if (fieldConfig.default === 'now') {
+        result[fieldName] = new Date().toISOString();
+      } else if (fieldConfig.default === 'auto') {
+        // Generate a unique ID (UUID v4 style)
+        result[fieldName] = 'id_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+      } else if (fieldConfig.calculated && fieldConfig.formula) {
         try {
           // Simple formula evaluation (extend as needed)
           let formula = fieldConfig.formula;
