@@ -318,6 +318,60 @@
         "delete": true,
         "export": true
       }
+    },
+    "test1": {
+      "displayName": "test1",
+      "description": "just testing",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "ID",
+          "default": "auto",
+          "readonly": true,
+          "minLength": 1,
+          "maxLength": 200,
+          "helpText": "type something"
+        },
+        "field_2": {
+          "type": "select",
+          "displayName": "testt",
+          "required": false,
+          "options": [
+            "hi ",
+            "hello ",
+            "what  "
+          ],
+          "helpText": "choose"
+        },
+        "field_3": {
+          "type": "text",
+          "displayName": "working",
+          "required": false,
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "field_4": {
+          "type": "number",
+          "displayName": "working2",
+          "required": false,
+          "min": 1,
+          "format": "currency"
+        }
+      },
+      "sortable": true,
+      "filterable": true,
+      "searchable": true,
+      "paginated": true,
+      "exportable": true,
+      "permissions": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "export": true
+      }
     }
   }
 }

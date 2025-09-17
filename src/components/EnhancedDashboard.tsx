@@ -6,7 +6,7 @@ import { tasksApi, ordersApi, dashboardApi } from '@/lib/api';
 import { ProgressDonutChart, TasksByPriorityChart, WeeklyProgressChart, ProductivityChart } from '@/components/charts/ProgressChart';
 import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
-import { DatabaseSelector } from '@/components/DatabaseSelector';
+import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { DynamicTablesDashboard } from '@/components/dynamic/DynamicTablesDashboard';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
 import { ExportModal } from '@/components/ExportModal';
@@ -186,192 +186,146 @@ export default function EnhancedDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="h-10 w-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">SD</span>
-                </div>
-              </div>
-              <div className="ml-4">
-                <h1 className="text-xl font-semibold text-gray-900">Spencer Denim Industries</h1>
-                <p className="text-sm text-gray-500">Task Management System</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <DatabaseSelector className="mr-4" />
-              <button className="p-2 text-gray-400 hover:text-gray-500">
-                <BellIcon className="h-6 w-6" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-gray-500">
-                <Cog6ToothIcon className="h-6 w-6" />
-              </button>
-              <Button onClick={() => setShowTaskModal(true)}>
-                <PlusIcon className="h-4 w-4 mr-2" />
-                New Task
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      {/* Unified Premium Navigation */}
+      <UnifiedNavigation 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onNewTask={() => setShowTaskModal(true)}
+      />
 
-      {/* Stats Cards */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Premium Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 hover:shadow-2xl transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <ClipboardDocumentListIcon className="w-5 h-5 text-blue-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <ClipboardDocumentListIcon className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Total Tasks</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{stats.overview.totalTasks}</dd>
+                  <dt className="text-sm font-medium text-gray-600 truncate">Total Tasks</dt>
+                  <dd className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">{stats.overview.totalTasks}</dd>
                 </dl>
               </div>
             </div>
-            <div className="mt-2">
-              <div className="text-sm text-green-600">
+            <div className="mt-3">
+              <div className="text-sm text-green-600 font-medium">
                 ↑ {stats.growth.taskGrowthRate}% from last month
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 hover:shadow-2xl transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <ChartBarIcon className="w-5 h-5 text-yellow-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <ChartBarIcon className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Pending Tasks</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{stats.overview.pendingTasks}</dd>
+                  <dt className="text-sm font-medium text-gray-600 truncate">Pending Tasks</dt>
+                  <dd className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">{stats.overview.pendingTasks}</dd>
                 </dl>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 hover:shadow-2xl transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                  <DocumentTextIcon className="w-5 h-5 text-red-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <DocumentTextIcon className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Urgent Tasks</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{stats.overview.urgentTasks}</dd>
+                  <dt className="text-sm font-medium text-gray-600 truncate">Urgent Tasks</dt>
+                  <dd className="text-3xl font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">{stats.overview.urgentTasks}</dd>
                 </dl>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-6 hover:shadow-2xl transition-all duration-300">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                  <ChartBarIcon className="w-5 h-5 text-green-600" />
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <ChartBarIcon className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div className="ml-5 w-0 flex-1">
                 <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">Completion Rate</dt>
-                  <dd className="text-3xl font-semibold text-gray-900">{stats.overview.completionRate}%</dd>
+                  <dt className="text-sm font-medium text-gray-600 truncate">Completion Rate</dt>
+                  <dd className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{stats.overview.completionRate}%</dd>
                 </dl>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="border-b border-gray-200 mb-6">
-          <nav className="-mb-px flex space-x-8">
-            {[
-              { id: 'overview', name: 'Overview', icon: ChartBarIcon },
-              { id: 'tasks', name: 'Tasks', icon: ClipboardDocumentListIcon },
-              { id: 'orders', name: 'Orders', icon: DocumentTextIcon },
-              { id: 'dynamic-tables', name: 'Dynamic Tables', icon: Cog6ToothIcon },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`group inline-flex items-center py-4 px-1 border-b-2 font-medium text-sm ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <tab.icon className="h-5 w-5 mr-2" />
-                {tab.name}
-              </button>
-            ))}
-          </nav>
         </div>
 
         {/* Tab Content */}
         {activeTab === 'overview' && !stats && (
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+              <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-700 font-medium">Loading dashboard data...</p>
             </div>
           </div>
         )}
         
         {activeTab === 'overview' && stats && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Task Completion Progress</h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Task Completion Progress</h3>
               <ProgressDonutChart stats={stats} />
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Tasks by Priority</h3>
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Tasks by Priority</h3>
               <TasksByPriorityChart stats={stats} />
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Weekly Progress</h3>
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Weekly Progress</h3>
               <WeeklyProgressChart stats={stats} />
             </div>
 
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Productivity Trend</h3>
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Productivity Trend</h3>
               <ProductivityChart stats={stats} />
             </div>
           </div>
         )}
 
         {activeTab === 'tasks' && (
-          <div className="bg-white rounded-lg shadow">
-            <div className="p-6 border-b border-gray-200">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50">
+            <div className="p-8 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-900">Tasks</h3>
-                <div className="flex gap-2">
+                <h3 className="text-2xl font-bold text-gray-900">Task Management</h3>
+                <div className="flex gap-3">
                   <Button 
                     onClick={() => setShowTasksExportModal(true)}
                     variant="secondary"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-lg"
                   >
                     📊 Export
                   </Button>
-                  <Button onClick={() => setShowTaskModal(true)}>
+                  <Button 
+                    onClick={() => setShowTaskModal(true)}
+                    className="bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-lg"
+                  >
                     <PlusIcon className="h-4 w-4 mr-2" />
                     Add Task
                   </Button>
                 </div>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-8">
               <TasksTable 
                 tasks={tasks} 
                 onTaskUpdate={handleTaskUpdate}
@@ -382,25 +336,29 @@ export default function EnhancedDashboard() {
         )}
 
         {activeTab === 'orders' && (
-          <div className="bg-white rounded-lg shadow">
-            <div className="p-6 border-b border-gray-200">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50">
+            <div className="p-8 border-b border-gray-200">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-gray-900">Orders</h3>
-                <div className="flex gap-2">
+                <h3 className="text-2xl font-bold text-gray-900">Order Management</h3>
+                <div className="flex gap-3">
                   <Button 
                     onClick={() => setShowOrdersExportModal(true)}
                     variant="secondary"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-lg"
                   >
                     📊 Export
                   </Button>
-                  <Button onClick={() => setShowOrderModal(true)}>
+                  <Button 
+                    onClick={() => setShowOrderModal(true)}
+                    className="bg-gradient-to-r from-purple-500 to-purple-600 text-white hover:from-purple-600 hover:to-purple-700 shadow-lg"
+                  >
                     <PlusIcon className="h-4 w-4 mr-2" />
                     Add Order
                   </Button>
                 </div>
               </div>
             </div>
-            <div className="p-6">
+            <div className="p-8">
               <OrdersTable 
                 orders={orders} 
                 onOrderUpdate={handleOrderUpdate}
@@ -411,7 +369,7 @@ export default function EnhancedDashboard() {
         )}
 
         {activeTab === 'dynamic-tables' && (
-          <div className="bg-white rounded-lg shadow">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-2">
             <DynamicTablesDashboard />
           </div>
         )}
