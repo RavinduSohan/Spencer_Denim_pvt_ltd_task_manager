@@ -2,6 +2,14 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { TableConfig, FieldConfig, TableRecord, ValidationError } from '@/types/table-config';
+import { 
+  ColorTheme,
+  getTableColorTheme, 
+  getPremiumCardClasses,
+  getPremiumHeaderClasses,
+  getPremiumButtonClasses,
+  getPremiumInputClasses
+} from '@/lib/premium-colors';
 
 interface DynamicTableFormProps {
   tableName: string;
@@ -9,15 +17,19 @@ interface DynamicTableFormProps {
   record?: TableRecord | null;
   onSubmit: () => void;
   onCancel: () => void;
+  colorTheme?: ColorTheme;
 }
 
-export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel }: DynamicTableFormProps) {
+export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel, colorTheme }: DynamicTableFormProps) {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const isEditing = !!record;
+  
+  // Use provided color theme or generate one for the table
+  const theme = colorTheme || getTableColorTheme(tableName);
   
   // Get editable fields - memoized to prevent infinite re-renders
   const editableFields = useMemo(() => {
@@ -199,9 +211,7 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
     const value = formData[fieldName] ?? '';
     const error = errors[fieldName];
 
-    const baseClassName = `w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-      error ? 'border-red-500' : 'border-gray-300'
-    }`;
+    const baseClassName = getPremiumInputClasses(theme) + (error ? ` border-red-500 focus:ring-red-500/20 focus:border-red-500` : '');
 
     const handleChange = (newValue: any) => {
       handleFieldChange(fieldName, newValue);
@@ -344,63 +354,101 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
-          <h3 className="text-lg font-semibold">
-            {isEditing ? `Edit ${config.displayName}` : `Add ${config.displayName}`}
-          </h3>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className={`${getPremiumCardClasses(theme)} max-w-2xl w-full max-h-[90vh] overflow-hidden`}>
+        <div className={getPremiumHeaderClasses(theme)}>
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-bold text-white">
+              {isEditing ? `Edit ${config.displayName}` : `Add ${config.displayName}`}
+            </h3>
+            <button
+              onClick={onCancel}
+              className="text-white/80 hover:text-white hover:bg-white/10 rounded-lg p-2 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {submitError && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {submitError}
-            </div>
-          )}
-
-          {editableFields.map(fieldName => {
-            const fieldConfig = config.fields[fieldName];
-            if (!fieldConfig) return null;
-
-            return (
-              <div key={fieldName} className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">
-                  {fieldConfig.displayName}
-                  {fieldConfig.required && <span className="text-red-500 ml-1">*</span>}
-                </label>
-                
-                {renderField(fieldName, fieldConfig)}
-                
-                {errors[fieldName] && (
-                  <p className="text-red-500 text-sm">{errors[fieldName]}</p>
-                )}
-                
-                {fieldConfig.helpText && !errors[fieldName] && (
-                  <p className="text-gray-500 text-sm">{fieldConfig.helpText}</p>
-                )}
+        <div className="overflow-y-auto max-h-[calc(90vh-200px)]">
+          <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            {submitError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-center space-x-2">
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{submitError}</span>
               </div>
-            );
-          })}
+            )}
 
-          <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {editableFields.map(fieldName => {
+                const fieldConfig = config.fields[fieldName];
+                if (!fieldConfig) return null;
+
+                return (
+                  <div key={fieldName} className={`space-y-2 ${fieldConfig.type === 'textarea' ? 'md:col-span-2' : ''}`}>
+                    <label className={`block text-sm font-semibold ${theme.text}`}>
+                      {fieldConfig.displayName}
+                      {fieldConfig.required && <span className="text-red-500 ml-1">*</span>}
+                    </label>
+                    
+                    {renderField(fieldName, fieldConfig)}
+                    
+                    {errors[fieldName] && (
+                      <p className="text-red-500 text-sm flex items-center space-x-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{errors[fieldName]}</span>
+                      </p>
+                    )}
+                    
+                    {fieldConfig.helpText && !errors[fieldName] && (
+                      <p className="text-gray-500 text-sm flex items-center space-x-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{fieldConfig.helpText}</span>
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </form>
+        </div>
+
+        <div className="px-6 py-4 bg-gray-50 rounded-b-xl border-t border-gray-200">
+          <div className="flex justify-end space-x-3">
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+              className={getPremiumButtonClasses(theme, 'secondary')}
               disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50"
+              form="dynamic-form"
+              className={getPremiumButtonClasses(theme, 'primary')}
               disabled={loading}
+              onClick={handleSubmit}
             >
-              {loading ? 'Saving...' : isEditing ? 'Update' : 'Create'}
+              <span className="flex items-center space-x-2">
+                {loading && (
+                  <svg className="animate-spin w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                )}
+                <span>{loading ? 'Saving...' : isEditing ? 'Update Record' : 'Create Record'}</span>
+              </span>
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

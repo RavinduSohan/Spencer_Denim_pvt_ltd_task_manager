@@ -2,6 +2,12 @@
 
 import React from 'react';
 import { TableConfig, FieldConfig } from '@/types/table-config';
+import { 
+  ColorTheme,
+  getPremiumCardClasses,
+  getPremiumButtonClasses,
+  getPremiumInputClasses
+} from '@/lib/premium-colors';
 
 interface DynamicTableFiltersProps {
   config: TableConfig;
@@ -10,6 +16,7 @@ interface DynamicTableFiltersProps {
   searchTerm: string;
   onSearchChange: (search: string) => void;
   onReset: () => void;
+  colorTheme?: ColorTheme;
 }
 
 export function DynamicTableFilters({
@@ -18,7 +25,8 @@ export function DynamicTableFilters({
   onFiltersChange,
   searchTerm,
   onSearchChange,
-  onReset
+  onReset,
+  colorTheme
 }: DynamicTableFiltersProps) {
   // Get filterable fields
   const filterableFields = Object.keys(config.fields).filter(fieldName => {
@@ -53,20 +61,25 @@ export function DynamicTableFilters({
   }
 
   return (
-    <div className="bg-gray-50 p-4 rounded-lg border">
-      <div className="flex flex-wrap gap-4 items-end">
+    <div className={colorTheme ? getPremiumCardClasses(colorTheme) : "bg-gray-50 p-4 rounded-lg border"}>
+      <div className="flex flex-wrap gap-4 items-end p-2">
         {/* Search */}
         {hasSearchableFields && (
           <div className="flex-1 min-w-64">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Search
+            <label className={`block text-sm font-semibold mb-2 ${colorTheme?.text || 'text-gray-700'}`}>
+              <span className="flex items-center space-x-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Search</span>
+              </span>
             </label>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={`Search in ${searchableFields.map(f => config.fields[f].displayName).join(', ')}`}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={colorTheme ? getPremiumInputClasses(colorTheme) : "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"}
             />
           </div>
         )}
@@ -78,10 +91,10 @@ export function DynamicTableFilters({
 
           return (
             <div key={fieldName} className="min-w-48">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className={`block text-sm font-semibold mb-2 ${colorTheme?.text || 'text-gray-700'}`}>
                 {fieldConfig.displayName}
               </label>
-              {renderFilterField(fieldName, fieldConfig, value, handleFilterChange)}
+              {renderFilterField(fieldName, fieldConfig, value, handleFilterChange, colorTheme)}
             </div>
           );
         })}
@@ -91,9 +104,14 @@ export function DynamicTableFilters({
           <div>
             <button
               onClick={onReset}
-              className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+              className={colorTheme ? getPremiumButtonClasses(colorTheme, 'secondary') : "px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"}
             >
-              Clear Filters
+              <span className="flex items-center space-x-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span>Clear Filters</span>
+              </span>
             </button>
           </div>
         )}
@@ -106,9 +124,10 @@ function renderFilterField(
   fieldName: string, 
   fieldConfig: FieldConfig, 
   value: any, 
-  onChange: (fieldName: string, value: any) => void
+  onChange: (fieldName: string, value: any) => void,
+  colorTheme?: ColorTheme
 ) {
-  const baseClassName = "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const baseClassName = colorTheme ? getPremiumInputClasses(colorTheme) : "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500";
 
   switch (fieldConfig.type) {
     case 'select':

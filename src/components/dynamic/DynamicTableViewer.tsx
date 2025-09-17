@@ -4,6 +4,14 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { TableConfig, FieldConfig, TableRecord, TableListResponse } from '@/types/table-config';
 import { DynamicTableForm } from './DynamicTableForm';
 import { DynamicTableFilters } from './DynamicTableFilters';
+import { 
+  getTableColorTheme, 
+  getPremiumCardClasses,
+  getPremiumHeaderClasses,
+  getPremiumButtonClasses,
+  getPremiumRowClasses,
+  getPremiumBadgeClasses
+} from '@/lib/premium-colors';
 
 interface DynamicTableViewerProps {
   tableName: string;
@@ -28,6 +36,9 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
   const [searchTerm, setSearchTerm] = useState('');
   
   const recordsPerPage = 20;
+
+  // Get premium color theme for this table
+  const colorTheme = useMemo(() => getTableColorTheme(tableName), [tableName]);
 
   // Determine which fields to display - memoized to prevent unnecessary re-renders
   const displayFields = useMemo(() => {
@@ -208,49 +219,74 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
   if (loading && records.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-lg">Loading {config.displayName}...</div>
+        <div className={`text-lg font-medium ${colorTheme.text}`}>Loading {config.displayName}...</div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h2 className="text-2xl font-bold">{config.displayName}</h2>
-          {config.description && (
-            <p className="text-gray-600 mt-1">{config.description}</p>
-          )}
-          <p className="text-sm text-gray-500 mt-1">
-            {totalRecords} record{totalRecords !== 1 ? 's' : ''}
-          </p>
+    <div className="space-y-6 p-6">
+      {/* Premium Header Card */}
+      <div className={getPremiumCardClasses(colorTheme)}>
+        <div className={getPremiumHeaderClasses(colorTheme)}>
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="text-2xl font-bold text-white">{config.displayName}</h2>
+              {config.description && (
+                <p className="text-white/90 mt-1">{config.description}</p>
+              )}
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className={getPremiumBadgeClasses(colorTheme)}>
+                {totalRecords} record{totalRecords !== 1 ? 's' : ''}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex space-x-2">
-          {config.permissions?.export !== false && (
-            <button
-              onClick={handleExport}
-              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
-              disabled={loading || records.length === 0}
-            >
-              Export Excel
-            </button>
-          )}
-          {config.permissions?.create !== false && (
-            <button
-              onClick={() => setShowForm(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
-            >
-              Add Record
-            </button>
-          )}
+        
+        {/* Action Buttons */}
+        <div className="p-6 bg-white rounded-b-xl">
+          <div className="flex justify-end space-x-3">
+            {config.permissions?.export !== false && (
+              <button
+                onClick={handleExport}
+                className={getPremiumButtonClasses(colorTheme, 'secondary')}
+                disabled={loading || records.length === 0}
+              >
+                <span className="flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Export Excel</span>
+                </span>
+              </button>
+            )}
+            {config.permissions?.create !== false && (
+              <button
+                onClick={() => setShowForm(true)}
+                className={getPremiumButtonClasses(colorTheme, 'primary')}
+              >
+                <span className="flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  <span>Add Record</span>
+                </span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Error Message */}
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          {error}
+        <div className={`${colorTheme.light} border ${colorTheme.border} ${colorTheme.text} px-4 py-3 rounded-lg shadow-sm`}>
+          <div className="flex items-center space-x-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{error}</span>
+          </div>
         </div>
       )}
 
@@ -261,6 +297,7 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
         onFiltersChange={setFilters}
         searchTerm={searchTerm}
         onSearchChange={setSearchTerm}
+        colorTheme={colorTheme}
         onReset={() => {
           setFilters({});
           setSearchTerm('');
@@ -268,11 +305,11 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
         }}
       />
 
-      {/* Table */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      {/* Premium Table */}
+      <div className={getPremiumCardClasses(colorTheme)}>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className={getPremiumHeaderClasses(colorTheme)}>
               <tr>
                 {displayFields.map(fieldName => {
                   const fieldConfig = config.fields[fieldName];
@@ -281,13 +318,13 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
                   return (
                     <th
                       key={fieldName}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                      className="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider cursor-pointer hover:bg-white/10 transition-colors duration-200"
                       onClick={() => handleSort(fieldName)}
                     >
-                      <div className="flex items-center space-x-1">
+                      <div className="flex items-center space-x-2">
                         <span>{fieldConfig.displayName}</span>
                         {sortField === fieldName && (
-                          <span className="text-blue-500">
+                          <span className="text-white/90 text-lg">
                             {sortOrder === 'ASC' ? '↑' : '↓'}
                           </span>
                         )}
@@ -296,13 +333,13 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
                   );
                 })}
                 {(config.permissions?.update !== false || config.permissions?.delete !== false) && (
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-white uppercase tracking-wider">
                     Actions
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-100">
               {records.map((record, index) => {
                 const primaryKeyField = Object.keys(config.fields).find(field => 
                   config.fields[field].primaryKey
@@ -310,14 +347,14 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
                 const recordId = primaryKeyField ? record[primaryKeyField] : index;
 
                 return (
-                  <tr key={recordId} className="hover:bg-gray-50">
+                  <tr key={recordId} className={getPremiumRowClasses(colorTheme, index % 2 === 0)}>
                     {displayFields.map(fieldName => {
                       const fieldConfig = config.fields[fieldName];
                       if (!fieldConfig) return null;
 
                       return (
                         <td key={fieldName} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          <div className="max-w-xs truncate" title={formatFieldValue(record[fieldName], fieldConfig)}>
+                          <div className="max-w-xs truncate font-medium" title={formatFieldValue(record[fieldName], fieldConfig)}>
                             {formatFieldValue(record[fieldName], fieldConfig)}
                           </div>
                         </td>
@@ -325,11 +362,11 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
                     })}
                     {(config.permissions?.update !== false || config.permissions?.delete !== false) && (
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex justify-end space-x-2">
+                        <div className="flex justify-end space-x-3">
                           {config.permissions?.update !== false && (
                             <button
                               onClick={() => setEditingRecord(record)}
-                              className="text-blue-600 hover:text-blue-900 transition-colors"
+                              className={`${colorTheme.text} hover:text-white ${colorTheme.hover} px-3 py-1 rounded-md transition-all duration-200 font-medium`}
                             >
                               Edit
                             </button>
@@ -337,7 +374,7 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
                           {config.permissions?.delete !== false && (
                             <button
                               onClick={() => handleDelete(record)}
-                              className="text-red-600 hover:text-red-900 transition-colors"
+                              className="text-red-600 hover:text-white hover:bg-red-600 px-3 py-1 rounded-md transition-all duration-200 font-medium"
                             >
                               Delete
                             </button>
@@ -352,49 +389,49 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
           </table>
         </div>
 
-        {/* Pagination */}
+        {/* Premium Pagination */}
         {totalPages > 1 && (
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200">
+          <div className="bg-white px-6 py-4 flex items-center justify-between border-t border-gray-200 rounded-b-xl">
             <div className="flex-1 flex justify-between sm:hidden">
               <button
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                className={getPremiumButtonClasses(colorTheme, 'secondary')}
               >
                 Previous
               </button>
               <button
                 onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
-                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                className={getPremiumButtonClasses(colorTheme, 'secondary')}
               >
                 Next
               </button>
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-gray-700">
+                <p className={`text-sm ${colorTheme.text} font-medium`}>
                   Showing{' '}
-                  <span className="font-medium">{(currentPage - 1) * recordsPerPage + 1}</span>
+                  <span className="font-bold">{(currentPage - 1) * recordsPerPage + 1}</span>
                   {' '}to{' '}
-                  <span className="font-medium">
+                  <span className="font-bold">
                     {Math.min(currentPage * recordsPerPage, totalRecords)}
                   </span>
                   {' '}of{' '}
-                  <span className="font-medium">{totalRecords}</span>
+                  <span className="font-bold">{totalRecords}</span>
                   {' '}results
                 </p>
               </div>
               <div>
-                <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                <nav className="relative z-0 inline-flex rounded-lg shadow-sm -space-x-px">
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-all duration-200 ${
                         page === currentPage
-                          ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                          : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                          ? `z-10 ${colorTheme.light} ${colorTheme.border} ${colorTheme.text} shadow-md`
+                          : `bg-white border-gray-300 text-gray-500 hover:${colorTheme.light} hover:${colorTheme.text}`
                       }`}
                     >
                       {page}
@@ -408,20 +445,33 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
       </div>
 
       {records.length === 0 && !loading && (
-        <div className="text-center py-12">
-          <div className="text-gray-500 text-lg">No records found</div>
-          {Object.keys(filters).length > 0 || searchTerm && (
-            <button
-              onClick={() => {
-                setFilters({});
-                setSearchTerm('');
-                setCurrentPage(1);
-              }}
-              className="mt-2 text-blue-600 hover:text-blue-800"
-            >
-              Clear filters
-            </button>
-          )}
+        <div className={getPremiumCardClasses(colorTheme)}>
+          <div className="text-center py-16">
+            <svg className={`mx-auto h-16 w-16 ${colorTheme.text} mb-4`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <div className={`${colorTheme.text} text-xl font-medium mb-2`}>No records found</div>
+            <p className="text-gray-500 mb-4">Get started by adding your first record</p>
+            {Object.keys(filters).length > 0 || searchTerm ? (
+              <button
+                onClick={() => {
+                  setFilters({});
+                  setSearchTerm('');
+                  setCurrentPage(1);
+                }}
+                className={getPremiumButtonClasses(colorTheme, 'secondary')}
+              >
+                Clear filters
+              </button>
+            ) : config.permissions?.create !== false && (
+              <button
+                onClick={() => setShowForm(true)}
+                className={getPremiumButtonClasses(colorTheme, 'primary')}
+              >
+                Add First Record
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -436,6 +486,7 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
             setShowForm(false);
             setEditingRecord(null);
           }}
+          colorTheme={colorTheme}
         />
       )}
     </div>
