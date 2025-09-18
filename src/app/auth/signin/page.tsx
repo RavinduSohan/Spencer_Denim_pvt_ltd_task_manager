@@ -219,7 +219,7 @@ export default function SignIn() {
           {/* Footer */}
           <div className="text-center animate-[fadeInUp_1s_ease-out_forwards]">
             <p className="text-white/50 text-xs tracking-wider">
-              Powered by premium authentication technology
+              Powered by Premium Data Detectives™ | Engineered by Sohan
             </p>
           </div>
         </div>
