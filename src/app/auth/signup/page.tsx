@@ -88,6 +88,10 @@ export default function SignUp() {
         });
 
         if (result?.ok) {
+          // Mark session as active for our app restart detection
+          sessionStorage.setItem('app-session-active', 'true');
+          console.log('✅ Signup and auto-login successful, session marked as active');
+          
           router.push('/');
           router.refresh();
         } else {

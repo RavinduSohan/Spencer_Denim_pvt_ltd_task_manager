@@ -34,12 +34,22 @@ export default function SignIn() {
 
       if (result?.error) {
         setError('Invalid credentials');
-      } else {
+      } else if (result?.ok) {
+        // Mark session as active for our app restart detection
+        sessionStorage.setItem('app-session-active', 'true');
+        console.log('✅ Login successful, session marked as active');
+        
         // Get updated session
         const session = await getSession();
         if (session) {
           router.push('/');
           router.refresh();
+        } else {
+          // Fallback: redirect anyway as NextAuth might need time to sync
+          setTimeout(() => {
+            router.push('/');
+            router.refresh();
+          }, 100);
         }
       }
     } catch (error) {
