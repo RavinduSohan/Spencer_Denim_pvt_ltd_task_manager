@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
+import { sqliteDb } from '@/lib/db-sqlite';
 import { CreateUserSchema, PaginationSchema } from '@/lib/validations';
 import { handleError, successResponse, getQueryParams, getPaginationMeta, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
 import { requireRole } from '@/lib/auth-utils';
@@ -27,10 +27,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Get total count
-    const total = await db.user.count({ where });
+    const total = await sqliteDb.user.count({ where });
 
     // Get users with pagination
-    const users = await db.user.findMany({
+    const users = await sqliteDb.user.findMany({
       where,
       select: {
         id: true,
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
         updatedAt: true,
         _count: {
           select: {
-            tasks: true,
+            createdTasks: true,
             assignedTasks: true,
             documents: true,
             orders: true,
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     const validatedData = CreateUserSchema.parse(body);
 
     // Check if user already exists
-    const existingUser = await db.user.findUnique({
+    const existingUser = await sqliteDb.user.findUnique({
       where: { email: validatedData.email },
     });
 
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create user
-    const user = await db.user.create({
+    const user = await sqliteDb.user.create({
       data: validatedData,
       select: {
         id: true,

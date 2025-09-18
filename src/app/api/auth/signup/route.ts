@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { db } from '@/lib/db';
+import { sqliteDb } from '@/lib/db-sqlite';
 import { z } from 'zod';
 
 const signupSchema = z.object({
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const { name, email, password, role } = signupSchema.parse(body);
 
     // Check if user already exists
-    const existingUser = await db.user.findUnique({
+    const existingUser = await sqliteDb.user.findUnique({
       where: { email }
     });
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create user
-    const user = await db.user.create({
+    const user = await sqliteDb.user.create({
       data: {
         name,
         email,

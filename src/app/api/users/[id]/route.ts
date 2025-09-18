@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
+import { sqliteDb } from '@/lib/db-sqlite';
 import { UpdateUserSchema } from '@/lib/validations';
 import { handleError, successResponse, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
 
@@ -9,7 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const user = await db.user.findUnique({
+    const user = await sqliteDb.user.findUnique({
       where: { id },
       select: {
         id: true,
@@ -20,7 +20,7 @@ export async function GET(
         avatar: true,
         createdAt: true,
         updatedAt: true,
-        tasks: {
+        createdTasks: {
           take: 5,
           orderBy: { createdAt: 'desc' },
           select: {
@@ -46,7 +46,7 @@ export async function GET(
         },
         _count: {
           select: {
-            tasks: true,
+            createdTasks: true,
             assignedTasks: true,
             documents: true,
             orders: true,
@@ -80,7 +80,7 @@ export async function PUT(
     }
 
     // Check if user exists
-    const existingUser = await db.user.findUnique({
+    const existingUser = await sqliteDb.user.findUnique({
       where: { id },
     });
 
@@ -90,7 +90,7 @@ export async function PUT(
 
     // Check if email is being changed and if it's already taken
     if (validatedData.email && validatedData.email !== existingUser.email) {
-      const emailExists = await db.user.findUnique({
+      const emailExists = await sqliteDb.user.findUnique({
         where: { email: validatedData.email },
       });
 
@@ -100,7 +100,7 @@ export async function PUT(
     }
 
     // Update user
-    const user = await db.user.update({
+    const user = await sqliteDb.user.update({
       where: { id },
       data: validatedData,
       select: {
@@ -142,7 +142,7 @@ export async function DELETE(
     }
 
     // Check if user exists
-    const user = await db.user.findUnique({
+    const user = await sqliteDb.user.findUnique({
       where: { id },
     });
 
@@ -156,7 +156,7 @@ export async function DELETE(
     }
 
     // Delete user
-    await db.user.delete({
+    await sqliteDb.user.delete({
       where: { id },
     });
 

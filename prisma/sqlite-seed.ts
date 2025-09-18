@@ -1,10 +1,14 @@
 import { PrismaClient } from '../src/generated/prisma-sqlite';
+import bcrypt from 'bcryptjs';
 
 const db = new PrismaClient();
 
 async function seedSQLiteDatabase() {
   try {
     console.log('🌱 Seeding SQLite database...');
+
+    // Hash password for users
+    const hashedPassword = await bcrypt.hash('password123', 12);
 
     // Clear existing data
     await db.activity.deleteMany({});
@@ -13,18 +17,43 @@ async function seedSQLiteDatabase() {
     await db.document.deleteMany({});
     await db.user.deleteMany({});
 
-    // Create default user
-    const user = await db.user.create({
-      data: {
-        id: 'default-user-id',
-        name: 'SQLite Test User',
-        email: 'sqlite@spencerdenim.com',
-        role: 'admin',
-        isActive: true,
-      },
-    });
+    // Create default users with passwords
+    const users = await Promise.all([
+      db.user.create({
+        data: {
+          id: 'sqlite-admin-user',
+          name: 'SQLite Admin User',
+          email: 'admin@spencerdenim.com',
+          password: hashedPassword,
+          role: 'admin',
+          isActive: true,
+        },
+      }),
+      db.user.create({
+        data: {
+          id: 'sqlite-test-user',
+          name: 'SQLite Test User',
+          email: 'test@spencerdenim.com',
+          password: hashedPassword,
+          role: 'user',
+          isActive: true,
+        },
+      }),
+      db.user.create({
+        data: {
+          id: 'sqlite-manager-user',
+          name: 'SQLite Manager',
+          email: 'manager@spencerdenim.com',
+          password: hashedPassword,
+          role: 'manager',
+          isActive: true,
+        },
+      })
+    ]);
 
-    console.log('✅ Created default user');
+    const [adminUser, testUser, managerUser] = users;
+
+    console.log('✅ Created default users:', users.length);
 
     // Create sample orders
     const order1 = await db.order.create({
@@ -36,7 +65,7 @@ async function seedSQLiteDatabase() {
         shipDate: new Date('2025-10-15'),
         status: 'PENDING',
         progress: 25,
-        createdById: user.id,
+        createdById: adminUser.id,
       },
     });
 
@@ -49,7 +78,7 @@ async function seedSQLiteDatabase() {
         shipDate: new Date('2025-11-01'),
         status: 'PENDING',
         progress: 60,
-        createdById: user.id,
+        createdById: adminUser.id,
       },
     });
 
@@ -63,8 +92,8 @@ async function seedSQLiteDatabase() {
         status: 'PENDING',
         priority: 'high',
         category: 'development',
-        assignedToId: user.id,
-        createdById: user.id,
+        assignedToId: testUser.id,
+        createdById: adminUser.id,
         orderId: order1.id,
         dueDate: new Date('2025-10-01'),
       },
@@ -77,8 +106,8 @@ async function seedSQLiteDatabase() {
         status: 'IN_PROGRESS',
         priority: 'medium',
         category: 'testing',
-        assignedToId: user.id,
-        createdById: user.id,
+        assignedToId: managerUser.id,
+        createdById: adminUser.id,
         orderId: order2.id,
         dueDate: new Date('2025-10-05'),
       },
@@ -91,8 +120,8 @@ async function seedSQLiteDatabase() {
         status: 'COMPLETED',
         priority: 'low',
         category: 'testing',
-        assignedToId: user.id,
-        createdById: user.id,
+        assignedToId: testUser.id,
+        createdById: adminUser.id,
         dueDate: new Date('2025-09-25'),
       },
     });
@@ -105,7 +134,7 @@ async function seedSQLiteDatabase() {
         type: 'database_switch',
         title: 'Database Switch',
         description: 'Switched to SQLite database',
-        userId: user.id,
+        userId: adminUser.id,
         metadata: JSON.stringify({ previousDatabase: 'postgres', newDatabase: 'sqlite' }),
       },
     });
