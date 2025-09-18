@@ -29,8 +29,10 @@ services:
       - .:/app
       - /app/node_modules
       - /app/.next
+      - sqlite_data:/app/data
     depends_on:
       - redis
 
 volumes:
   redis_data:
+  sqlite_data:

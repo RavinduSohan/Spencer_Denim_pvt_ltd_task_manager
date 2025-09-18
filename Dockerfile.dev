@@ -1,11 +1,15 @@
 # Spencer Denim Task Manager - Development Dockerfile
 FROM node:20-alpine
 
-# Install dependencies for better compatibility and health checks
+# Install dependencies for better compatibility, health checks, and SQLite
 RUN apk add --no-cache \
     libc6-compat \
     curl \
-    postgresql-client
+    sqlite \
+    sqlite-dev \
+    python3 \
+    make \
+    g++
 
 # Set working directory
 WORKDIR /app
@@ -19,8 +23,12 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Generate Prisma client
+# Create data directory for SQLite databases
+RUN mkdir -p /app/data
+
+# Generate Prisma clients (both PostgreSQL and SQLite)
 RUN npx prisma generate
+RUN npx prisma generate --schema=prisma/schema-sqlite.prisma
 
 # Create health check endpoint directory
 RUN mkdir -p src/app/api/health
