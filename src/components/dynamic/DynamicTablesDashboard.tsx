@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { TableConfigService } from '@/lib/table-config-service';
 import { DynamicTableViewer } from './DynamicTableViewer';
 import { TableConfigManager } from './TableConfigManager';
+import { TableManagementModal } from './TableManagementModal';
 import { 
   getTableColorTheme, 
   getPremiumCardClasses,
@@ -27,6 +28,15 @@ export function DynamicTablesDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
   const [showConfigManager, setShowConfigManager] = useState(false);
+  const [managementModal, setManagementModal] = useState<{
+    isOpen: boolean;
+    tableName: string;
+    config: any;
+  }>({
+    isOpen: false,
+    tableName: '',
+    config: null
+  });
 
   // Load available tables
   const loadTables = async () => {
@@ -251,7 +261,11 @@ export function DynamicTablesDashboard() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        // TODO: Open config editor for this table
+                        setManagementModal({
+                          isOpen: true,
+                          tableName: table.name,
+                          config: table.config
+                        });
                       }}
                       className={getPremiumButtonClasses(colorTheme, 'secondary')}
                     >
@@ -308,6 +322,31 @@ export function DynamicTablesDashboard() {
           </div>
         </div>
       )}
+
+      {/* Table Management Modal */}
+      <TableManagementModal
+        isOpen={managementModal.isOpen}
+        onClose={() => setManagementModal({ isOpen: false, tableName: '', config: null })}
+        tableName={managementModal.tableName}
+        config={managementModal.config}
+        onTableDeleted={handleTableDeleted}
+        onTableCleared={handleTableCleared}
+      />
     </div>
   );
+
+  // Helper functions
+  function handleTableDeleted() {
+    // Refresh the tables list
+    loadTables();
+    // If the deleted table was selected, clear the selection
+    if (selectedTable === managementModal.tableName) {
+      setSelectedTable(null);
+    }
+  }
+
+  function handleTableCleared() {
+    // Refresh the tables list to update record counts
+    loadTables();
+  }
 }

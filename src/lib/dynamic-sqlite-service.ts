@@ -101,6 +101,33 @@ export class DynamicSQLiteService {
   }
 
   /**
+   * Clear all data from a table (reset table)
+   */
+  static clearTable(tableName: string): { success: boolean; error?: string } {
+    try {
+      const config = TableConfigService.getTableConfig(tableName);
+      if (!config) {
+        return {
+          success: false,
+          error: `Table configuration not found: ${tableName}`
+        };
+      }
+
+      const db = this.getDb();
+      db.exec(`DELETE FROM "${tableName}"`);
+      console.log(`Table '${tableName}' cleared successfully`);
+      
+      return { success: true };
+    } catch (error) {
+      console.error(`Error clearing table '${tableName}':`, error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
    * Get all records from a table
    */
   static getRecords(
