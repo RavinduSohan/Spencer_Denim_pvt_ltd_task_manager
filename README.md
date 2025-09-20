@@ -1,3 +1,46 @@
+<img width="1366" height="768" alt="Screenshot (34)" src="https://github.com/user-attachments/assets/f5ee724b-52ab-4cb5-abf6-1d1de37095ca" />
+
+<img width="1366" height="768" alt="Screenshot (36)" src="https://github.com/user-attachments/assets/d83c9609-585e-43c6-a996-9eb93b859cbd" />
+
+<img width="1366" height="768" alt="Screenshot (37)" src="https://github.com/user-attachments/assets/8dc1262a-7159-4ec0-9015-fd562b1d402a" />
+
+<img width="1366" height="768" alt="Screenshot (38)" src="https://github.com/user-attachments/assets/f9a542dc-f295-4fe9-a3bd-d6faf8da3e39" />
+
+<img width="1366" height="768" alt="Screenshot (39)" src="https://github.com/user-attachments/assets/6b03f2d9-de11-43d2-8105-b0ba1107b5c8" />
+
+<img width="1366" height="768" alt="Screenshot (40)" src="https://github.com/user-attachments/assets/4dd20e6f-0006-4b2d-8b7d-90cdc8c9d29c" />
+
+<img width="1366" height="768" alt="Screenshot (41)" src="https://github.com/user-attachments/assets/27deb068-9e84-45be-8e4e-a21f9b9e4ff7" />
+
+<img width="1366" height="768" alt="Screenshot (42)" src="https://github.com/user-attachments/assets/4c6c1bdf-7123-48db-a3fe-1f8c8f7e51ff" />
+
+<img width="1366" height="768" alt="Screenshot (43)" src="https://github.com/user-attachments/assets/aadb8d99-4409-46bf-a7d9-f11236c4a696" />
+
+
+<img width="1366" height="768" alt="Screenshot (44)" src="https://github.com/user-attachments/assets/75cc5e8f-727a-4b0c-b4ff-97965b14af4e" />
+
+<img width="1366" height="768" alt="Screenshot (45)" src="https://github.com/user-attachments/assets/11951324-48d2-49e6-82e3-16ff85fb2041" />
+
+<img width="1366" height="768" alt="Screenshot (46)" src="https://github.com/user-attachments/assets/ff32a7d1-7b13-419a-bf63-ec26a7dfd1bc" />
+
+<img width="1366" height="768" alt="Screenshot (47)" src="https://github.com/user-attachments/assets/6b2859de-dd86-44c3-91af-5a51619e7243" />
+
+
+<img width="1366" height="768" alt="Screenshot (48)" src="https://github.com/user-attachments/assets/408ae01e-b3cc-47e0-82d4-b2c56464b94c" />
+
+
+<img width="1366" height="768" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/e459743b-2402-483c-aa6b-96550f09721e" />
+
+<img width="1366" height="768" alt="Screenshot (50)" src="https://github.com/user-attachments/assets/d6363f11-21f0-4ced-b2ad-dc3c7596007a" />
+
+
+<img width="1366" height="768" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/90a69199-cb7a-4b9d-981b-b89436fbd059" />
+
+<img width="1366" height="768" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/bcb5b457-32f8-43cd-acd9-c2a2498ed448" />
+
+
+
+
 # Spencer Denim Task Management System - Backend API
 
 A comprehensive task management system backend built with Next.js 15, Prisma, and PostgreSQL for Spencer Denim Industries.
