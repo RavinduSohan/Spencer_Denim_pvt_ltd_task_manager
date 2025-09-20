@@ -10,6 +10,7 @@ interface TasksTableProps {
   tasks: Task[];
   onTaskUpdate?: (taskId: string, updates: Partial<Task>) => void;
   onTaskDelete?: (taskId: string) => void;
+  onTaskEdit?: (task: Task) => void;
 }
 
 const StatusBadge = ({ status }: { status: TaskStatus }) => {
@@ -61,7 +62,7 @@ const CategoryBadge = ({ category }: { category: TaskCategory }) => {
   );
 };
 
-export function TasksTable({ tasks, onTaskUpdate, onTaskDelete }: TasksTableProps) {
+export function TasksTable({ tasks, onTaskUpdate, onTaskDelete, onTaskEdit }: TasksTableProps) {
   const columns: ColumnDef<Task>[] = [
     {
       accessorKey: 'title',
@@ -144,6 +145,14 @@ export function TasksTable({ tasks, onTaskUpdate, onTaskDelete }: TasksTableProp
       header: 'Actions',
       cell: ({ row }) => (
         <div className="flex items-center space-x-2">
+          {onTaskEdit && (
+            <button
+              onClick={() => onTaskEdit(row.original)}
+              className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
+            >
+              Edit
+            </button>
+          )}
           <button
             onClick={() => onTaskUpdate?.(row.original.id, {
               status: row.original.status === TaskStatus.COMPLETED 

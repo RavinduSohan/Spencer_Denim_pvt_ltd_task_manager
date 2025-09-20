@@ -372,6 +372,111 @@
         "delete": true,
         "export": true
       }
+    },
+    "tasks": {
+      "displayName": "Tasks",
+      "description": "Task management and tracking",
+      "fields": {
+        "id": {
+          "type": "text",
+          "primaryKey": true,
+          "required": true,
+          "displayName": "Task ID",
+          "readonly": true
+        },
+        "title": {
+          "type": "text",
+          "required": true,
+          "displayName": "Title",
+          "maxLength": 200
+        },
+        "description": {
+          "type": "textarea",
+          "required": false,
+          "displayName": "Description",
+          "maxLength": 1000
+        },
+        "status": {
+          "type": "select",
+          "required": true,
+          "displayName": "Status",
+          "options": [
+            "PENDING",
+            "IN_PROGRESS",
+            "COMPLETED",
+            "URGENT",
+            "ON_HOLD"
+          ],
+          "default": "PENDING"
+        },
+        "priority": {
+          "type": "select",
+          "required": true,
+          "displayName": "Priority",
+          "options": [
+            "LOW",
+            "MEDIUM",
+            "HIGH",
+            "URGENT"
+          ],
+          "default": "MEDIUM"
+        },
+        "category": {
+          "type": "select",
+          "required": true,
+          "displayName": "Category",
+          "options": [
+            "SAMPLING",
+            "PRODUCTION",
+            "QUALITY",
+            "SHIPPING",
+            "COSTING",
+            "DESIGN",
+            "PLANNING"
+          ]
+        },
+        "dueDate": {
+          "type": "date",
+          "required": false,
+          "displayName": "Due Date"
+        },
+        "assignedToId": {
+          "type": "text",
+          "required": false,
+          "displayName": "Assigned To ID"
+        },
+        "orderId": {
+          "type": "text",
+          "required": false,
+          "displayName": "Order ID"
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Created At",
+          "default": "now",
+          "readonly": true
+        },
+        "updatedAt": {
+          "type": "timestamp",
+          "required": true,
+          "displayName": "Updated At",
+          "default": "now",
+          "readonly": true
+        }
+      },
+      "sortable": true,
+      "filterable": true,
+      "searchable": true,
+      "paginated": true,
+      "exportable": true,
+      "permissions": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "export": true
+      }
     }
   }
 }

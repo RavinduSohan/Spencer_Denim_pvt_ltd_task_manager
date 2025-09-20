@@ -18,8 +18,18 @@ export const CreateTaskSchema = z.object({
   status: z.enum(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'URGENT', 'ON_HOLD']).default('PENDING'),
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']).default('MEDIUM'),
   category: z.enum(['SAMPLING', 'PRODUCTION', 'QUALITY', 'SHIPPING', 'COSTING', 'DESIGN', 'PLANNING']),
-  dueDate: z.string().datetime().optional(),
-  assignedToId: z.string().optional(),
+  dueDate: z.string().optional().transform(val => {
+    if (!val || val === '') return undefined;
+    // If it's already a datetime string, use it
+    if (val.includes('T')) return val;
+    // If it's a date string (YYYY-MM-DD), convert to datetime
+    return `${val}T00:00:00.000Z`;
+  }),
+  assignedToId: z.string().optional().transform(val => {
+    // Convert empty string to undefined for optional foreign key
+    if (!val || val === '') return undefined;
+    return val;
+  }),
   orderId: z.string().optional(),
 });
 

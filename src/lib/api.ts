@@ -36,33 +36,44 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Tasks API
+// Tasks API (always uses SQLite database)
 export const tasksApi = {
   getAll: async (filters?: TaskFilters): Promise<PaginatedResponse<Task>> => {
-    const response = await api.get('/tasks', { params: filters });
+    const response = await api.get('/tasks', { 
+      params: filters,
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   getById: async (id: string): Promise<Task> => {
-    const response = await api.get(`/tasks/${id}`);
+    const response = await api.get(`/tasks/${id}`, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   create: async (data: CreateTaskForm): Promise<Task> => {
-    const response = await api.post('/tasks', data);
+    const response = await api.post('/tasks', data, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   update: async (id: string, data: Partial<CreateTaskForm>): Promise<Task> => {
-    const response = await api.put(`/tasks/${id}`, data);
+    const response = await api.put(`/tasks/${id}`, data, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   delete: async (id: string): Promise<void> => {
-    await api.delete(`/tasks/${id}`);
+    await api.delete(`/tasks/${id}`, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
   },
 
-  // Export tasks to Excel
+  // Export tasks to Excel (using SQLite database)
   exportToExcel: async (filters?: TaskFilters): Promise<void> => {
     const params = new URLSearchParams();
     if (filters?.search) params.append('search', filters.search);
@@ -73,7 +84,9 @@ export const tasksApi = {
     if (filters?.orderId) params.append('orderId', filters.orderId);
 
     const url = `/api/tasks/export?${params.toString()}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     
     if (response.ok) {
       const blob = await response.blob();
@@ -96,33 +109,44 @@ export const tasksApi = {
   },
 };
 
-// Orders API
+// Orders API (always uses SQLite database)
 export const ordersApi = {
   getAll: async (filters?: OrderFilters): Promise<{ orders: Order[]; pagination: any }> => {
-    const response = await api.get('/orders', { params: filters });
+    const response = await api.get('/orders', { 
+      params: filters,
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   getById: async (id: string): Promise<Order> => {
-    const response = await api.get(`/orders/${id}`);
+    const response = await api.get(`/orders/${id}`, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   create: async (data: CreateOrderForm): Promise<Order> => {
-    const response = await api.post('/orders', data);
+    const response = await api.post('/orders', data, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   update: async (id: string, data: Partial<CreateOrderForm>): Promise<Order> => {
-    const response = await api.put(`/orders/${id}`, data);
+    const response = await api.put(`/orders/${id}`, data, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     return response.data.data;
   },
 
   delete: async (id: string): Promise<void> => {
-    await api.delete(`/orders/${id}`);
+    await api.delete(`/orders/${id}`, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
   },
 
-  // Export orders to Excel
+  // Export orders to Excel (using SQLite database)
   exportToExcel: async (filters?: OrderFilters): Promise<void> => {
     const params = new URLSearchParams();
     if (filters?.search) params.append('search', filters.search);
@@ -130,7 +154,9 @@ export const ordersApi = {
     if (filters?.client) params.append('client', filters.client);
 
     const url = `/api/orders/export?${params.toString()}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: { 'x-database-type': 'sqlite' }
+    });
     
     if (response.ok) {
       const blob = await response.blob();

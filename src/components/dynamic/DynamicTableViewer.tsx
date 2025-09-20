@@ -37,6 +37,19 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
   
   const recordsPerPage = 20;
 
+  // Check if this is a major table that should use dedicated endpoints
+  const isMajorTable = (tableName: string): boolean => {
+    return ['tasks', 'orders', 'users', 'documents', 'activities'].includes(tableName.toLowerCase());
+  };
+
+  // Get the appropriate API endpoint for the table
+  const getApiEndpoint = (tableName: string): string => {
+    if (isMajorTable(tableName)) {
+      return `/api/${tableName}`;
+    }
+    return `/api/tables/${tableName}`;
+  };
+
   // Get premium color theme for this table
   const colorTheme = useMemo(() => getTableColorTheme(tableName), [tableName]);
 
@@ -52,8 +65,16 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
       setError(null);
 
       const params = new URLSearchParams();
-      params.set('limit', recordsPerPage.toString());
-      params.set('offset', ((currentPage - 1) * recordsPerPage).toString());
+      
+      if (isMajorTable(tableName)) {
+        // For major tables, use pagination parameters that match their API
+        params.set('page', currentPage.toString());
+        params.set('limit', recordsPerPage.toString());
+      } else {
+        // For dynamic tables, use offset-based pagination
+        params.set('limit', recordsPerPage.toString());
+        params.set('offset', ((currentPage - 1) * recordsPerPage).toString());
+      }
       
       if (sortField) {
         params.set('sort', sortField);
@@ -71,13 +92,45 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
         }
       });
 
-      const response = await fetch(`/api/tables/${tableName}?${params}`);
-      const result: TableListResponse = await response.json();
+      const endpoint = getApiEndpoint(tableName);
+      const response = await fetch(`${endpoint}?${params}`);
+      const result = await response.json();
 
-      if (result.success && result.data) {
-        setRecords(result.data.records);
-        setTotalRecords(result.metadata?.total || 0);
-        setTotalPages(Math.ceil((result.metadata?.total || 0) / recordsPerPage));
+      if (result.success) {
+        if (isMajorTable(tableName)) {
+          // Major tables return data in a different format
+          const data = result.data;
+          if (Array.isArray(data)) {
+            setRecords(data);
+            setTotalRecords(data.length);
+            setTotalPages(1); // For now, assume single page for major tables
+          } else if (data && Array.isArray(data.data)) {
+            setRecords(data.data);
+            setTotalRecords(data.pagination?.total || data.data.length);
+            setTotalPages(Math.ceil((data.pagination?.total || data.data.length) / recordsPerPage));
+          } else if (data && (data.orders || data.tasks)) {
+            // Handle specific response formats for orders/tasks
+            const records = data.orders || data.tasks || [];
+            setRecords(records);
+            setTotalRecords(data.pagination?.total || records.length);
+            setTotalPages(Math.ceil((data.pagination?.total || records.length) / recordsPerPage));
+          } else {
+            setRecords([]);
+            setTotalRecords(0);
+            setTotalPages(1);
+          }
+        } else {
+          // Dynamic tables return data in the expected format
+          if (result.data) {
+            setRecords(result.data.records || []);
+            setTotalRecords(result.metadata?.total || 0);
+            setTotalPages(Math.ceil((result.metadata?.total || 0) / recordsPerPage));
+          } else {
+            setRecords([]);
+            setTotalRecords(0);
+            setTotalPages(1);
+          }
+        }
       } else {
         setError(result.error || 'Failed to load records');
       }
@@ -110,9 +163,22 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
     }
 
     try {
-      const response = await fetch(`/api/tables/${tableName}?id=${record[primaryKeyField]}`, {
-        method: 'DELETE',
-      });
+      let response;
+      if (isMajorTable(tableName)) {
+        // For major tables, use the dedicated endpoint with SQLite headers
+        const endpoint = getApiEndpoint(tableName);
+        response = await fetch(`${endpoint}/${record[primaryKeyField]}`, {
+          method: 'DELETE',
+          headers: {
+            'x-database-type': 'sqlite'
+          }
+        });
+      } else {
+        // For dynamic tables, use the existing format
+        response = await fetch(`/api/tables/${tableName}?id=${record[primaryKeyField]}`, {
+          method: 'DELETE',
+        });
+      }
 
       const result = await response.json();
       if (result.success) {
@@ -159,7 +225,16 @@ export function DynamicTableViewer({ tableName, config, onRefresh }: DynamicTabl
         }
       });
 
-      const response = await fetch(`/api/tables/${tableName}/export?${params}`);
+      let exportUrl;
+      if (isMajorTable(tableName)) {
+        // For major tables, use their dedicated export endpoint
+        exportUrl = `${getApiEndpoint(tableName)}/export?${params}`;
+      } else {
+        // For dynamic tables, use the tables export endpoint
+        exportUrl = `/api/tables/${tableName}/export?${params}`;
+      }
+
+      const response = await fetch(exportUrl);
       
       if (response.ok) {
         const blob = await response.blob();

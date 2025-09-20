@@ -30,6 +30,19 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
   
   // Use provided color theme or generate one for the table
   const theme = colorTheme || getTableColorTheme(tableName);
+
+  // Check if this is a major table that should use dedicated endpoints
+  const isMajorTable = (tableName: string): boolean => {
+    return ['tasks', 'orders', 'users', 'documents', 'activities'].includes(tableName.toLowerCase());
+  };
+
+  // Get the appropriate API endpoint for the table
+  const getApiEndpoint = (tableName: string): string => {
+    if (isMajorTable(tableName)) {
+      return `/api/${tableName}`;
+    }
+    return `/api/tables/${tableName}`;
+  };
   
   // Get editable fields - memoized to prevent infinite re-renders
   const editableFields = useMemo(() => {
@@ -177,16 +190,36 @@ export function DynamicTableForm({ tableName, config, record, onSubmit, onCancel
     setSubmitError(null);
 
     try {
-      const url = isEditing 
-        ? `/api/tables/${tableName}?id=${record![Object.keys(config.fields).find(f => config.fields[f].primaryKey)!]}`
-        : `/api/tables/${tableName}`;
+      let url, method;
       
-      const method = isEditing ? 'PUT' : 'POST';
+      if (isMajorTable(tableName)) {
+        // For major tables, use dedicated endpoints
+        const baseEndpoint = getApiEndpoint(tableName);
+        if (isEditing) {
+          const primaryKeyField = Object.keys(config.fields).find(f => config.fields[f].primaryKey);
+          url = `${baseEndpoint}/${record![primaryKeyField!]}`;
+          method = 'PUT';
+        } else {
+          url = baseEndpoint;
+          method = 'POST';
+        }
+      } else {
+        // For dynamic tables, use the existing format
+        if (isEditing) {
+          const primaryKeyField = Object.keys(config.fields).find(f => config.fields[f].primaryKey);
+          url = `/api/tables/${tableName}?id=${record![primaryKeyField!]}`;
+          method = 'PUT';
+        } else {
+          url = `/api/tables/${tableName}`;
+          method = 'POST';
+        }
+      }
 
       const response = await fetch(url, {
         method,
         headers: {
           'Content-Type': 'application/json',
+          ...(isMajorTable(tableName) ? { 'x-database-type': 'sqlite' } : {})
         },
         body: JSON.stringify(formData),
       });

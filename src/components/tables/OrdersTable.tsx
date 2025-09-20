@@ -10,6 +10,7 @@ interface OrdersTableProps {
   orders: Order[];
   onOrderUpdate?: (orderId: string, updates: Partial<Order>) => void;
   onOrderDelete?: (orderId: string) => void;
+  onOrderEdit?: (order: Order) => void;
 }
 
 const OrderStatusBadge = ({ status }: { status: OrderStatus }) => {
@@ -50,7 +51,7 @@ const ProgressBar = ({ progress }: { progress: number }) => {
   );
 };
 
-export function OrdersTable({ orders, onOrderUpdate, onOrderDelete }: OrdersTableProps) {
+export function OrdersTable({ orders, onOrderUpdate, onOrderDelete, onOrderEdit }: OrdersTableProps) {
   const columns: ColumnDef<Order>[] = [
     {
       accessorKey: 'orderNumber',
@@ -131,6 +132,14 @@ export function OrdersTable({ orders, onOrderUpdate, onOrderDelete }: OrdersTabl
       header: 'Actions',
       cell: ({ row }) => (
         <div className="flex items-center space-x-2">
+          {onOrderEdit && (
+            <button
+              onClick={() => onOrderEdit(row.original)}
+              className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
+            >
+              Edit
+            </button>
+          )}
           <button
             onClick={() => {/* Navigate to order details */}}
             className="text-blue-600 hover:text-blue-900 text-sm font-medium"
@@ -141,7 +150,7 @@ export function OrdersTable({ orders, onOrderUpdate, onOrderDelete }: OrdersTabl
             onClick={() => onOrderUpdate?.(row.original.id, { status: OrderStatus.PRODUCTION })}
             className="text-green-600 hover:text-green-900 text-sm font-medium"
           >
-            Update
+            Update Status
           </button>
           <button
             onClick={() => onOrderDelete?.(row.original.id)}

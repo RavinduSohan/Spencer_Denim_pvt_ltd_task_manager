@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { db } from '@/lib/db';
+import { getDatabaseClient } from '@/lib/server-database';
 import { UpdateOrderSchema } from '@/lib/validations';
 import { handleError, successResponse, createActivityLog, getUserIdFromRequest } from '@/lib/utils';
 
@@ -9,6 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    const db = getDatabaseClient(request);
     const order = await db.order.findUnique({
       where: { id },
       include: {
@@ -69,6 +70,7 @@ export async function PUT(
     const body = await request.json();
     const validatedData = UpdateOrderSchema.parse(body);
     
+    const db = getDatabaseClient(request);
     const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));
@@ -155,6 +157,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    const db = getDatabaseClient(request);
     const userId = await getUserIdFromRequest(request);
     if (!userId) {
       return handleError(new Error('User not authenticated'));

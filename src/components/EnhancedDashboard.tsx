@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Task, Order, TaskStatus, Priority, TaskCategory, OrderStatus, DashboardStats, CreateTaskForm, CreateOrderForm } from '@/types';
-import { tasksApi, ordersApi, dashboardApi } from '@/lib/api';
+import { Task, Order, TaskStatus, Priority, TaskCategory, OrderStatus, DashboardStats, CreateTaskForm, CreateOrderForm, User } from '@/types';
+import { tasksApi, ordersApi, dashboardApi, usersApi } from '@/lib/api';
 import { ProgressDonutChart, TasksByPriorityChart, WeeklyProgressChart, ProductivityChart } from '@/components/charts/ProgressChart';
 import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
@@ -18,6 +18,7 @@ export default function EnhancedDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   
@@ -26,6 +27,8 @@ export default function EnhancedDashboard() {
   const [showOrderModal, setShowOrderModal] = useState(false);
   const [showTasksExportModal, setShowTasksExportModal] = useState(false);
   const [showOrdersExportModal, setShowOrdersExportModal] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [editingOrder, setEditingOrder] = useState<Order | null>(null);
   
   // Form states
   const [taskForm, setTaskForm] = useState<CreateTaskForm>({
@@ -34,6 +37,7 @@ export default function EnhancedDashboard() {
     priority: Priority.MEDIUM,
     category: TaskCategory.PRODUCTION,
     dueDate: '',
+    assignedToId: '',
   });
   
   const [orderForm, setOrderForm] = useState<CreateOrderForm>({
@@ -52,15 +56,17 @@ export default function EnhancedDashboard() {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [statsData, tasksData, ordersData] = await Promise.all([
+      const [statsData, tasksData, ordersData, usersData] = await Promise.all([
         dashboardApi.getStats(),
         tasksApi.getAll({ limit: 100 }),
         ordersApi.getAll({ limit: 50 }),
+        usersApi.getAll({ limit: 100 }),
       ]);
       
       setStats(statsData);
       setTasks(tasksData.data || []);
       setOrders(ordersData.orders || []);
+      setUsers(usersData.data || []);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -70,8 +76,16 @@ export default function EnhancedDashboard() {
 
   const handleCreateTask = async () => {
     try {
-      const newTask = await tasksApi.create(taskForm);
-      setTasks([newTask, ...tasks]);
+      if (editingTask) {
+        // Update existing task
+        const updatedTask = await tasksApi.update(editingTask.id, taskForm);
+        setTasks(tasks.map(task => task.id === editingTask.id ? updatedTask : task));
+        setEditingTask(null);
+      } else {
+        // Create new task
+        const newTask = await tasksApi.create(taskForm);
+        setTasks([newTask, ...tasks]);
+      }
       setShowTaskModal(false);
       setTaskForm({
         title: '',
@@ -79,17 +93,26 @@ export default function EnhancedDashboard() {
         priority: Priority.MEDIUM,
         category: TaskCategory.PRODUCTION,
         dueDate: '',
+        assignedToId: '',
       });
       loadData(); // Refresh stats
     } catch (error) {
-      console.error('Error creating task:', error);
+      console.error('Error creating/updating task:', error);
     }
   };
 
   const handleCreateOrder = async () => {
     try {
-      const newOrder = await ordersApi.create(orderForm);
-      setOrders([newOrder, ...orders]);
+      if (editingOrder) {
+        // Update existing order
+        const updatedOrder = await ordersApi.update(editingOrder.id, orderForm);
+        setOrders(orders.map(order => order.id === editingOrder.id ? updatedOrder : order));
+        setEditingOrder(null);
+      } else {
+        // Create new order
+        const newOrder = await ordersApi.create(orderForm);
+        setOrders([newOrder, ...orders]);
+      }
       setShowOrderModal(false);
       setOrderForm({
         client: '',
@@ -101,7 +124,7 @@ export default function EnhancedDashboard() {
       });
       loadData(); // Refresh stats
     } catch (error) {
-      console.error('Error creating order:', error);
+      console.error('Error creating/updating order:', error);
     }
   };
 
@@ -153,6 +176,61 @@ export default function EnhancedDashboard() {
     } catch (error) {
       console.error('Error deleting order:', error);
     }
+  };
+
+  // Edit handlers
+  const handleTaskEdit = (task: Task) => {
+    setEditingTask(task);
+    setTaskForm({
+      title: task.title,
+      description: task.description || '',
+      priority: task.priority,
+      category: task.category,
+      dueDate: task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : '',
+      assignedToId: task.assignedToId || '',
+    });
+    setShowTaskModal(true);
+  };
+
+  const handleOrderEdit = (order: Order) => {
+    setEditingOrder(order);
+    setOrderForm({
+      orderNumber: order.orderNumber,
+      client: order.client,
+      product: order.product,
+      quantity: order.quantity,
+      shipDate: order.shipDate ? new Date(order.shipDate).toISOString().split('T')[0] : '',
+      status: order.status,
+      progress: order.progress,
+    });
+    setShowOrderModal(true);
+  };
+
+  // Modal close handlers
+  const handleCloseTaskModal = () => {
+    setShowTaskModal(false);
+    setEditingTask(null);
+    setTaskForm({
+      title: '',
+      description: '',
+      priority: Priority.MEDIUM,
+      category: TaskCategory.PRODUCTION,
+      dueDate: '',
+      assignedToId: '',
+    });
+  };
+
+  const handleCloseOrderModal = () => {
+    setShowOrderModal(false);
+    setEditingOrder(null);
+    setOrderForm({
+      client: '',
+      product: '',
+      quantity: 0,
+      shipDate: '',
+      status: OrderStatus.PENDING,
+      progress: 0,
+    });
   };
 
   // Export handlers
@@ -330,6 +408,7 @@ export default function EnhancedDashboard() {
                 tasks={tasks} 
                 onTaskUpdate={handleTaskUpdate}
                 onTaskDelete={handleTaskDelete}
+                onTaskEdit={handleTaskEdit}
               />
             </div>
           </div>
@@ -363,6 +442,7 @@ export default function EnhancedDashboard() {
                 orders={orders} 
                 onOrderUpdate={handleOrderUpdate}
                 onOrderDelete={handleOrderDelete}
+                onOrderEdit={handleOrderEdit}
               />
             </div>
           </div>
@@ -378,8 +458,8 @@ export default function EnhancedDashboard() {
       {/* Task Modal */}
       <Modal
         isOpen={showTaskModal}
-        onClose={() => setShowTaskModal(false)}
-        title="Create New Task"
+        onClose={handleCloseTaskModal}
+        title={editingTask ? "Edit Task" : "Create New Task"}
         size="lg"
       >
         <div className="space-y-4">
@@ -434,13 +514,20 @@ export default function EnhancedDashboard() {
             value={taskForm.dueDate || ''}
             onChange={(value) => setTaskForm({ ...taskForm, dueDate: value })}
           />
+
+          <Input
+            label="Assigned To"
+            value={taskForm.assignedToId || ''}
+            onChange={(value) => setTaskForm({ ...taskForm, assignedToId: value })}
+            placeholder="Enter assignee name or ID"
+          />
           
           <div className="flex justify-end space-x-3 pt-4">
-            <Button variant="secondary" onClick={() => setShowTaskModal(false)}>
+            <Button variant="secondary" onClick={handleCloseTaskModal}>
               Cancel
             </Button>
             <Button onClick={handleCreateTask}>
-              Create Task
+              {editingTask ? "Update Task" : "Create Task"}
             </Button>
           </div>
         </div>
@@ -449,8 +536,8 @@ export default function EnhancedDashboard() {
       {/* Order Modal */}
       <Modal
         isOpen={showOrderModal}
-        onClose={() => setShowOrderModal(false)}
-        title="Create New Order"
+        onClose={handleCloseOrderModal}
+        title={editingOrder ? "Edit Order" : "Create New Order"}
         size="lg"
       >
         <div className="space-y-4">
@@ -505,11 +592,11 @@ export default function EnhancedDashboard() {
           />
           
           <div className="flex justify-end space-x-3 pt-4">
-            <Button variant="secondary" onClick={() => setShowOrderModal(false)}>
+            <Button variant="secondary" onClick={handleCloseOrderModal}>
               Cancel
             </Button>
             <Button onClick={handleCreateOrder}>
-              Create Order
+              {editingOrder ? "Update Order" : "Create Order"}
             </Button>
           </div>
         </div>
