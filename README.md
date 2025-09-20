@@ -38,6 +38,7 @@
 
 <img width="1366" height="768" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/bcb5b457-32f8-43cd-acd9-c2a2498ed448" />
 
+<img width="1366" height="768" alt="Screenshot (53)" src="https://github.com/user-attachments/assets/c9dd6ff3-92f6-445a-a9dd-814bada1cc7b" />
 
 
 
