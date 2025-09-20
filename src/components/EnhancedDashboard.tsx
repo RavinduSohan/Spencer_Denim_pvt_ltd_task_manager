@@ -8,6 +8,7 @@ import { TasksTable } from '@/components/tables/TasksTable';
 import { OrdersTable } from '@/components/tables/OrdersTable';
 import { UnifiedNavigation } from '@/components/UnifiedNavigation';
 import { DynamicTablesDashboard } from '@/components/dynamic/DynamicTablesDashboard';
+import { TodoDashboard } from '@/components/todo/TodoDashboard';
 import { Modal, Button, Input, Select, Textarea } from '@/components/ui';
 import { ExportModal } from '@/components/ExportModal';
 import { PlusIcon, ChartBarIcon, DocumentTextIcon, ClipboardDocumentListIcon, Cog6ToothIcon, BellIcon } from '@heroicons/react/24/outline';
@@ -451,6 +452,12 @@ export default function EnhancedDashboard() {
         {activeTab === 'dynamic-tables' && (
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-2">
             <DynamicTablesDashboard />
+          </div>
+        )}
+
+        {activeTab === 'todo' && (
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-2">
+            <TodoDashboard />
           </div>
         )}
       </div>

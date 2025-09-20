@@ -216,6 +216,69 @@ exports.Prisma.ActivityScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.TodoListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  color: 'color',
+  icon: 'icon',
+  isArchived: 'isArchived',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdById: 'createdById'
+};
+
+exports.Prisma.TodoItemScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  priority: 'priority',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  estimatedHours: 'estimatedHours',
+  actualHours: 'actualHours',
+  progress: 'progress',
+  tags: 'tags',
+  isDelayed: 'isDelayed',
+  delayReason: 'delayReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  todoListId: 'todoListId',
+  assignedToId: 'assignedToId',
+  createdById: 'createdById'
+};
+
+exports.Prisma.TodoDependencyScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  lagDays: 'lagDays',
+  createdAt: 'createdAt',
+  dependsOnId: 'dependsOnId',
+  blockedById: 'blockedById'
+};
+
+exports.Prisma.TodoAttachmentScalarFieldEnum = {
+  id: 'id',
+  fileName: 'fileName',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  uploadedAt: 'uploadedAt',
+  todoItemId: 'todoItemId',
+  uploadedById: 'uploadedById'
+};
+
+exports.Prisma.TodoCommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  todoItemId: 'todoItemId',
+  authorId: 'authorId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,7 +288,29 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.TodoStatus = exports.$Enums.TodoStatus = {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  DELAYED: 'DELAYED'
+};
 
+exports.TodoPriority = exports.$Enums.TodoPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT',
+  CRITICAL: 'CRITICAL'
+};
+
+exports.DependencyType = exports.$Enums.DependencyType = {
+  FINISH_TO_START: 'FINISH_TO_START',
+  START_TO_START: 'START_TO_START',
+  FINISH_TO_FINISH: 'FINISH_TO_FINISH',
+  START_TO_FINISH: 'START_TO_FINISH'
+};
 
 exports.Prisma.ModelName = {
   Account: 'Account',
@@ -235,7 +320,12 @@ exports.Prisma.ModelName = {
   Task: 'Task',
   Order: 'Order',
   Document: 'Document',
-  Activity: 'Activity'
+  Activity: 'Activity',
+  TodoList: 'TodoList',
+  TodoItem: 'TodoItem',
+  TodoDependency: 'TodoDependency',
+  TodoAttachment: 'TodoAttachment',
+  TodoComment: 'TodoComment'
 };
 
 /**

@@ -60,6 +60,13 @@ model User {
   orders        Order[]
   documents     Document[]
   activities    Activity[]
+  
+  // Todo relations
+  todoListsCreated   TodoList[]       @relation("TodoListCreatedBy")
+  todosCreated      TodoItem[]       @relation("TodoCreatedBy")
+  todosAssigned     TodoItem[]       @relation("TodoAssignedTo")
+  todoAttachments   TodoAttachment[] @relation("TodoAttachmentUploadedBy")
+  todoComments      TodoComment[]    @relation("TodoCommentAuthor")
 
   @@map("users")
 }
@@ -147,4 +154,122 @@ model Activity {
   user User @relation(fields: [userId], references: [id])
 
   @@map("activities")
+}
+
+// Todo List Models
+model TodoList {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  color       String      @default("#3B82F6") // Default blue color
+  icon        String      @default("📝")
+  isArchived  Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  createdById String
+  createdBy   User        @relation("TodoListCreatedBy", fields: [createdById], references: [id])
+  todos       TodoItem[]
+
+  @@map("todo_lists")
+}
+
+model TodoItem {
+  id              String           @id @default(cuid())
+  title           String
+  description     String?
+  status          TodoStatus       @default(PENDING)
+  priority        TodoPriority     @default(MEDIUM)
+  startDate       DateTime?
+  dueDate         DateTime?
+  completedAt     DateTime?
+  estimatedHours  Int?             // Estimated time to complete
+  actualHours     Int?             // Actual time spent
+  progress        Int              @default(0) // 0-100 percentage
+  tags            String           @default("[]") // SQLite doesn't support arrays, use JSON string
+  isDelayed       Boolean          @default(false)
+  delayReason     String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  todoListId      String
+  todoList        TodoList         @relation(fields: [todoListId], references: [id], onDelete: Cascade)
+  assignedToId    String?
+  assignedTo      User?            @relation("TodoAssignedTo", fields: [assignedToId], references: [id])
+  createdById     String
+  createdBy       User             @relation("TodoCreatedBy", fields: [createdById], references: [id])
+  
+  // Dependencies
+  dependencies    TodoDependency[] @relation("TodoDependsOn")
+  dependents      TodoDependency[] @relation("TodoBlockedBy")
+  
+  // Attachments and comments
+  attachments     TodoAttachment[]
+  comments        TodoComment[]
+
+  @@map("todo_items")
+}
+
+model TodoDependency {
+  id            String   @id @default(cuid())
+  type          DependencyType @default(FINISH_TO_START)
+  lagDays       Int      @default(0) // Number of days delay/lead time
+  createdAt     DateTime @default(now())
+  dependsOnId   String   // The todo that must be completed first
+  dependsOn     TodoItem @relation("TodoDependsOn", fields: [dependsOnId], references: [id], onDelete: Cascade)
+  blockedById   String   // The todo that is blocked
+  blockedBy     TodoItem @relation("TodoBlockedBy", fields: [blockedById], references: [id], onDelete: Cascade)
+
+  @@unique([dependsOnId, blockedById])
+  @@map("todo_dependencies")
+}
+
+model TodoAttachment {
+  id          String   @id @default(cuid())
+  fileName    String
+  fileUrl     String
+  fileSize    Int
+  mimeType    String
+  uploadedAt  DateTime @default(now())
+  todoItemId  String
+  todoItem    TodoItem @relation(fields: [todoItemId], references: [id], onDelete: Cascade)
+  uploadedById String
+  uploadedBy  User     @relation("TodoAttachmentUploadedBy", fields: [uploadedById], references: [id])
+
+  @@map("todo_attachments")
+}
+
+model TodoComment {
+  id         String   @id @default(cuid())
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  todoItemId String
+  todoItem   TodoItem @relation(fields: [todoItemId], references: [id], onDelete: Cascade)
+  authorId   String
+  author     User     @relation("TodoCommentAuthor", fields: [authorId], references: [id])
+
+  @@map("todo_comments")
+}
+
+enum TodoStatus {
+  PENDING
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+  DELAYED
+}
+
+enum TodoPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+  CRITICAL
+}
+
+enum DependencyType {
+  FINISH_TO_START  // Task A must finish before Task B can start
+  START_TO_START   // Task A must start before Task B can start
+  FINISH_TO_FINISH // Task A must finish before Task B can finish
+  START_TO_FINISH  // Task A must start before Task B can finish
 }

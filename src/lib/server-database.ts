@@ -73,7 +73,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Helper function to get database client from request headers
 export function getDatabaseClient(request: Request): any {
-  const dbType = request.headers.get('x-database-type') as DatabaseType || 'postgres';
+  const dbType = request.headers.get('x-database-type') as DatabaseType || 'sqlite'; // Default to SQLite
   console.log('Database type from header:', dbType);
   
   const client = serverDatabaseService.getClient(dbType);
@@ -84,5 +84,5 @@ export function getDatabaseClient(request: Request): any {
 
 // Helper function to get database type from request headers
 export function getDatabaseType(request: Request): DatabaseType {
-  return (request.headers.get('x-database-type') as DatabaseType) || 'postgres';
+  return (request.headers.get('x-database-type') as DatabaseType) || 'sqlite'; // Default to SQLite
 }

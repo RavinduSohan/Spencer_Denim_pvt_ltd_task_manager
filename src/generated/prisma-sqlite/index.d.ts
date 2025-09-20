@@ -53,6 +53,81 @@ export type Document = $Result.DefaultSelection<Prisma.$DocumentPayload>
  * 
  */
 export type Activity = $Result.DefaultSelection<Prisma.$ActivityPayload>
+/**
+ * Model TodoList
+ * 
+ */
+export type TodoList = $Result.DefaultSelection<Prisma.$TodoListPayload>
+/**
+ * Model TodoItem
+ * 
+ */
+export type TodoItem = $Result.DefaultSelection<Prisma.$TodoItemPayload>
+/**
+ * Model TodoDependency
+ * 
+ */
+export type TodoDependency = $Result.DefaultSelection<Prisma.$TodoDependencyPayload>
+/**
+ * Model TodoAttachment
+ * 
+ */
+export type TodoAttachment = $Result.DefaultSelection<Prisma.$TodoAttachmentPayload>
+/**
+ * Model TodoComment
+ * 
+ */
+export type TodoComment = $Result.DefaultSelection<Prisma.$TodoCommentPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const TodoStatus: {
+  PENDING: 'PENDING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  DELAYED: 'DELAYED'
+};
+
+export type TodoStatus = (typeof TodoStatus)[keyof typeof TodoStatus]
+
+
+export const TodoPriority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT',
+  CRITICAL: 'CRITICAL'
+};
+
+export type TodoPriority = (typeof TodoPriority)[keyof typeof TodoPriority]
+
+
+export const DependencyType: {
+  FINISH_TO_START: 'FINISH_TO_START',
+  START_TO_START: 'START_TO_START',
+  FINISH_TO_FINISH: 'FINISH_TO_FINISH',
+  START_TO_FINISH: 'START_TO_FINISH'
+};
+
+export type DependencyType = (typeof DependencyType)[keyof typeof DependencyType]
+
+}
+
+export type TodoStatus = $Enums.TodoStatus
+
+export const TodoStatus: typeof $Enums.TodoStatus
+
+export type TodoPriority = $Enums.TodoPriority
+
+export const TodoPriority: typeof $Enums.TodoPriority
+
+export type DependencyType = $Enums.DependencyType
+
+export const DependencyType: typeof $Enums.DependencyType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -251,6 +326,56 @@ export class PrismaClient<
     * ```
     */
   get activity(): Prisma.ActivityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.todoList`: Exposes CRUD operations for the **TodoList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TodoLists
+    * const todoLists = await prisma.todoList.findMany()
+    * ```
+    */
+  get todoList(): Prisma.TodoListDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.todoItem`: Exposes CRUD operations for the **TodoItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TodoItems
+    * const todoItems = await prisma.todoItem.findMany()
+    * ```
+    */
+  get todoItem(): Prisma.TodoItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.todoDependency`: Exposes CRUD operations for the **TodoDependency** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TodoDependencies
+    * const todoDependencies = await prisma.todoDependency.findMany()
+    * ```
+    */
+  get todoDependency(): Prisma.TodoDependencyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.todoAttachment`: Exposes CRUD operations for the **TodoAttachment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TodoAttachments
+    * const todoAttachments = await prisma.todoAttachment.findMany()
+    * ```
+    */
+  get todoAttachment(): Prisma.TodoAttachmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.todoComment`: Exposes CRUD operations for the **TodoComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TodoComments
+    * const todoComments = await prisma.todoComment.findMany()
+    * ```
+    */
+  get todoComment(): Prisma.TodoCommentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -698,7 +823,12 @@ export namespace Prisma {
     Task: 'Task',
     Order: 'Order',
     Document: 'Document',
-    Activity: 'Activity'
+    Activity: 'Activity',
+    TodoList: 'TodoList',
+    TodoItem: 'TodoItem',
+    TodoDependency: 'TodoDependency',
+    TodoAttachment: 'TodoAttachment',
+    TodoComment: 'TodoComment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -717,7 +847,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "user" | "verificationToken" | "task" | "order" | "document" | "activity"
+      modelProps: "account" | "session" | "user" | "verificationToken" | "task" | "order" | "document" | "activity" | "todoList" | "todoItem" | "todoDependency" | "todoAttachment" | "todoComment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1313,6 +1443,376 @@ export namespace Prisma {
           }
         }
       }
+      TodoList: {
+        payload: Prisma.$TodoListPayload<ExtArgs>
+        fields: Prisma.TodoListFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoListFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoListFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoListFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoListFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          findMany: {
+            args: Prisma.TodoListFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>[]
+          }
+          create: {
+            args: Prisma.TodoListCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          createMany: {
+            args: Prisma.TodoListCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TodoListCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>[]
+          }
+          delete: {
+            args: Prisma.TodoListDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          update: {
+            args: Prisma.TodoListUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoListDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoListUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TodoListUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>[]
+          }
+          upsert: {
+            args: Prisma.TodoListUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoListPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoListAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodoList>
+          }
+          groupBy: {
+            args: Prisma.TodoListGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoListGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoListCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoListCountAggregateOutputType> | number
+          }
+        }
+      }
+      TodoItem: {
+        payload: Prisma.$TodoItemPayload<ExtArgs>
+        fields: Prisma.TodoItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          findMany: {
+            args: Prisma.TodoItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>[]
+          }
+          create: {
+            args: Prisma.TodoItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          createMany: {
+            args: Prisma.TodoItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TodoItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>[]
+          }
+          delete: {
+            args: Prisma.TodoItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          update: {
+            args: Prisma.TodoItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TodoItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.TodoItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoItemPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodoItem>
+          }
+          groupBy: {
+            args: Prisma.TodoItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoItemCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      TodoDependency: {
+        payload: Prisma.$TodoDependencyPayload<ExtArgs>
+        fields: Prisma.TodoDependencyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoDependencyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoDependencyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoDependencyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoDependencyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          findMany: {
+            args: Prisma.TodoDependencyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>[]
+          }
+          create: {
+            args: Prisma.TodoDependencyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          createMany: {
+            args: Prisma.TodoDependencyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TodoDependencyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>[]
+          }
+          delete: {
+            args: Prisma.TodoDependencyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          update: {
+            args: Prisma.TodoDependencyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoDependencyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoDependencyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TodoDependencyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>[]
+          }
+          upsert: {
+            args: Prisma.TodoDependencyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoDependencyPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoDependencyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodoDependency>
+          }
+          groupBy: {
+            args: Prisma.TodoDependencyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoDependencyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoDependencyCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoDependencyCountAggregateOutputType> | number
+          }
+        }
+      }
+      TodoAttachment: {
+        payload: Prisma.$TodoAttachmentPayload<ExtArgs>
+        fields: Prisma.TodoAttachmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoAttachmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoAttachmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoAttachmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoAttachmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          findMany: {
+            args: Prisma.TodoAttachmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>[]
+          }
+          create: {
+            args: Prisma.TodoAttachmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          createMany: {
+            args: Prisma.TodoAttachmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TodoAttachmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>[]
+          }
+          delete: {
+            args: Prisma.TodoAttachmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          update: {
+            args: Prisma.TodoAttachmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoAttachmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoAttachmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TodoAttachmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.TodoAttachmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoAttachmentPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoAttachmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodoAttachment>
+          }
+          groupBy: {
+            args: Prisma.TodoAttachmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoAttachmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoAttachmentCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoAttachmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      TodoComment: {
+        payload: Prisma.$TodoCommentPayload<ExtArgs>
+        fields: Prisma.TodoCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TodoCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TodoCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.TodoCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TodoCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          findMany: {
+            args: Prisma.TodoCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>[]
+          }
+          create: {
+            args: Prisma.TodoCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          createMany: {
+            args: Prisma.TodoCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TodoCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.TodoCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          update: {
+            args: Prisma.TodoCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.TodoCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TodoCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TodoCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.TodoCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TodoCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.TodoCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTodoComment>
+          }
+          groupBy: {
+            args: Prisma.TodoCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TodoCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TodoCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<TodoCommentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1413,6 +1913,11 @@ export namespace Prisma {
     order?: OrderOmit
     document?: DocumentOmit
     activity?: ActivityOmit
+    todoList?: TodoListOmit
+    todoItem?: TodoItemOmit
+    todoDependency?: TodoDependencyOmit
+    todoAttachment?: TodoAttachmentOmit
+    todoComment?: TodoCommentOmit
   }
 
   /* Types for Logging */
@@ -1500,6 +2005,11 @@ export namespace Prisma {
     orders: number
     documents: number
     activities: number
+    todoListsCreated: number
+    todosCreated: number
+    todosAssigned: number
+    todoAttachments: number
+    todoComments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1510,6 +2020,11 @@ export namespace Prisma {
     orders?: boolean | UserCountOutputTypeCountOrdersArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
     activities?: boolean | UserCountOutputTypeCountActivitiesArgs
+    todoListsCreated?: boolean | UserCountOutputTypeCountTodoListsCreatedArgs
+    todosCreated?: boolean | UserCountOutputTypeCountTodosCreatedArgs
+    todosAssigned?: boolean | UserCountOutputTypeCountTodosAssignedArgs
+    todoAttachments?: boolean | UserCountOutputTypeCountTodoAttachmentsArgs
+    todoComments?: boolean | UserCountOutputTypeCountTodoCommentsArgs
   }
 
   // Custom InputTypes
@@ -1572,6 +2087,41 @@ export namespace Prisma {
     where?: ActivityWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodoListsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoListWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodosCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoItemWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodosAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoItemWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodoAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoAttachmentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodoCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoCommentWhereInput
+  }
+
 
   /**
    * Count Type OrderCountOutputType
@@ -1610,6 +2160,95 @@ export namespace Prisma {
    */
   export type OrderCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DocumentWhereInput
+  }
+
+
+  /**
+   * Count Type TodoListCountOutputType
+   */
+
+  export type TodoListCountOutputType = {
+    todos: number
+  }
+
+  export type TodoListCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todos?: boolean | TodoListCountOutputTypeCountTodosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TodoListCountOutputType without action
+   */
+  export type TodoListCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoListCountOutputType
+     */
+    select?: TodoListCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TodoListCountOutputType without action
+   */
+  export type TodoListCountOutputTypeCountTodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoItemWhereInput
+  }
+
+
+  /**
+   * Count Type TodoItemCountOutputType
+   */
+
+  export type TodoItemCountOutputType = {
+    dependencies: number
+    dependents: number
+    attachments: number
+    comments: number
+  }
+
+  export type TodoItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dependencies?: boolean | TodoItemCountOutputTypeCountDependenciesArgs
+    dependents?: boolean | TodoItemCountOutputTypeCountDependentsArgs
+    attachments?: boolean | TodoItemCountOutputTypeCountAttachmentsArgs
+    comments?: boolean | TodoItemCountOutputTypeCountCommentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TodoItemCountOutputType without action
+   */
+  export type TodoItemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItemCountOutputType
+     */
+    select?: TodoItemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TodoItemCountOutputType without action
+   */
+  export type TodoItemCountOutputTypeCountDependenciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoDependencyWhereInput
+  }
+
+  /**
+   * TodoItemCountOutputType without action
+   */
+  export type TodoItemCountOutputTypeCountDependentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoDependencyWhereInput
+  }
+
+  /**
+   * TodoItemCountOutputType without action
+   */
+  export type TodoItemCountOutputTypeCountAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoAttachmentWhereInput
+  }
+
+  /**
+   * TodoItemCountOutputType without action
+   */
+  export type TodoItemCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoCommentWhereInput
   }
 
 
@@ -4076,6 +4715,11 @@ export namespace Prisma {
     orders?: boolean | User$ordersArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     activities?: boolean | User$activitiesArgs<ExtArgs>
+    todoListsCreated?: boolean | User$todoListsCreatedArgs<ExtArgs>
+    todosCreated?: boolean | User$todosCreatedArgs<ExtArgs>
+    todosAssigned?: boolean | User$todosAssignedArgs<ExtArgs>
+    todoAttachments?: boolean | User$todoAttachmentsArgs<ExtArgs>
+    todoComments?: boolean | User$todoCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4136,6 +4780,11 @@ export namespace Prisma {
     orders?: boolean | User$ordersArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     activities?: boolean | User$activitiesArgs<ExtArgs>
+    todoListsCreated?: boolean | User$todoListsCreatedArgs<ExtArgs>
+    todosCreated?: boolean | User$todosCreatedArgs<ExtArgs>
+    todosAssigned?: boolean | User$todosAssignedArgs<ExtArgs>
+    todoAttachments?: boolean | User$todoAttachmentsArgs<ExtArgs>
+    todoComments?: boolean | User$todoCommentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4151,6 +4800,11 @@ export namespace Prisma {
       orders: Prisma.$OrderPayload<ExtArgs>[]
       documents: Prisma.$DocumentPayload<ExtArgs>[]
       activities: Prisma.$ActivityPayload<ExtArgs>[]
+      todoListsCreated: Prisma.$TodoListPayload<ExtArgs>[]
+      todosCreated: Prisma.$TodoItemPayload<ExtArgs>[]
+      todosAssigned: Prisma.$TodoItemPayload<ExtArgs>[]
+      todoAttachments: Prisma.$TodoAttachmentPayload<ExtArgs>[]
+      todoComments: Prisma.$TodoCommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4567,6 +5221,11 @@ export namespace Prisma {
     orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     activities<T extends User$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todoListsCreated<T extends User$todoListsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$todoListsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todosCreated<T extends User$todosCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$todosCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todosAssigned<T extends User$todosAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$todosAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todoAttachments<T extends User$todoAttachmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$todoAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todoComments<T extends User$todoCommentsArgs<ExtArgs> = {}>(args?: Subset<T, User$todoCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5160,6 +5819,126 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
+  }
+
+  /**
+   * User.todoListsCreated
+   */
+  export type User$todoListsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    where?: TodoListWhereInput
+    orderBy?: TodoListOrderByWithRelationInput | TodoListOrderByWithRelationInput[]
+    cursor?: TodoListWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoListScalarFieldEnum | TodoListScalarFieldEnum[]
+  }
+
+  /**
+   * User.todosCreated
+   */
+  export type User$todosCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    where?: TodoItemWhereInput
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    cursor?: TodoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * User.todosAssigned
+   */
+  export type User$todosAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    where?: TodoItemWhereInput
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    cursor?: TodoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * User.todoAttachments
+   */
+  export type User$todoAttachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    where?: TodoAttachmentWhereInput
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    cursor?: TodoAttachmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoAttachmentScalarFieldEnum | TodoAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * User.todoComments
+   */
+  export type User$todoCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    where?: TodoCommentWhereInput
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    cursor?: TodoCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoCommentScalarFieldEnum | TodoCommentScalarFieldEnum[]
   }
 
   /**
@@ -10883,6 +11662,5898 @@ export namespace Prisma {
 
 
   /**
+   * Model TodoList
+   */
+
+  export type AggregateTodoList = {
+    _count: TodoListCountAggregateOutputType | null
+    _min: TodoListMinAggregateOutputType | null
+    _max: TodoListMaxAggregateOutputType | null
+  }
+
+  export type TodoListMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    color: string | null
+    icon: string | null
+    isArchived: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type TodoListMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    color: string | null
+    icon: string | null
+    isArchived: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type TodoListCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    color: number
+    icon: number
+    isArchived: number
+    createdAt: number
+    updatedAt: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type TodoListMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    icon?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type TodoListMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    icon?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type TodoListCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    color?: true
+    icon?: true
+    isArchived?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type TodoListAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoList to aggregate.
+     */
+    where?: TodoListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoLists to fetch.
+     */
+    orderBy?: TodoListOrderByWithRelationInput | TodoListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TodoLists
+    **/
+    _count?: true | TodoListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoListMaxAggregateInputType
+  }
+
+  export type GetTodoListAggregateType<T extends TodoListAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodoList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodoList[P]>
+      : GetScalarType<T[P], AggregateTodoList[P]>
+  }
+
+
+
+
+  export type TodoListGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoListWhereInput
+    orderBy?: TodoListOrderByWithAggregationInput | TodoListOrderByWithAggregationInput[]
+    by: TodoListScalarFieldEnum[] | TodoListScalarFieldEnum
+    having?: TodoListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoListCountAggregateInputType | true
+    _min?: TodoListMinAggregateInputType
+    _max?: TodoListMaxAggregateInputType
+  }
+
+  export type TodoListGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    color: string
+    icon: string
+    isArchived: boolean
+    createdAt: Date
+    updatedAt: Date
+    createdById: string
+    _count: TodoListCountAggregateOutputType | null
+    _min: TodoListMinAggregateOutputType | null
+    _max: TodoListMaxAggregateOutputType | null
+  }
+
+  type GetTodoListGroupByPayload<T extends TodoListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoListGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    icon?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    todos?: boolean | TodoList$todosArgs<ExtArgs>
+    _count?: boolean | TodoListCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoList"]>
+
+  export type TodoListSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    icon?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoList"]>
+
+  export type TodoListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    icon?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoList"]>
+
+  export type TodoListSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    color?: boolean
+    icon?: boolean
+    isArchived?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+  }
+
+  export type TodoListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "icon" | "isArchived" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["todoList"]>
+  export type TodoListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    todos?: boolean | TodoList$todosArgs<ExtArgs>
+    _count?: boolean | TodoListCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TodoListIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoListIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TodoList"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      todos: Prisma.$TodoItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      color: string
+      icon: string
+      isArchived: boolean
+      createdAt: Date
+      updatedAt: Date
+      createdById: string
+    }, ExtArgs["result"]["todoList"]>
+    composites: {}
+  }
+
+  type TodoListGetPayload<S extends boolean | null | undefined | TodoListDefaultArgs> = $Result.GetResult<Prisma.$TodoListPayload, S>
+
+  type TodoListCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TodoListFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TodoListCountAggregateInputType | true
+    }
+
+  export interface TodoListDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TodoList'], meta: { name: 'TodoList' } }
+    /**
+     * Find zero or one TodoList that matches the filter.
+     * @param {TodoListFindUniqueArgs} args - Arguments to find a TodoList
+     * @example
+     * // Get one TodoList
+     * const todoList = await prisma.todoList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoListFindUniqueArgs>(args: SelectSubset<T, TodoListFindUniqueArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TodoList that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TodoListFindUniqueOrThrowArgs} args - Arguments to find a TodoList
+     * @example
+     * // Get one TodoList
+     * const todoList = await prisma.todoList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoListFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoListFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListFindFirstArgs} args - Arguments to find a TodoList
+     * @example
+     * // Get one TodoList
+     * const todoList = await prisma.todoList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoListFindFirstArgs>(args?: SelectSubset<T, TodoListFindFirstArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoList that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListFindFirstOrThrowArgs} args - Arguments to find a TodoList
+     * @example
+     * // Get one TodoList
+     * const todoList = await prisma.todoList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoListFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoListFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TodoLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TodoLists
+     * const todoLists = await prisma.todoList.findMany()
+     * 
+     * // Get first 10 TodoLists
+     * const todoLists = await prisma.todoList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoListWithIdOnly = await prisma.todoList.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoListFindManyArgs>(args?: SelectSubset<T, TodoListFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TodoList.
+     * @param {TodoListCreateArgs} args - Arguments to create a TodoList.
+     * @example
+     * // Create one TodoList
+     * const TodoList = await prisma.todoList.create({
+     *   data: {
+     *     // ... data to create a TodoList
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoListCreateArgs>(args: SelectSubset<T, TodoListCreateArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TodoLists.
+     * @param {TodoListCreateManyArgs} args - Arguments to create many TodoLists.
+     * @example
+     * // Create many TodoLists
+     * const todoList = await prisma.todoList.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoListCreateManyArgs>(args?: SelectSubset<T, TodoListCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TodoLists and returns the data saved in the database.
+     * @param {TodoListCreateManyAndReturnArgs} args - Arguments to create many TodoLists.
+     * @example
+     * // Create many TodoLists
+     * const todoList = await prisma.todoList.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TodoLists and only return the `id`
+     * const todoListWithIdOnly = await prisma.todoList.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TodoListCreateManyAndReturnArgs>(args?: SelectSubset<T, TodoListCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TodoList.
+     * @param {TodoListDeleteArgs} args - Arguments to delete one TodoList.
+     * @example
+     * // Delete one TodoList
+     * const TodoList = await prisma.todoList.delete({
+     *   where: {
+     *     // ... filter to delete one TodoList
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoListDeleteArgs>(args: SelectSubset<T, TodoListDeleteArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TodoList.
+     * @param {TodoListUpdateArgs} args - Arguments to update one TodoList.
+     * @example
+     * // Update one TodoList
+     * const todoList = await prisma.todoList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoListUpdateArgs>(args: SelectSubset<T, TodoListUpdateArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TodoLists.
+     * @param {TodoListDeleteManyArgs} args - Arguments to filter TodoLists to delete.
+     * @example
+     * // Delete a few TodoLists
+     * const { count } = await prisma.todoList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoListDeleteManyArgs>(args?: SelectSubset<T, TodoListDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TodoLists
+     * const todoList = await prisma.todoList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoListUpdateManyArgs>(args: SelectSubset<T, TodoListUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoLists and returns the data updated in the database.
+     * @param {TodoListUpdateManyAndReturnArgs} args - Arguments to update many TodoLists.
+     * @example
+     * // Update many TodoLists
+     * const todoList = await prisma.todoList.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TodoLists and only return the `id`
+     * const todoListWithIdOnly = await prisma.todoList.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TodoListUpdateManyAndReturnArgs>(args: SelectSubset<T, TodoListUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TodoList.
+     * @param {TodoListUpsertArgs} args - Arguments to update or create a TodoList.
+     * @example
+     * // Update or create a TodoList
+     * const todoList = await prisma.todoList.upsert({
+     *   create: {
+     *     // ... data to create a TodoList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TodoList we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoListUpsertArgs>(args: SelectSubset<T, TodoListUpsertArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TodoLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListCountArgs} args - Arguments to filter TodoLists to count.
+     * @example
+     * // Count the number of TodoLists
+     * const count = await prisma.todoList.count({
+     *   where: {
+     *     // ... the filter for the TodoLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoListCountArgs>(
+      args?: Subset<T, TodoListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TodoList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoListAggregateArgs>(args: Subset<T, TodoListAggregateArgs>): Prisma.PrismaPromise<GetTodoListAggregateType<T>>
+
+    /**
+     * Group by TodoList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoListGroupByArgs['orderBy'] }
+        : { orderBy?: TodoListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TodoList model
+   */
+  readonly fields: TodoListFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TodoList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    todos<T extends TodoList$todosArgs<ExtArgs> = {}>(args?: Subset<T, TodoList$todosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TodoList model
+   */
+  interface TodoListFieldRefs {
+    readonly id: FieldRef<"TodoList", 'String'>
+    readonly name: FieldRef<"TodoList", 'String'>
+    readonly description: FieldRef<"TodoList", 'String'>
+    readonly color: FieldRef<"TodoList", 'String'>
+    readonly icon: FieldRef<"TodoList", 'String'>
+    readonly isArchived: FieldRef<"TodoList", 'Boolean'>
+    readonly createdAt: FieldRef<"TodoList", 'DateTime'>
+    readonly updatedAt: FieldRef<"TodoList", 'DateTime'>
+    readonly createdById: FieldRef<"TodoList", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TodoList findUnique
+   */
+  export type TodoListFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoList to fetch.
+     */
+    where: TodoListWhereUniqueInput
+  }
+
+  /**
+   * TodoList findUniqueOrThrow
+   */
+  export type TodoListFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoList to fetch.
+     */
+    where: TodoListWhereUniqueInput
+  }
+
+  /**
+   * TodoList findFirst
+   */
+  export type TodoListFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoList to fetch.
+     */
+    where?: TodoListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoLists to fetch.
+     */
+    orderBy?: TodoListOrderByWithRelationInput | TodoListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoLists.
+     */
+    cursor?: TodoListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoLists.
+     */
+    distinct?: TodoListScalarFieldEnum | TodoListScalarFieldEnum[]
+  }
+
+  /**
+   * TodoList findFirstOrThrow
+   */
+  export type TodoListFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoList to fetch.
+     */
+    where?: TodoListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoLists to fetch.
+     */
+    orderBy?: TodoListOrderByWithRelationInput | TodoListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoLists.
+     */
+    cursor?: TodoListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoLists.
+     */
+    distinct?: TodoListScalarFieldEnum | TodoListScalarFieldEnum[]
+  }
+
+  /**
+   * TodoList findMany
+   */
+  export type TodoListFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoLists to fetch.
+     */
+    where?: TodoListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoLists to fetch.
+     */
+    orderBy?: TodoListOrderByWithRelationInput | TodoListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TodoLists.
+     */
+    cursor?: TodoListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoLists.
+     */
+    skip?: number
+    distinct?: TodoListScalarFieldEnum | TodoListScalarFieldEnum[]
+  }
+
+  /**
+   * TodoList create
+   */
+  export type TodoListCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TodoList.
+     */
+    data: XOR<TodoListCreateInput, TodoListUncheckedCreateInput>
+  }
+
+  /**
+   * TodoList createMany
+   */
+  export type TodoListCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TodoLists.
+     */
+    data: TodoListCreateManyInput | TodoListCreateManyInput[]
+  }
+
+  /**
+   * TodoList createManyAndReturn
+   */
+  export type TodoListCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * The data used to create many TodoLists.
+     */
+    data: TodoListCreateManyInput | TodoListCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoList update
+   */
+  export type TodoListUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TodoList.
+     */
+    data: XOR<TodoListUpdateInput, TodoListUncheckedUpdateInput>
+    /**
+     * Choose, which TodoList to update.
+     */
+    where: TodoListWhereUniqueInput
+  }
+
+  /**
+   * TodoList updateMany
+   */
+  export type TodoListUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TodoLists.
+     */
+    data: XOR<TodoListUpdateManyMutationInput, TodoListUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoLists to update
+     */
+    where?: TodoListWhereInput
+    /**
+     * Limit how many TodoLists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoList updateManyAndReturn
+   */
+  export type TodoListUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * The data used to update TodoLists.
+     */
+    data: XOR<TodoListUpdateManyMutationInput, TodoListUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoLists to update
+     */
+    where?: TodoListWhereInput
+    /**
+     * Limit how many TodoLists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoList upsert
+   */
+  export type TodoListUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TodoList to update in case it exists.
+     */
+    where: TodoListWhereUniqueInput
+    /**
+     * In case the TodoList found by the `where` argument doesn't exist, create a new TodoList with this data.
+     */
+    create: XOR<TodoListCreateInput, TodoListUncheckedCreateInput>
+    /**
+     * In case the TodoList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoListUpdateInput, TodoListUncheckedUpdateInput>
+  }
+
+  /**
+   * TodoList delete
+   */
+  export type TodoListDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+    /**
+     * Filter which TodoList to delete.
+     */
+    where: TodoListWhereUniqueInput
+  }
+
+  /**
+   * TodoList deleteMany
+   */
+  export type TodoListDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoLists to delete
+     */
+    where?: TodoListWhereInput
+    /**
+     * Limit how many TodoLists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoList.todos
+   */
+  export type TodoList$todosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    where?: TodoItemWhereInput
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    cursor?: TodoItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * TodoList without action
+   */
+  export type TodoListDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoList
+     */
+    select?: TodoListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoList
+     */
+    omit?: TodoListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoListInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TodoItem
+   */
+
+  export type AggregateTodoItem = {
+    _count: TodoItemCountAggregateOutputType | null
+    _avg: TodoItemAvgAggregateOutputType | null
+    _sum: TodoItemSumAggregateOutputType | null
+    _min: TodoItemMinAggregateOutputType | null
+    _max: TodoItemMaxAggregateOutputType | null
+  }
+
+  export type TodoItemAvgAggregateOutputType = {
+    estimatedHours: number | null
+    actualHours: number | null
+    progress: number | null
+  }
+
+  export type TodoItemSumAggregateOutputType = {
+    estimatedHours: number | null
+    actualHours: number | null
+    progress: number | null
+  }
+
+  export type TodoItemMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    status: $Enums.TodoStatus | null
+    priority: $Enums.TodoPriority | null
+    startDate: Date | null
+    dueDate: Date | null
+    completedAt: Date | null
+    estimatedHours: number | null
+    actualHours: number | null
+    progress: number | null
+    tags: string | null
+    isDelayed: boolean | null
+    delayReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    todoListId: string | null
+    assignedToId: string | null
+    createdById: string | null
+  }
+
+  export type TodoItemMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    status: $Enums.TodoStatus | null
+    priority: $Enums.TodoPriority | null
+    startDate: Date | null
+    dueDate: Date | null
+    completedAt: Date | null
+    estimatedHours: number | null
+    actualHours: number | null
+    progress: number | null
+    tags: string | null
+    isDelayed: boolean | null
+    delayReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    todoListId: string | null
+    assignedToId: string | null
+    createdById: string | null
+  }
+
+  export type TodoItemCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    status: number
+    priority: number
+    startDate: number
+    dueDate: number
+    completedAt: number
+    estimatedHours: number
+    actualHours: number
+    progress: number
+    tags: number
+    isDelayed: number
+    delayReason: number
+    createdAt: number
+    updatedAt: number
+    todoListId: number
+    assignedToId: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type TodoItemAvgAggregateInputType = {
+    estimatedHours?: true
+    actualHours?: true
+    progress?: true
+  }
+
+  export type TodoItemSumAggregateInputType = {
+    estimatedHours?: true
+    actualHours?: true
+    progress?: true
+  }
+
+  export type TodoItemMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    startDate?: true
+    dueDate?: true
+    completedAt?: true
+    estimatedHours?: true
+    actualHours?: true
+    progress?: true
+    tags?: true
+    isDelayed?: true
+    delayReason?: true
+    createdAt?: true
+    updatedAt?: true
+    todoListId?: true
+    assignedToId?: true
+    createdById?: true
+  }
+
+  export type TodoItemMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    startDate?: true
+    dueDate?: true
+    completedAt?: true
+    estimatedHours?: true
+    actualHours?: true
+    progress?: true
+    tags?: true
+    isDelayed?: true
+    delayReason?: true
+    createdAt?: true
+    updatedAt?: true
+    todoListId?: true
+    assignedToId?: true
+    createdById?: true
+  }
+
+  export type TodoItemCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    status?: true
+    priority?: true
+    startDate?: true
+    dueDate?: true
+    completedAt?: true
+    estimatedHours?: true
+    actualHours?: true
+    progress?: true
+    tags?: true
+    isDelayed?: true
+    delayReason?: true
+    createdAt?: true
+    updatedAt?: true
+    todoListId?: true
+    assignedToId?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type TodoItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoItem to aggregate.
+     */
+    where?: TodoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoItems to fetch.
+     */
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TodoItems
+    **/
+    _count?: true | TodoItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TodoItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TodoItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoItemMaxAggregateInputType
+  }
+
+  export type GetTodoItemAggregateType<T extends TodoItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodoItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodoItem[P]>
+      : GetScalarType<T[P], AggregateTodoItem[P]>
+  }
+
+
+
+
+  export type TodoItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoItemWhereInput
+    orderBy?: TodoItemOrderByWithAggregationInput | TodoItemOrderByWithAggregationInput[]
+    by: TodoItemScalarFieldEnum[] | TodoItemScalarFieldEnum
+    having?: TodoItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoItemCountAggregateInputType | true
+    _avg?: TodoItemAvgAggregateInputType
+    _sum?: TodoItemSumAggregateInputType
+    _min?: TodoItemMinAggregateInputType
+    _max?: TodoItemMaxAggregateInputType
+  }
+
+  export type TodoItemGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    status: $Enums.TodoStatus
+    priority: $Enums.TodoPriority
+    startDate: Date | null
+    dueDate: Date | null
+    completedAt: Date | null
+    estimatedHours: number | null
+    actualHours: number | null
+    progress: number
+    tags: string
+    isDelayed: boolean
+    delayReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    todoListId: string
+    assignedToId: string | null
+    createdById: string
+    _count: TodoItemCountAggregateOutputType | null
+    _avg: TodoItemAvgAggregateOutputType | null
+    _sum: TodoItemSumAggregateOutputType | null
+    _min: TodoItemMinAggregateOutputType | null
+    _max: TodoItemMaxAggregateOutputType | null
+  }
+
+  type GetTodoItemGroupByPayload<T extends TodoItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoItemGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    startDate?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    estimatedHours?: boolean
+    actualHours?: boolean
+    progress?: boolean
+    tags?: boolean
+    isDelayed?: boolean
+    delayReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoListId?: boolean
+    assignedToId?: boolean
+    createdById?: boolean
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    dependencies?: boolean | TodoItem$dependenciesArgs<ExtArgs>
+    dependents?: boolean | TodoItem$dependentsArgs<ExtArgs>
+    attachments?: boolean | TodoItem$attachmentsArgs<ExtArgs>
+    comments?: boolean | TodoItem$commentsArgs<ExtArgs>
+    _count?: boolean | TodoItemCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoItem"]>
+
+  export type TodoItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    startDate?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    estimatedHours?: boolean
+    actualHours?: boolean
+    progress?: boolean
+    tags?: boolean
+    isDelayed?: boolean
+    delayReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoListId?: boolean
+    assignedToId?: boolean
+    createdById?: boolean
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoItem"]>
+
+  export type TodoItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    startDate?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    estimatedHours?: boolean
+    actualHours?: boolean
+    progress?: boolean
+    tags?: boolean
+    isDelayed?: boolean
+    delayReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoListId?: boolean
+    assignedToId?: boolean
+    createdById?: boolean
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoItem"]>
+
+  export type TodoItemSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    status?: boolean
+    priority?: boolean
+    startDate?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    estimatedHours?: boolean
+    actualHours?: boolean
+    progress?: boolean
+    tags?: boolean
+    isDelayed?: boolean
+    delayReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoListId?: boolean
+    assignedToId?: boolean
+    createdById?: boolean
+  }
+
+  export type TodoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "priority" | "startDate" | "dueDate" | "completedAt" | "estimatedHours" | "actualHours" | "progress" | "tags" | "isDelayed" | "delayReason" | "createdAt" | "updatedAt" | "todoListId" | "assignedToId" | "createdById", ExtArgs["result"]["todoItem"]>
+  export type TodoItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+    dependencies?: boolean | TodoItem$dependenciesArgs<ExtArgs>
+    dependents?: boolean | TodoItem$dependentsArgs<ExtArgs>
+    attachments?: boolean | TodoItem$attachmentsArgs<ExtArgs>
+    comments?: boolean | TodoItem$commentsArgs<ExtArgs>
+    _count?: boolean | TodoItemCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TodoItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoList?: boolean | TodoListDefaultArgs<ExtArgs>
+    assignedTo?: boolean | TodoItem$assignedToArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TodoItem"
+    objects: {
+      todoList: Prisma.$TodoListPayload<ExtArgs>
+      assignedTo: Prisma.$UserPayload<ExtArgs> | null
+      createdBy: Prisma.$UserPayload<ExtArgs>
+      dependencies: Prisma.$TodoDependencyPayload<ExtArgs>[]
+      dependents: Prisma.$TodoDependencyPayload<ExtArgs>[]
+      attachments: Prisma.$TodoAttachmentPayload<ExtArgs>[]
+      comments: Prisma.$TodoCommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      status: $Enums.TodoStatus
+      priority: $Enums.TodoPriority
+      startDate: Date | null
+      dueDate: Date | null
+      completedAt: Date | null
+      estimatedHours: number | null
+      actualHours: number | null
+      progress: number
+      tags: string
+      isDelayed: boolean
+      delayReason: string | null
+      createdAt: Date
+      updatedAt: Date
+      todoListId: string
+      assignedToId: string | null
+      createdById: string
+    }, ExtArgs["result"]["todoItem"]>
+    composites: {}
+  }
+
+  type TodoItemGetPayload<S extends boolean | null | undefined | TodoItemDefaultArgs> = $Result.GetResult<Prisma.$TodoItemPayload, S>
+
+  type TodoItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TodoItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TodoItemCountAggregateInputType | true
+    }
+
+  export interface TodoItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TodoItem'], meta: { name: 'TodoItem' } }
+    /**
+     * Find zero or one TodoItem that matches the filter.
+     * @param {TodoItemFindUniqueArgs} args - Arguments to find a TodoItem
+     * @example
+     * // Get one TodoItem
+     * const todoItem = await prisma.todoItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoItemFindUniqueArgs>(args: SelectSubset<T, TodoItemFindUniqueArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TodoItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TodoItemFindUniqueOrThrowArgs} args - Arguments to find a TodoItem
+     * @example
+     * // Get one TodoItem
+     * const todoItem = await prisma.todoItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoItemFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemFindFirstArgs} args - Arguments to find a TodoItem
+     * @example
+     * // Get one TodoItem
+     * const todoItem = await prisma.todoItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoItemFindFirstArgs>(args?: SelectSubset<T, TodoItemFindFirstArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemFindFirstOrThrowArgs} args - Arguments to find a TodoItem
+     * @example
+     * // Get one TodoItem
+     * const todoItem = await prisma.todoItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoItemFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TodoItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TodoItems
+     * const todoItems = await prisma.todoItem.findMany()
+     * 
+     * // Get first 10 TodoItems
+     * const todoItems = await prisma.todoItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoItemWithIdOnly = await prisma.todoItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoItemFindManyArgs>(args?: SelectSubset<T, TodoItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TodoItem.
+     * @param {TodoItemCreateArgs} args - Arguments to create a TodoItem.
+     * @example
+     * // Create one TodoItem
+     * const TodoItem = await prisma.todoItem.create({
+     *   data: {
+     *     // ... data to create a TodoItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoItemCreateArgs>(args: SelectSubset<T, TodoItemCreateArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TodoItems.
+     * @param {TodoItemCreateManyArgs} args - Arguments to create many TodoItems.
+     * @example
+     * // Create many TodoItems
+     * const todoItem = await prisma.todoItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoItemCreateManyArgs>(args?: SelectSubset<T, TodoItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TodoItems and returns the data saved in the database.
+     * @param {TodoItemCreateManyAndReturnArgs} args - Arguments to create many TodoItems.
+     * @example
+     * // Create many TodoItems
+     * const todoItem = await prisma.todoItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TodoItems and only return the `id`
+     * const todoItemWithIdOnly = await prisma.todoItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TodoItemCreateManyAndReturnArgs>(args?: SelectSubset<T, TodoItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TodoItem.
+     * @param {TodoItemDeleteArgs} args - Arguments to delete one TodoItem.
+     * @example
+     * // Delete one TodoItem
+     * const TodoItem = await prisma.todoItem.delete({
+     *   where: {
+     *     // ... filter to delete one TodoItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoItemDeleteArgs>(args: SelectSubset<T, TodoItemDeleteArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TodoItem.
+     * @param {TodoItemUpdateArgs} args - Arguments to update one TodoItem.
+     * @example
+     * // Update one TodoItem
+     * const todoItem = await prisma.todoItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoItemUpdateArgs>(args: SelectSubset<T, TodoItemUpdateArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TodoItems.
+     * @param {TodoItemDeleteManyArgs} args - Arguments to filter TodoItems to delete.
+     * @example
+     * // Delete a few TodoItems
+     * const { count } = await prisma.todoItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoItemDeleteManyArgs>(args?: SelectSubset<T, TodoItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TodoItems
+     * const todoItem = await prisma.todoItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoItemUpdateManyArgs>(args: SelectSubset<T, TodoItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoItems and returns the data updated in the database.
+     * @param {TodoItemUpdateManyAndReturnArgs} args - Arguments to update many TodoItems.
+     * @example
+     * // Update many TodoItems
+     * const todoItem = await prisma.todoItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TodoItems and only return the `id`
+     * const todoItemWithIdOnly = await prisma.todoItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TodoItemUpdateManyAndReturnArgs>(args: SelectSubset<T, TodoItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TodoItem.
+     * @param {TodoItemUpsertArgs} args - Arguments to update or create a TodoItem.
+     * @example
+     * // Update or create a TodoItem
+     * const todoItem = await prisma.todoItem.upsert({
+     *   create: {
+     *     // ... data to create a TodoItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TodoItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoItemUpsertArgs>(args: SelectSubset<T, TodoItemUpsertArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TodoItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemCountArgs} args - Arguments to filter TodoItems to count.
+     * @example
+     * // Count the number of TodoItems
+     * const count = await prisma.todoItem.count({
+     *   where: {
+     *     // ... the filter for the TodoItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoItemCountArgs>(
+      args?: Subset<T, TodoItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TodoItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoItemAggregateArgs>(args: Subset<T, TodoItemAggregateArgs>): Prisma.PrismaPromise<GetTodoItemAggregateType<T>>
+
+    /**
+     * Group by TodoItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoItemGroupByArgs['orderBy'] }
+        : { orderBy?: TodoItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TodoItem model
+   */
+  readonly fields: TodoItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TodoItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    todoList<T extends TodoListDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TodoListDefaultArgs<ExtArgs>>): Prisma__TodoListClient<$Result.GetResult<Prisma.$TodoListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignedTo<T extends TodoItem$assignedToArgs<ExtArgs> = {}>(args?: Subset<T, TodoItem$assignedToArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dependencies<T extends TodoItem$dependenciesArgs<ExtArgs> = {}>(args?: Subset<T, TodoItem$dependenciesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dependents<T extends TodoItem$dependentsArgs<ExtArgs> = {}>(args?: Subset<T, TodoItem$dependentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    attachments<T extends TodoItem$attachmentsArgs<ExtArgs> = {}>(args?: Subset<T, TodoItem$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends TodoItem$commentsArgs<ExtArgs> = {}>(args?: Subset<T, TodoItem$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TodoItem model
+   */
+  interface TodoItemFieldRefs {
+    readonly id: FieldRef<"TodoItem", 'String'>
+    readonly title: FieldRef<"TodoItem", 'String'>
+    readonly description: FieldRef<"TodoItem", 'String'>
+    readonly status: FieldRef<"TodoItem", 'TodoStatus'>
+    readonly priority: FieldRef<"TodoItem", 'TodoPriority'>
+    readonly startDate: FieldRef<"TodoItem", 'DateTime'>
+    readonly dueDate: FieldRef<"TodoItem", 'DateTime'>
+    readonly completedAt: FieldRef<"TodoItem", 'DateTime'>
+    readonly estimatedHours: FieldRef<"TodoItem", 'Int'>
+    readonly actualHours: FieldRef<"TodoItem", 'Int'>
+    readonly progress: FieldRef<"TodoItem", 'Int'>
+    readonly tags: FieldRef<"TodoItem", 'String'>
+    readonly isDelayed: FieldRef<"TodoItem", 'Boolean'>
+    readonly delayReason: FieldRef<"TodoItem", 'String'>
+    readonly createdAt: FieldRef<"TodoItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"TodoItem", 'DateTime'>
+    readonly todoListId: FieldRef<"TodoItem", 'String'>
+    readonly assignedToId: FieldRef<"TodoItem", 'String'>
+    readonly createdById: FieldRef<"TodoItem", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TodoItem findUnique
+   */
+  export type TodoItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoItem to fetch.
+     */
+    where: TodoItemWhereUniqueInput
+  }
+
+  /**
+   * TodoItem findUniqueOrThrow
+   */
+  export type TodoItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoItem to fetch.
+     */
+    where: TodoItemWhereUniqueInput
+  }
+
+  /**
+   * TodoItem findFirst
+   */
+  export type TodoItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoItem to fetch.
+     */
+    where?: TodoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoItems to fetch.
+     */
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoItems.
+     */
+    cursor?: TodoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoItems.
+     */
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem findFirstOrThrow
+   */
+  export type TodoItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoItem to fetch.
+     */
+    where?: TodoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoItems to fetch.
+     */
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoItems.
+     */
+    cursor?: TodoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoItems.
+     */
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem findMany
+   */
+  export type TodoItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoItems to fetch.
+     */
+    where?: TodoItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoItems to fetch.
+     */
+    orderBy?: TodoItemOrderByWithRelationInput | TodoItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TodoItems.
+     */
+    cursor?: TodoItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoItems.
+     */
+    skip?: number
+    distinct?: TodoItemScalarFieldEnum | TodoItemScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem create
+   */
+  export type TodoItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TodoItem.
+     */
+    data: XOR<TodoItemCreateInput, TodoItemUncheckedCreateInput>
+  }
+
+  /**
+   * TodoItem createMany
+   */
+  export type TodoItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TodoItems.
+     */
+    data: TodoItemCreateManyInput | TodoItemCreateManyInput[]
+  }
+
+  /**
+   * TodoItem createManyAndReturn
+   */
+  export type TodoItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many TodoItems.
+     */
+    data: TodoItemCreateManyInput | TodoItemCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoItem update
+   */
+  export type TodoItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TodoItem.
+     */
+    data: XOR<TodoItemUpdateInput, TodoItemUncheckedUpdateInput>
+    /**
+     * Choose, which TodoItem to update.
+     */
+    where: TodoItemWhereUniqueInput
+  }
+
+  /**
+   * TodoItem updateMany
+   */
+  export type TodoItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TodoItems.
+     */
+    data: XOR<TodoItemUpdateManyMutationInput, TodoItemUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoItems to update
+     */
+    where?: TodoItemWhereInput
+    /**
+     * Limit how many TodoItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoItem updateManyAndReturn
+   */
+  export type TodoItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * The data used to update TodoItems.
+     */
+    data: XOR<TodoItemUpdateManyMutationInput, TodoItemUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoItems to update
+     */
+    where?: TodoItemWhereInput
+    /**
+     * Limit how many TodoItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoItem upsert
+   */
+  export type TodoItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TodoItem to update in case it exists.
+     */
+    where: TodoItemWhereUniqueInput
+    /**
+     * In case the TodoItem found by the `where` argument doesn't exist, create a new TodoItem with this data.
+     */
+    create: XOR<TodoItemCreateInput, TodoItemUncheckedCreateInput>
+    /**
+     * In case the TodoItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoItemUpdateInput, TodoItemUncheckedUpdateInput>
+  }
+
+  /**
+   * TodoItem delete
+   */
+  export type TodoItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+    /**
+     * Filter which TodoItem to delete.
+     */
+    where: TodoItemWhereUniqueInput
+  }
+
+  /**
+   * TodoItem deleteMany
+   */
+  export type TodoItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoItems to delete
+     */
+    where?: TodoItemWhereInput
+    /**
+     * Limit how many TodoItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoItem.assignedTo
+   */
+  export type TodoItem$assignedToArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * TodoItem.dependencies
+   */
+  export type TodoItem$dependenciesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    where?: TodoDependencyWhereInput
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    cursor?: TodoDependencyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoDependencyScalarFieldEnum | TodoDependencyScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem.dependents
+   */
+  export type TodoItem$dependentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    where?: TodoDependencyWhereInput
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    cursor?: TodoDependencyWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoDependencyScalarFieldEnum | TodoDependencyScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem.attachments
+   */
+  export type TodoItem$attachmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    where?: TodoAttachmentWhereInput
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    cursor?: TodoAttachmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoAttachmentScalarFieldEnum | TodoAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem.comments
+   */
+  export type TodoItem$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    where?: TodoCommentWhereInput
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    cursor?: TodoCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoCommentScalarFieldEnum | TodoCommentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoItem without action
+   */
+  export type TodoItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoItem
+     */
+    select?: TodoItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoItem
+     */
+    omit?: TodoItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TodoDependency
+   */
+
+  export type AggregateTodoDependency = {
+    _count: TodoDependencyCountAggregateOutputType | null
+    _avg: TodoDependencyAvgAggregateOutputType | null
+    _sum: TodoDependencySumAggregateOutputType | null
+    _min: TodoDependencyMinAggregateOutputType | null
+    _max: TodoDependencyMaxAggregateOutputType | null
+  }
+
+  export type TodoDependencyAvgAggregateOutputType = {
+    lagDays: number | null
+  }
+
+  export type TodoDependencySumAggregateOutputType = {
+    lagDays: number | null
+  }
+
+  export type TodoDependencyMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.DependencyType | null
+    lagDays: number | null
+    createdAt: Date | null
+    dependsOnId: string | null
+    blockedById: string | null
+  }
+
+  export type TodoDependencyMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.DependencyType | null
+    lagDays: number | null
+    createdAt: Date | null
+    dependsOnId: string | null
+    blockedById: string | null
+  }
+
+  export type TodoDependencyCountAggregateOutputType = {
+    id: number
+    type: number
+    lagDays: number
+    createdAt: number
+    dependsOnId: number
+    blockedById: number
+    _all: number
+  }
+
+
+  export type TodoDependencyAvgAggregateInputType = {
+    lagDays?: true
+  }
+
+  export type TodoDependencySumAggregateInputType = {
+    lagDays?: true
+  }
+
+  export type TodoDependencyMinAggregateInputType = {
+    id?: true
+    type?: true
+    lagDays?: true
+    createdAt?: true
+    dependsOnId?: true
+    blockedById?: true
+  }
+
+  export type TodoDependencyMaxAggregateInputType = {
+    id?: true
+    type?: true
+    lagDays?: true
+    createdAt?: true
+    dependsOnId?: true
+    blockedById?: true
+  }
+
+  export type TodoDependencyCountAggregateInputType = {
+    id?: true
+    type?: true
+    lagDays?: true
+    createdAt?: true
+    dependsOnId?: true
+    blockedById?: true
+    _all?: true
+  }
+
+  export type TodoDependencyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoDependency to aggregate.
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoDependencies to fetch.
+     */
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoDependencyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoDependencies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoDependencies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TodoDependencies
+    **/
+    _count?: true | TodoDependencyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TodoDependencyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TodoDependencySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoDependencyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoDependencyMaxAggregateInputType
+  }
+
+  export type GetTodoDependencyAggregateType<T extends TodoDependencyAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodoDependency]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodoDependency[P]>
+      : GetScalarType<T[P], AggregateTodoDependency[P]>
+  }
+
+
+
+
+  export type TodoDependencyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoDependencyWhereInput
+    orderBy?: TodoDependencyOrderByWithAggregationInput | TodoDependencyOrderByWithAggregationInput[]
+    by: TodoDependencyScalarFieldEnum[] | TodoDependencyScalarFieldEnum
+    having?: TodoDependencyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoDependencyCountAggregateInputType | true
+    _avg?: TodoDependencyAvgAggregateInputType
+    _sum?: TodoDependencySumAggregateInputType
+    _min?: TodoDependencyMinAggregateInputType
+    _max?: TodoDependencyMaxAggregateInputType
+  }
+
+  export type TodoDependencyGroupByOutputType = {
+    id: string
+    type: $Enums.DependencyType
+    lagDays: number
+    createdAt: Date
+    dependsOnId: string
+    blockedById: string
+    _count: TodoDependencyCountAggregateOutputType | null
+    _avg: TodoDependencyAvgAggregateOutputType | null
+    _sum: TodoDependencySumAggregateOutputType | null
+    _min: TodoDependencyMinAggregateOutputType | null
+    _max: TodoDependencyMaxAggregateOutputType | null
+  }
+
+  type GetTodoDependencyGroupByPayload<T extends TodoDependencyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoDependencyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoDependencyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoDependencyGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoDependencyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoDependencySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    lagDays?: boolean
+    createdAt?: boolean
+    dependsOnId?: boolean
+    blockedById?: boolean
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoDependency"]>
+
+  export type TodoDependencySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    lagDays?: boolean
+    createdAt?: boolean
+    dependsOnId?: boolean
+    blockedById?: boolean
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoDependency"]>
+
+  export type TodoDependencySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    lagDays?: boolean
+    createdAt?: boolean
+    dependsOnId?: boolean
+    blockedById?: boolean
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoDependency"]>
+
+  export type TodoDependencySelectScalar = {
+    id?: boolean
+    type?: boolean
+    lagDays?: boolean
+    createdAt?: boolean
+    dependsOnId?: boolean
+    blockedById?: boolean
+  }
+
+  export type TodoDependencyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "lagDays" | "createdAt" | "dependsOnId" | "blockedById", ExtArgs["result"]["todoDependency"]>
+  export type TodoDependencyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }
+  export type TodoDependencyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }
+  export type TodoDependencyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dependsOn?: boolean | TodoItemDefaultArgs<ExtArgs>
+    blockedBy?: boolean | TodoItemDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoDependencyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TodoDependency"
+    objects: {
+      dependsOn: Prisma.$TodoItemPayload<ExtArgs>
+      blockedBy: Prisma.$TodoItemPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.DependencyType
+      lagDays: number
+      createdAt: Date
+      dependsOnId: string
+      blockedById: string
+    }, ExtArgs["result"]["todoDependency"]>
+    composites: {}
+  }
+
+  type TodoDependencyGetPayload<S extends boolean | null | undefined | TodoDependencyDefaultArgs> = $Result.GetResult<Prisma.$TodoDependencyPayload, S>
+
+  type TodoDependencyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TodoDependencyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TodoDependencyCountAggregateInputType | true
+    }
+
+  export interface TodoDependencyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TodoDependency'], meta: { name: 'TodoDependency' } }
+    /**
+     * Find zero or one TodoDependency that matches the filter.
+     * @param {TodoDependencyFindUniqueArgs} args - Arguments to find a TodoDependency
+     * @example
+     * // Get one TodoDependency
+     * const todoDependency = await prisma.todoDependency.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoDependencyFindUniqueArgs>(args: SelectSubset<T, TodoDependencyFindUniqueArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TodoDependency that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TodoDependencyFindUniqueOrThrowArgs} args - Arguments to find a TodoDependency
+     * @example
+     * // Get one TodoDependency
+     * const todoDependency = await prisma.todoDependency.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoDependencyFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoDependencyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoDependency that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyFindFirstArgs} args - Arguments to find a TodoDependency
+     * @example
+     * // Get one TodoDependency
+     * const todoDependency = await prisma.todoDependency.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoDependencyFindFirstArgs>(args?: SelectSubset<T, TodoDependencyFindFirstArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoDependency that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyFindFirstOrThrowArgs} args - Arguments to find a TodoDependency
+     * @example
+     * // Get one TodoDependency
+     * const todoDependency = await prisma.todoDependency.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoDependencyFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoDependencyFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TodoDependencies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TodoDependencies
+     * const todoDependencies = await prisma.todoDependency.findMany()
+     * 
+     * // Get first 10 TodoDependencies
+     * const todoDependencies = await prisma.todoDependency.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoDependencyWithIdOnly = await prisma.todoDependency.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoDependencyFindManyArgs>(args?: SelectSubset<T, TodoDependencyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TodoDependency.
+     * @param {TodoDependencyCreateArgs} args - Arguments to create a TodoDependency.
+     * @example
+     * // Create one TodoDependency
+     * const TodoDependency = await prisma.todoDependency.create({
+     *   data: {
+     *     // ... data to create a TodoDependency
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoDependencyCreateArgs>(args: SelectSubset<T, TodoDependencyCreateArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TodoDependencies.
+     * @param {TodoDependencyCreateManyArgs} args - Arguments to create many TodoDependencies.
+     * @example
+     * // Create many TodoDependencies
+     * const todoDependency = await prisma.todoDependency.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoDependencyCreateManyArgs>(args?: SelectSubset<T, TodoDependencyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TodoDependencies and returns the data saved in the database.
+     * @param {TodoDependencyCreateManyAndReturnArgs} args - Arguments to create many TodoDependencies.
+     * @example
+     * // Create many TodoDependencies
+     * const todoDependency = await prisma.todoDependency.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TodoDependencies and only return the `id`
+     * const todoDependencyWithIdOnly = await prisma.todoDependency.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TodoDependencyCreateManyAndReturnArgs>(args?: SelectSubset<T, TodoDependencyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TodoDependency.
+     * @param {TodoDependencyDeleteArgs} args - Arguments to delete one TodoDependency.
+     * @example
+     * // Delete one TodoDependency
+     * const TodoDependency = await prisma.todoDependency.delete({
+     *   where: {
+     *     // ... filter to delete one TodoDependency
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoDependencyDeleteArgs>(args: SelectSubset<T, TodoDependencyDeleteArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TodoDependency.
+     * @param {TodoDependencyUpdateArgs} args - Arguments to update one TodoDependency.
+     * @example
+     * // Update one TodoDependency
+     * const todoDependency = await prisma.todoDependency.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoDependencyUpdateArgs>(args: SelectSubset<T, TodoDependencyUpdateArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TodoDependencies.
+     * @param {TodoDependencyDeleteManyArgs} args - Arguments to filter TodoDependencies to delete.
+     * @example
+     * // Delete a few TodoDependencies
+     * const { count } = await prisma.todoDependency.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoDependencyDeleteManyArgs>(args?: SelectSubset<T, TodoDependencyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoDependencies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TodoDependencies
+     * const todoDependency = await prisma.todoDependency.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoDependencyUpdateManyArgs>(args: SelectSubset<T, TodoDependencyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoDependencies and returns the data updated in the database.
+     * @param {TodoDependencyUpdateManyAndReturnArgs} args - Arguments to update many TodoDependencies.
+     * @example
+     * // Update many TodoDependencies
+     * const todoDependency = await prisma.todoDependency.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TodoDependencies and only return the `id`
+     * const todoDependencyWithIdOnly = await prisma.todoDependency.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TodoDependencyUpdateManyAndReturnArgs>(args: SelectSubset<T, TodoDependencyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TodoDependency.
+     * @param {TodoDependencyUpsertArgs} args - Arguments to update or create a TodoDependency.
+     * @example
+     * // Update or create a TodoDependency
+     * const todoDependency = await prisma.todoDependency.upsert({
+     *   create: {
+     *     // ... data to create a TodoDependency
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TodoDependency we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoDependencyUpsertArgs>(args: SelectSubset<T, TodoDependencyUpsertArgs<ExtArgs>>): Prisma__TodoDependencyClient<$Result.GetResult<Prisma.$TodoDependencyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TodoDependencies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyCountArgs} args - Arguments to filter TodoDependencies to count.
+     * @example
+     * // Count the number of TodoDependencies
+     * const count = await prisma.todoDependency.count({
+     *   where: {
+     *     // ... the filter for the TodoDependencies we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoDependencyCountArgs>(
+      args?: Subset<T, TodoDependencyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoDependencyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TodoDependency.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoDependencyAggregateArgs>(args: Subset<T, TodoDependencyAggregateArgs>): Prisma.PrismaPromise<GetTodoDependencyAggregateType<T>>
+
+    /**
+     * Group by TodoDependency.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoDependencyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoDependencyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoDependencyGroupByArgs['orderBy'] }
+        : { orderBy?: TodoDependencyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoDependencyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoDependencyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TodoDependency model
+   */
+  readonly fields: TodoDependencyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TodoDependency.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoDependencyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    dependsOn<T extends TodoItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TodoItemDefaultArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    blockedBy<T extends TodoItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TodoItemDefaultArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TodoDependency model
+   */
+  interface TodoDependencyFieldRefs {
+    readonly id: FieldRef<"TodoDependency", 'String'>
+    readonly type: FieldRef<"TodoDependency", 'DependencyType'>
+    readonly lagDays: FieldRef<"TodoDependency", 'Int'>
+    readonly createdAt: FieldRef<"TodoDependency", 'DateTime'>
+    readonly dependsOnId: FieldRef<"TodoDependency", 'String'>
+    readonly blockedById: FieldRef<"TodoDependency", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TodoDependency findUnique
+   */
+  export type TodoDependencyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoDependency to fetch.
+     */
+    where: TodoDependencyWhereUniqueInput
+  }
+
+  /**
+   * TodoDependency findUniqueOrThrow
+   */
+  export type TodoDependencyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoDependency to fetch.
+     */
+    where: TodoDependencyWhereUniqueInput
+  }
+
+  /**
+   * TodoDependency findFirst
+   */
+  export type TodoDependencyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoDependency to fetch.
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoDependencies to fetch.
+     */
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoDependencies.
+     */
+    cursor?: TodoDependencyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoDependencies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoDependencies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoDependencies.
+     */
+    distinct?: TodoDependencyScalarFieldEnum | TodoDependencyScalarFieldEnum[]
+  }
+
+  /**
+   * TodoDependency findFirstOrThrow
+   */
+  export type TodoDependencyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoDependency to fetch.
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoDependencies to fetch.
+     */
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoDependencies.
+     */
+    cursor?: TodoDependencyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoDependencies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoDependencies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoDependencies.
+     */
+    distinct?: TodoDependencyScalarFieldEnum | TodoDependencyScalarFieldEnum[]
+  }
+
+  /**
+   * TodoDependency findMany
+   */
+  export type TodoDependencyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoDependencies to fetch.
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoDependencies to fetch.
+     */
+    orderBy?: TodoDependencyOrderByWithRelationInput | TodoDependencyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TodoDependencies.
+     */
+    cursor?: TodoDependencyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoDependencies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoDependencies.
+     */
+    skip?: number
+    distinct?: TodoDependencyScalarFieldEnum | TodoDependencyScalarFieldEnum[]
+  }
+
+  /**
+   * TodoDependency create
+   */
+  export type TodoDependencyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TodoDependency.
+     */
+    data: XOR<TodoDependencyCreateInput, TodoDependencyUncheckedCreateInput>
+  }
+
+  /**
+   * TodoDependency createMany
+   */
+  export type TodoDependencyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TodoDependencies.
+     */
+    data: TodoDependencyCreateManyInput | TodoDependencyCreateManyInput[]
+  }
+
+  /**
+   * TodoDependency createManyAndReturn
+   */
+  export type TodoDependencyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * The data used to create many TodoDependencies.
+     */
+    data: TodoDependencyCreateManyInput | TodoDependencyCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoDependency update
+   */
+  export type TodoDependencyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TodoDependency.
+     */
+    data: XOR<TodoDependencyUpdateInput, TodoDependencyUncheckedUpdateInput>
+    /**
+     * Choose, which TodoDependency to update.
+     */
+    where: TodoDependencyWhereUniqueInput
+  }
+
+  /**
+   * TodoDependency updateMany
+   */
+  export type TodoDependencyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TodoDependencies.
+     */
+    data: XOR<TodoDependencyUpdateManyMutationInput, TodoDependencyUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoDependencies to update
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * Limit how many TodoDependencies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoDependency updateManyAndReturn
+   */
+  export type TodoDependencyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * The data used to update TodoDependencies.
+     */
+    data: XOR<TodoDependencyUpdateManyMutationInput, TodoDependencyUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoDependencies to update
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * Limit how many TodoDependencies to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoDependency upsert
+   */
+  export type TodoDependencyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TodoDependency to update in case it exists.
+     */
+    where: TodoDependencyWhereUniqueInput
+    /**
+     * In case the TodoDependency found by the `where` argument doesn't exist, create a new TodoDependency with this data.
+     */
+    create: XOR<TodoDependencyCreateInput, TodoDependencyUncheckedCreateInput>
+    /**
+     * In case the TodoDependency was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoDependencyUpdateInput, TodoDependencyUncheckedUpdateInput>
+  }
+
+  /**
+   * TodoDependency delete
+   */
+  export type TodoDependencyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+    /**
+     * Filter which TodoDependency to delete.
+     */
+    where: TodoDependencyWhereUniqueInput
+  }
+
+  /**
+   * TodoDependency deleteMany
+   */
+  export type TodoDependencyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoDependencies to delete
+     */
+    where?: TodoDependencyWhereInput
+    /**
+     * Limit how many TodoDependencies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoDependency without action
+   */
+  export type TodoDependencyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoDependency
+     */
+    select?: TodoDependencySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoDependency
+     */
+    omit?: TodoDependencyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoDependencyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TodoAttachment
+   */
+
+  export type AggregateTodoAttachment = {
+    _count: TodoAttachmentCountAggregateOutputType | null
+    _avg: TodoAttachmentAvgAggregateOutputType | null
+    _sum: TodoAttachmentSumAggregateOutputType | null
+    _min: TodoAttachmentMinAggregateOutputType | null
+    _max: TodoAttachmentMaxAggregateOutputType | null
+  }
+
+  export type TodoAttachmentAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type TodoAttachmentSumAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type TodoAttachmentMinAggregateOutputType = {
+    id: string | null
+    fileName: string | null
+    fileUrl: string | null
+    fileSize: number | null
+    mimeType: string | null
+    uploadedAt: Date | null
+    todoItemId: string | null
+    uploadedById: string | null
+  }
+
+  export type TodoAttachmentMaxAggregateOutputType = {
+    id: string | null
+    fileName: string | null
+    fileUrl: string | null
+    fileSize: number | null
+    mimeType: string | null
+    uploadedAt: Date | null
+    todoItemId: string | null
+    uploadedById: string | null
+  }
+
+  export type TodoAttachmentCountAggregateOutputType = {
+    id: number
+    fileName: number
+    fileUrl: number
+    fileSize: number
+    mimeType: number
+    uploadedAt: number
+    todoItemId: number
+    uploadedById: number
+    _all: number
+  }
+
+
+  export type TodoAttachmentAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type TodoAttachmentSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type TodoAttachmentMinAggregateInputType = {
+    id?: true
+    fileName?: true
+    fileUrl?: true
+    fileSize?: true
+    mimeType?: true
+    uploadedAt?: true
+    todoItemId?: true
+    uploadedById?: true
+  }
+
+  export type TodoAttachmentMaxAggregateInputType = {
+    id?: true
+    fileName?: true
+    fileUrl?: true
+    fileSize?: true
+    mimeType?: true
+    uploadedAt?: true
+    todoItemId?: true
+    uploadedById?: true
+  }
+
+  export type TodoAttachmentCountAggregateInputType = {
+    id?: true
+    fileName?: true
+    fileUrl?: true
+    fileSize?: true
+    mimeType?: true
+    uploadedAt?: true
+    todoItemId?: true
+    uploadedById?: true
+    _all?: true
+  }
+
+  export type TodoAttachmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoAttachment to aggregate.
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoAttachments to fetch.
+     */
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TodoAttachments
+    **/
+    _count?: true | TodoAttachmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TodoAttachmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TodoAttachmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoAttachmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoAttachmentMaxAggregateInputType
+  }
+
+  export type GetTodoAttachmentAggregateType<T extends TodoAttachmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodoAttachment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodoAttachment[P]>
+      : GetScalarType<T[P], AggregateTodoAttachment[P]>
+  }
+
+
+
+
+  export type TodoAttachmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoAttachmentWhereInput
+    orderBy?: TodoAttachmentOrderByWithAggregationInput | TodoAttachmentOrderByWithAggregationInput[]
+    by: TodoAttachmentScalarFieldEnum[] | TodoAttachmentScalarFieldEnum
+    having?: TodoAttachmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoAttachmentCountAggregateInputType | true
+    _avg?: TodoAttachmentAvgAggregateInputType
+    _sum?: TodoAttachmentSumAggregateInputType
+    _min?: TodoAttachmentMinAggregateInputType
+    _max?: TodoAttachmentMaxAggregateInputType
+  }
+
+  export type TodoAttachmentGroupByOutputType = {
+    id: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt: Date
+    todoItemId: string
+    uploadedById: string
+    _count: TodoAttachmentCountAggregateOutputType | null
+    _avg: TodoAttachmentAvgAggregateOutputType | null
+    _sum: TodoAttachmentSumAggregateOutputType | null
+    _min: TodoAttachmentMinAggregateOutputType | null
+    _max: TodoAttachmentMaxAggregateOutputType | null
+  }
+
+  type GetTodoAttachmentGroupByPayload<T extends TodoAttachmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoAttachmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoAttachmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoAttachmentGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoAttachmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoAttachmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fileName?: boolean
+    fileUrl?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    uploadedAt?: boolean
+    todoItemId?: boolean
+    uploadedById?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoAttachment"]>
+
+  export type TodoAttachmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fileName?: boolean
+    fileUrl?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    uploadedAt?: boolean
+    todoItemId?: boolean
+    uploadedById?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoAttachment"]>
+
+  export type TodoAttachmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fileName?: boolean
+    fileUrl?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    uploadedAt?: boolean
+    todoItemId?: boolean
+    uploadedById?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoAttachment"]>
+
+  export type TodoAttachmentSelectScalar = {
+    id?: boolean
+    fileName?: boolean
+    fileUrl?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    uploadedAt?: boolean
+    todoItemId?: boolean
+    uploadedById?: boolean
+  }
+
+  export type TodoAttachmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fileName" | "fileUrl" | "fileSize" | "mimeType" | "uploadedAt" | "todoItemId" | "uploadedById", ExtArgs["result"]["todoAttachment"]>
+  export type TodoAttachmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoAttachmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoAttachmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoAttachmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TodoAttachment"
+    objects: {
+      todoItem: Prisma.$TodoItemPayload<ExtArgs>
+      uploadedBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fileName: string
+      fileUrl: string
+      fileSize: number
+      mimeType: string
+      uploadedAt: Date
+      todoItemId: string
+      uploadedById: string
+    }, ExtArgs["result"]["todoAttachment"]>
+    composites: {}
+  }
+
+  type TodoAttachmentGetPayload<S extends boolean | null | undefined | TodoAttachmentDefaultArgs> = $Result.GetResult<Prisma.$TodoAttachmentPayload, S>
+
+  type TodoAttachmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TodoAttachmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TodoAttachmentCountAggregateInputType | true
+    }
+
+  export interface TodoAttachmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TodoAttachment'], meta: { name: 'TodoAttachment' } }
+    /**
+     * Find zero or one TodoAttachment that matches the filter.
+     * @param {TodoAttachmentFindUniqueArgs} args - Arguments to find a TodoAttachment
+     * @example
+     * // Get one TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoAttachmentFindUniqueArgs>(args: SelectSubset<T, TodoAttachmentFindUniqueArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TodoAttachment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TodoAttachmentFindUniqueOrThrowArgs} args - Arguments to find a TodoAttachment
+     * @example
+     * // Get one TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoAttachmentFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoAttachmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoAttachment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentFindFirstArgs} args - Arguments to find a TodoAttachment
+     * @example
+     * // Get one TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoAttachmentFindFirstArgs>(args?: SelectSubset<T, TodoAttachmentFindFirstArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoAttachment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentFindFirstOrThrowArgs} args - Arguments to find a TodoAttachment
+     * @example
+     * // Get one TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoAttachmentFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoAttachmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TodoAttachments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TodoAttachments
+     * const todoAttachments = await prisma.todoAttachment.findMany()
+     * 
+     * // Get first 10 TodoAttachments
+     * const todoAttachments = await prisma.todoAttachment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoAttachmentWithIdOnly = await prisma.todoAttachment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoAttachmentFindManyArgs>(args?: SelectSubset<T, TodoAttachmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TodoAttachment.
+     * @param {TodoAttachmentCreateArgs} args - Arguments to create a TodoAttachment.
+     * @example
+     * // Create one TodoAttachment
+     * const TodoAttachment = await prisma.todoAttachment.create({
+     *   data: {
+     *     // ... data to create a TodoAttachment
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoAttachmentCreateArgs>(args: SelectSubset<T, TodoAttachmentCreateArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TodoAttachments.
+     * @param {TodoAttachmentCreateManyArgs} args - Arguments to create many TodoAttachments.
+     * @example
+     * // Create many TodoAttachments
+     * const todoAttachment = await prisma.todoAttachment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoAttachmentCreateManyArgs>(args?: SelectSubset<T, TodoAttachmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TodoAttachments and returns the data saved in the database.
+     * @param {TodoAttachmentCreateManyAndReturnArgs} args - Arguments to create many TodoAttachments.
+     * @example
+     * // Create many TodoAttachments
+     * const todoAttachment = await prisma.todoAttachment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TodoAttachments and only return the `id`
+     * const todoAttachmentWithIdOnly = await prisma.todoAttachment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TodoAttachmentCreateManyAndReturnArgs>(args?: SelectSubset<T, TodoAttachmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TodoAttachment.
+     * @param {TodoAttachmentDeleteArgs} args - Arguments to delete one TodoAttachment.
+     * @example
+     * // Delete one TodoAttachment
+     * const TodoAttachment = await prisma.todoAttachment.delete({
+     *   where: {
+     *     // ... filter to delete one TodoAttachment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoAttachmentDeleteArgs>(args: SelectSubset<T, TodoAttachmentDeleteArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TodoAttachment.
+     * @param {TodoAttachmentUpdateArgs} args - Arguments to update one TodoAttachment.
+     * @example
+     * // Update one TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoAttachmentUpdateArgs>(args: SelectSubset<T, TodoAttachmentUpdateArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TodoAttachments.
+     * @param {TodoAttachmentDeleteManyArgs} args - Arguments to filter TodoAttachments to delete.
+     * @example
+     * // Delete a few TodoAttachments
+     * const { count } = await prisma.todoAttachment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoAttachmentDeleteManyArgs>(args?: SelectSubset<T, TodoAttachmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TodoAttachments
+     * const todoAttachment = await prisma.todoAttachment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoAttachmentUpdateManyArgs>(args: SelectSubset<T, TodoAttachmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoAttachments and returns the data updated in the database.
+     * @param {TodoAttachmentUpdateManyAndReturnArgs} args - Arguments to update many TodoAttachments.
+     * @example
+     * // Update many TodoAttachments
+     * const todoAttachment = await prisma.todoAttachment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TodoAttachments and only return the `id`
+     * const todoAttachmentWithIdOnly = await prisma.todoAttachment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TodoAttachmentUpdateManyAndReturnArgs>(args: SelectSubset<T, TodoAttachmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TodoAttachment.
+     * @param {TodoAttachmentUpsertArgs} args - Arguments to update or create a TodoAttachment.
+     * @example
+     * // Update or create a TodoAttachment
+     * const todoAttachment = await prisma.todoAttachment.upsert({
+     *   create: {
+     *     // ... data to create a TodoAttachment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TodoAttachment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoAttachmentUpsertArgs>(args: SelectSubset<T, TodoAttachmentUpsertArgs<ExtArgs>>): Prisma__TodoAttachmentClient<$Result.GetResult<Prisma.$TodoAttachmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TodoAttachments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentCountArgs} args - Arguments to filter TodoAttachments to count.
+     * @example
+     * // Count the number of TodoAttachments
+     * const count = await prisma.todoAttachment.count({
+     *   where: {
+     *     // ... the filter for the TodoAttachments we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoAttachmentCountArgs>(
+      args?: Subset<T, TodoAttachmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoAttachmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TodoAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoAttachmentAggregateArgs>(args: Subset<T, TodoAttachmentAggregateArgs>): Prisma.PrismaPromise<GetTodoAttachmentAggregateType<T>>
+
+    /**
+     * Group by TodoAttachment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoAttachmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoAttachmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoAttachmentGroupByArgs['orderBy'] }
+        : { orderBy?: TodoAttachmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoAttachmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoAttachmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TodoAttachment model
+   */
+  readonly fields: TodoAttachmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TodoAttachment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoAttachmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    todoItem<T extends TodoItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TodoItemDefaultArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    uploadedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TodoAttachment model
+   */
+  interface TodoAttachmentFieldRefs {
+    readonly id: FieldRef<"TodoAttachment", 'String'>
+    readonly fileName: FieldRef<"TodoAttachment", 'String'>
+    readonly fileUrl: FieldRef<"TodoAttachment", 'String'>
+    readonly fileSize: FieldRef<"TodoAttachment", 'Int'>
+    readonly mimeType: FieldRef<"TodoAttachment", 'String'>
+    readonly uploadedAt: FieldRef<"TodoAttachment", 'DateTime'>
+    readonly todoItemId: FieldRef<"TodoAttachment", 'String'>
+    readonly uploadedById: FieldRef<"TodoAttachment", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TodoAttachment findUnique
+   */
+  export type TodoAttachmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoAttachment to fetch.
+     */
+    where: TodoAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TodoAttachment findUniqueOrThrow
+   */
+  export type TodoAttachmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoAttachment to fetch.
+     */
+    where: TodoAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TodoAttachment findFirst
+   */
+  export type TodoAttachmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoAttachment to fetch.
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoAttachments to fetch.
+     */
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoAttachments.
+     */
+    cursor?: TodoAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoAttachments.
+     */
+    distinct?: TodoAttachmentScalarFieldEnum | TodoAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoAttachment findFirstOrThrow
+   */
+  export type TodoAttachmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoAttachment to fetch.
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoAttachments to fetch.
+     */
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoAttachments.
+     */
+    cursor?: TodoAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoAttachments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoAttachments.
+     */
+    distinct?: TodoAttachmentScalarFieldEnum | TodoAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoAttachment findMany
+   */
+  export type TodoAttachmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoAttachments to fetch.
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoAttachments to fetch.
+     */
+    orderBy?: TodoAttachmentOrderByWithRelationInput | TodoAttachmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TodoAttachments.
+     */
+    cursor?: TodoAttachmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoAttachments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoAttachments.
+     */
+    skip?: number
+    distinct?: TodoAttachmentScalarFieldEnum | TodoAttachmentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoAttachment create
+   */
+  export type TodoAttachmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TodoAttachment.
+     */
+    data: XOR<TodoAttachmentCreateInput, TodoAttachmentUncheckedCreateInput>
+  }
+
+  /**
+   * TodoAttachment createMany
+   */
+  export type TodoAttachmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TodoAttachments.
+     */
+    data: TodoAttachmentCreateManyInput | TodoAttachmentCreateManyInput[]
+  }
+
+  /**
+   * TodoAttachment createManyAndReturn
+   */
+  export type TodoAttachmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many TodoAttachments.
+     */
+    data: TodoAttachmentCreateManyInput | TodoAttachmentCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoAttachment update
+   */
+  export type TodoAttachmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TodoAttachment.
+     */
+    data: XOR<TodoAttachmentUpdateInput, TodoAttachmentUncheckedUpdateInput>
+    /**
+     * Choose, which TodoAttachment to update.
+     */
+    where: TodoAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TodoAttachment updateMany
+   */
+  export type TodoAttachmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TodoAttachments.
+     */
+    data: XOR<TodoAttachmentUpdateManyMutationInput, TodoAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoAttachments to update
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * Limit how many TodoAttachments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoAttachment updateManyAndReturn
+   */
+  export type TodoAttachmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * The data used to update TodoAttachments.
+     */
+    data: XOR<TodoAttachmentUpdateManyMutationInput, TodoAttachmentUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoAttachments to update
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * Limit how many TodoAttachments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoAttachment upsert
+   */
+  export type TodoAttachmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TodoAttachment to update in case it exists.
+     */
+    where: TodoAttachmentWhereUniqueInput
+    /**
+     * In case the TodoAttachment found by the `where` argument doesn't exist, create a new TodoAttachment with this data.
+     */
+    create: XOR<TodoAttachmentCreateInput, TodoAttachmentUncheckedCreateInput>
+    /**
+     * In case the TodoAttachment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoAttachmentUpdateInput, TodoAttachmentUncheckedUpdateInput>
+  }
+
+  /**
+   * TodoAttachment delete
+   */
+  export type TodoAttachmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+    /**
+     * Filter which TodoAttachment to delete.
+     */
+    where: TodoAttachmentWhereUniqueInput
+  }
+
+  /**
+   * TodoAttachment deleteMany
+   */
+  export type TodoAttachmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoAttachments to delete
+     */
+    where?: TodoAttachmentWhereInput
+    /**
+     * Limit how many TodoAttachments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoAttachment without action
+   */
+  export type TodoAttachmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoAttachment
+     */
+    select?: TodoAttachmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoAttachment
+     */
+    omit?: TodoAttachmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoAttachmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TodoComment
+   */
+
+  export type AggregateTodoComment = {
+    _count: TodoCommentCountAggregateOutputType | null
+    _min: TodoCommentMinAggregateOutputType | null
+    _max: TodoCommentMaxAggregateOutputType | null
+  }
+
+  export type TodoCommentMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    todoItemId: string | null
+    authorId: string | null
+  }
+
+  export type TodoCommentMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    todoItemId: string | null
+    authorId: string | null
+  }
+
+  export type TodoCommentCountAggregateOutputType = {
+    id: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    todoItemId: number
+    authorId: number
+    _all: number
+  }
+
+
+  export type TodoCommentMinAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    todoItemId?: true
+    authorId?: true
+  }
+
+  export type TodoCommentMaxAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    todoItemId?: true
+    authorId?: true
+  }
+
+  export type TodoCommentCountAggregateInputType = {
+    id?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    todoItemId?: true
+    authorId?: true
+    _all?: true
+  }
+
+  export type TodoCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoComment to aggregate.
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoComments to fetch.
+     */
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TodoCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TodoComments
+    **/
+    _count?: true | TodoCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TodoCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TodoCommentMaxAggregateInputType
+  }
+
+  export type GetTodoCommentAggregateType<T extends TodoCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateTodoComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTodoComment[P]>
+      : GetScalarType<T[P], AggregateTodoComment[P]>
+  }
+
+
+
+
+  export type TodoCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoCommentWhereInput
+    orderBy?: TodoCommentOrderByWithAggregationInput | TodoCommentOrderByWithAggregationInput[]
+    by: TodoCommentScalarFieldEnum[] | TodoCommentScalarFieldEnum
+    having?: TodoCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TodoCommentCountAggregateInputType | true
+    _min?: TodoCommentMinAggregateInputType
+    _max?: TodoCommentMaxAggregateInputType
+  }
+
+  export type TodoCommentGroupByOutputType = {
+    id: string
+    content: string
+    createdAt: Date
+    updatedAt: Date
+    todoItemId: string
+    authorId: string
+    _count: TodoCommentCountAggregateOutputType | null
+    _min: TodoCommentMinAggregateOutputType | null
+    _max: TodoCommentMaxAggregateOutputType | null
+  }
+
+  type GetTodoCommentGroupByPayload<T extends TodoCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TodoCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TodoCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TodoCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], TodoCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TodoCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoItemId?: boolean
+    authorId?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoComment"]>
+
+  export type TodoCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoItemId?: boolean
+    authorId?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoComment"]>
+
+  export type TodoCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoItemId?: boolean
+    authorId?: boolean
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["todoComment"]>
+
+  export type TodoCommentSelectScalar = {
+    id?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    todoItemId?: boolean
+    authorId?: boolean
+  }
+
+  export type TodoCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "todoItemId" | "authorId", ExtArgs["result"]["todoComment"]>
+  export type TodoCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TodoCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    todoItem?: boolean | TodoItemDefaultArgs<ExtArgs>
+    author?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TodoCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TodoComment"
+    objects: {
+      todoItem: Prisma.$TodoItemPayload<ExtArgs>
+      author: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      createdAt: Date
+      updatedAt: Date
+      todoItemId: string
+      authorId: string
+    }, ExtArgs["result"]["todoComment"]>
+    composites: {}
+  }
+
+  type TodoCommentGetPayload<S extends boolean | null | undefined | TodoCommentDefaultArgs> = $Result.GetResult<Prisma.$TodoCommentPayload, S>
+
+  type TodoCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TodoCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TodoCommentCountAggregateInputType | true
+    }
+
+  export interface TodoCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TodoComment'], meta: { name: 'TodoComment' } }
+    /**
+     * Find zero or one TodoComment that matches the filter.
+     * @param {TodoCommentFindUniqueArgs} args - Arguments to find a TodoComment
+     * @example
+     * // Get one TodoComment
+     * const todoComment = await prisma.todoComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TodoCommentFindUniqueArgs>(args: SelectSubset<T, TodoCommentFindUniqueArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TodoComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TodoCommentFindUniqueOrThrowArgs} args - Arguments to find a TodoComment
+     * @example
+     * // Get one TodoComment
+     * const todoComment = await prisma.todoComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TodoCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, TodoCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentFindFirstArgs} args - Arguments to find a TodoComment
+     * @example
+     * // Get one TodoComment
+     * const todoComment = await prisma.todoComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TodoCommentFindFirstArgs>(args?: SelectSubset<T, TodoCommentFindFirstArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TodoComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentFindFirstOrThrowArgs} args - Arguments to find a TodoComment
+     * @example
+     * // Get one TodoComment
+     * const todoComment = await prisma.todoComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TodoCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, TodoCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TodoComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TodoComments
+     * const todoComments = await prisma.todoComment.findMany()
+     * 
+     * // Get first 10 TodoComments
+     * const todoComments = await prisma.todoComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const todoCommentWithIdOnly = await prisma.todoComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TodoCommentFindManyArgs>(args?: SelectSubset<T, TodoCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TodoComment.
+     * @param {TodoCommentCreateArgs} args - Arguments to create a TodoComment.
+     * @example
+     * // Create one TodoComment
+     * const TodoComment = await prisma.todoComment.create({
+     *   data: {
+     *     // ... data to create a TodoComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends TodoCommentCreateArgs>(args: SelectSubset<T, TodoCommentCreateArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TodoComments.
+     * @param {TodoCommentCreateManyArgs} args - Arguments to create many TodoComments.
+     * @example
+     * // Create many TodoComments
+     * const todoComment = await prisma.todoComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TodoCommentCreateManyArgs>(args?: SelectSubset<T, TodoCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TodoComments and returns the data saved in the database.
+     * @param {TodoCommentCreateManyAndReturnArgs} args - Arguments to create many TodoComments.
+     * @example
+     * // Create many TodoComments
+     * const todoComment = await prisma.todoComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TodoComments and only return the `id`
+     * const todoCommentWithIdOnly = await prisma.todoComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TodoCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, TodoCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TodoComment.
+     * @param {TodoCommentDeleteArgs} args - Arguments to delete one TodoComment.
+     * @example
+     * // Delete one TodoComment
+     * const TodoComment = await prisma.todoComment.delete({
+     *   where: {
+     *     // ... filter to delete one TodoComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TodoCommentDeleteArgs>(args: SelectSubset<T, TodoCommentDeleteArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TodoComment.
+     * @param {TodoCommentUpdateArgs} args - Arguments to update one TodoComment.
+     * @example
+     * // Update one TodoComment
+     * const todoComment = await prisma.todoComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TodoCommentUpdateArgs>(args: SelectSubset<T, TodoCommentUpdateArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TodoComments.
+     * @param {TodoCommentDeleteManyArgs} args - Arguments to filter TodoComments to delete.
+     * @example
+     * // Delete a few TodoComments
+     * const { count } = await prisma.todoComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TodoCommentDeleteManyArgs>(args?: SelectSubset<T, TodoCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TodoComments
+     * const todoComment = await prisma.todoComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TodoCommentUpdateManyArgs>(args: SelectSubset<T, TodoCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TodoComments and returns the data updated in the database.
+     * @param {TodoCommentUpdateManyAndReturnArgs} args - Arguments to update many TodoComments.
+     * @example
+     * // Update many TodoComments
+     * const todoComment = await prisma.todoComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TodoComments and only return the `id`
+     * const todoCommentWithIdOnly = await prisma.todoComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TodoCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, TodoCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TodoComment.
+     * @param {TodoCommentUpsertArgs} args - Arguments to update or create a TodoComment.
+     * @example
+     * // Update or create a TodoComment
+     * const todoComment = await prisma.todoComment.upsert({
+     *   create: {
+     *     // ... data to create a TodoComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TodoComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TodoCommentUpsertArgs>(args: SelectSubset<T, TodoCommentUpsertArgs<ExtArgs>>): Prisma__TodoCommentClient<$Result.GetResult<Prisma.$TodoCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TodoComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentCountArgs} args - Arguments to filter TodoComments to count.
+     * @example
+     * // Count the number of TodoComments
+     * const count = await prisma.todoComment.count({
+     *   where: {
+     *     // ... the filter for the TodoComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends TodoCommentCountArgs>(
+      args?: Subset<T, TodoCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TodoCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TodoComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TodoCommentAggregateArgs>(args: Subset<T, TodoCommentAggregateArgs>): Prisma.PrismaPromise<GetTodoCommentAggregateType<T>>
+
+    /**
+     * Group by TodoComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TodoCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TodoCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TodoCommentGroupByArgs['orderBy'] }
+        : { orderBy?: TodoCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TodoCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTodoCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TodoComment model
+   */
+  readonly fields: TodoCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TodoComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TodoCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    todoItem<T extends TodoItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TodoItemDefaultArgs<ExtArgs>>): Prisma__TodoItemClient<$Result.GetResult<Prisma.$TodoItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TodoComment model
+   */
+  interface TodoCommentFieldRefs {
+    readonly id: FieldRef<"TodoComment", 'String'>
+    readonly content: FieldRef<"TodoComment", 'String'>
+    readonly createdAt: FieldRef<"TodoComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"TodoComment", 'DateTime'>
+    readonly todoItemId: FieldRef<"TodoComment", 'String'>
+    readonly authorId: FieldRef<"TodoComment", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TodoComment findUnique
+   */
+  export type TodoCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoComment to fetch.
+     */
+    where: TodoCommentWhereUniqueInput
+  }
+
+  /**
+   * TodoComment findUniqueOrThrow
+   */
+  export type TodoCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoComment to fetch.
+     */
+    where: TodoCommentWhereUniqueInput
+  }
+
+  /**
+   * TodoComment findFirst
+   */
+  export type TodoCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoComment to fetch.
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoComments to fetch.
+     */
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoComments.
+     */
+    cursor?: TodoCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoComments.
+     */
+    distinct?: TodoCommentScalarFieldEnum | TodoCommentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoComment findFirstOrThrow
+   */
+  export type TodoCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoComment to fetch.
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoComments to fetch.
+     */
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TodoComments.
+     */
+    cursor?: TodoCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TodoComments.
+     */
+    distinct?: TodoCommentScalarFieldEnum | TodoCommentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoComment findMany
+   */
+  export type TodoCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which TodoComments to fetch.
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TodoComments to fetch.
+     */
+    orderBy?: TodoCommentOrderByWithRelationInput | TodoCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TodoComments.
+     */
+    cursor?: TodoCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TodoComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TodoComments.
+     */
+    skip?: number
+    distinct?: TodoCommentScalarFieldEnum | TodoCommentScalarFieldEnum[]
+  }
+
+  /**
+   * TodoComment create
+   */
+  export type TodoCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TodoComment.
+     */
+    data: XOR<TodoCommentCreateInput, TodoCommentUncheckedCreateInput>
+  }
+
+  /**
+   * TodoComment createMany
+   */
+  export type TodoCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TodoComments.
+     */
+    data: TodoCommentCreateManyInput | TodoCommentCreateManyInput[]
+  }
+
+  /**
+   * TodoComment createManyAndReturn
+   */
+  export type TodoCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many TodoComments.
+     */
+    data: TodoCommentCreateManyInput | TodoCommentCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoComment update
+   */
+  export type TodoCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TodoComment.
+     */
+    data: XOR<TodoCommentUpdateInput, TodoCommentUncheckedUpdateInput>
+    /**
+     * Choose, which TodoComment to update.
+     */
+    where: TodoCommentWhereUniqueInput
+  }
+
+  /**
+   * TodoComment updateMany
+   */
+  export type TodoCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TodoComments.
+     */
+    data: XOR<TodoCommentUpdateManyMutationInput, TodoCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoComments to update
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * Limit how many TodoComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoComment updateManyAndReturn
+   */
+  export type TodoCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update TodoComments.
+     */
+    data: XOR<TodoCommentUpdateManyMutationInput, TodoCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which TodoComments to update
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * Limit how many TodoComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TodoComment upsert
+   */
+  export type TodoCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TodoComment to update in case it exists.
+     */
+    where: TodoCommentWhereUniqueInput
+    /**
+     * In case the TodoComment found by the `where` argument doesn't exist, create a new TodoComment with this data.
+     */
+    create: XOR<TodoCommentCreateInput, TodoCommentUncheckedCreateInput>
+    /**
+     * In case the TodoComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TodoCommentUpdateInput, TodoCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * TodoComment delete
+   */
+  export type TodoCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+    /**
+     * Filter which TodoComment to delete.
+     */
+    where: TodoCommentWhereUniqueInput
+  }
+
+  /**
+   * TodoComment deleteMany
+   */
+  export type TodoCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TodoComments to delete
+     */
+    where?: TodoCommentWhereInput
+    /**
+     * Limit how many TodoComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TodoComment without action
+   */
+  export type TodoCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TodoComment
+     */
+    select?: TodoCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TodoComment
+     */
+    omit?: TodoCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11016,6 +17687,84 @@ export namespace Prisma {
   export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
 
 
+  export const TodoListScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    color: 'color',
+    icon: 'icon',
+    isArchived: 'isArchived',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    createdById: 'createdById'
+  };
+
+  export type TodoListScalarFieldEnum = (typeof TodoListScalarFieldEnum)[keyof typeof TodoListScalarFieldEnum]
+
+
+  export const TodoItemScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    status: 'status',
+    priority: 'priority',
+    startDate: 'startDate',
+    dueDate: 'dueDate',
+    completedAt: 'completedAt',
+    estimatedHours: 'estimatedHours',
+    actualHours: 'actualHours',
+    progress: 'progress',
+    tags: 'tags',
+    isDelayed: 'isDelayed',
+    delayReason: 'delayReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    todoListId: 'todoListId',
+    assignedToId: 'assignedToId',
+    createdById: 'createdById'
+  };
+
+  export type TodoItemScalarFieldEnum = (typeof TodoItemScalarFieldEnum)[keyof typeof TodoItemScalarFieldEnum]
+
+
+  export const TodoDependencyScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    lagDays: 'lagDays',
+    createdAt: 'createdAt',
+    dependsOnId: 'dependsOnId',
+    blockedById: 'blockedById'
+  };
+
+  export type TodoDependencyScalarFieldEnum = (typeof TodoDependencyScalarFieldEnum)[keyof typeof TodoDependencyScalarFieldEnum]
+
+
+  export const TodoAttachmentScalarFieldEnum: {
+    id: 'id',
+    fileName: 'fileName',
+    fileUrl: 'fileUrl',
+    fileSize: 'fileSize',
+    mimeType: 'mimeType',
+    uploadedAt: 'uploadedAt',
+    todoItemId: 'todoItemId',
+    uploadedById: 'uploadedById'
+  };
+
+  export type TodoAttachmentScalarFieldEnum = (typeof TodoAttachmentScalarFieldEnum)[keyof typeof TodoAttachmentScalarFieldEnum]
+
+
+  export const TodoCommentScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    todoItemId: 'todoItemId',
+    authorId: 'authorId'
+  };
+
+  export type TodoCommentScalarFieldEnum = (typeof TodoCommentScalarFieldEnum)[keyof typeof TodoCommentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -11062,6 +17811,27 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'TodoStatus'
+   */
+  export type EnumTodoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TodoStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TodoPriority'
+   */
+  export type EnumTodoPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TodoPriority'>
+    
+
+
+  /**
+   * Reference to a field of type 'DependencyType'
+   */
+  export type EnumDependencyTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DependencyType'>
     
 
 
@@ -11242,6 +18012,11 @@ export namespace Prisma {
     orders?: OrderListRelationFilter
     documents?: DocumentListRelationFilter
     activities?: ActivityListRelationFilter
+    todoListsCreated?: TodoListListRelationFilter
+    todosCreated?: TodoItemListRelationFilter
+    todosAssigned?: TodoItemListRelationFilter
+    todoAttachments?: TodoAttachmentListRelationFilter
+    todoComments?: TodoCommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11265,6 +18040,11 @@ export namespace Prisma {
     orders?: OrderOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
     activities?: ActivityOrderByRelationAggregateInput
+    todoListsCreated?: TodoListOrderByRelationAggregateInput
+    todosCreated?: TodoItemOrderByRelationAggregateInput
+    todosAssigned?: TodoItemOrderByRelationAggregateInput
+    todoAttachments?: TodoAttachmentOrderByRelationAggregateInput
+    todoComments?: TodoCommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11291,6 +18071,11 @@ export namespace Prisma {
     orders?: OrderListRelationFilter
     documents?: DocumentListRelationFilter
     activities?: ActivityListRelationFilter
+    todoListsCreated?: TodoListListRelationFilter
+    todosCreated?: TodoItemListRelationFilter
+    todosAssigned?: TodoItemListRelationFilter
+    todoAttachments?: TodoAttachmentListRelationFilter
+    todoComments?: TodoCommentListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11728,6 +18513,433 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Activity"> | string
   }
 
+  export type TodoListWhereInput = {
+    AND?: TodoListWhereInput | TodoListWhereInput[]
+    OR?: TodoListWhereInput[]
+    NOT?: TodoListWhereInput | TodoListWhereInput[]
+    id?: StringFilter<"TodoList"> | string
+    name?: StringFilter<"TodoList"> | string
+    description?: StringNullableFilter<"TodoList"> | string | null
+    color?: StringFilter<"TodoList"> | string
+    icon?: StringFilter<"TodoList"> | string
+    isArchived?: BoolFilter<"TodoList"> | boolean
+    createdAt?: DateTimeFilter<"TodoList"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoList"> | Date | string
+    createdById?: StringFilter<"TodoList"> | string
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    todos?: TodoItemListRelationFilter
+  }
+
+  export type TodoListOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrder
+    icon?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    todos?: TodoItemOrderByRelationAggregateInput
+  }
+
+  export type TodoListWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TodoListWhereInput | TodoListWhereInput[]
+    OR?: TodoListWhereInput[]
+    NOT?: TodoListWhereInput | TodoListWhereInput[]
+    name?: StringFilter<"TodoList"> | string
+    description?: StringNullableFilter<"TodoList"> | string | null
+    color?: StringFilter<"TodoList"> | string
+    icon?: StringFilter<"TodoList"> | string
+    isArchived?: BoolFilter<"TodoList"> | boolean
+    createdAt?: DateTimeFilter<"TodoList"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoList"> | Date | string
+    createdById?: StringFilter<"TodoList"> | string
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    todos?: TodoItemListRelationFilter
+  }, "id">
+
+  export type TodoListOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    color?: SortOrder
+    icon?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    _count?: TodoListCountOrderByAggregateInput
+    _max?: TodoListMaxOrderByAggregateInput
+    _min?: TodoListMinOrderByAggregateInput
+  }
+
+  export type TodoListScalarWhereWithAggregatesInput = {
+    AND?: TodoListScalarWhereWithAggregatesInput | TodoListScalarWhereWithAggregatesInput[]
+    OR?: TodoListScalarWhereWithAggregatesInput[]
+    NOT?: TodoListScalarWhereWithAggregatesInput | TodoListScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TodoList"> | string
+    name?: StringWithAggregatesFilter<"TodoList"> | string
+    description?: StringNullableWithAggregatesFilter<"TodoList"> | string | null
+    color?: StringWithAggregatesFilter<"TodoList"> | string
+    icon?: StringWithAggregatesFilter<"TodoList"> | string
+    isArchived?: BoolWithAggregatesFilter<"TodoList"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"TodoList"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TodoList"> | Date | string
+    createdById?: StringWithAggregatesFilter<"TodoList"> | string
+  }
+
+  export type TodoItemWhereInput = {
+    AND?: TodoItemWhereInput | TodoItemWhereInput[]
+    OR?: TodoItemWhereInput[]
+    NOT?: TodoItemWhereInput | TodoItemWhereInput[]
+    id?: StringFilter<"TodoItem"> | string
+    title?: StringFilter<"TodoItem"> | string
+    description?: StringNullableFilter<"TodoItem"> | string | null
+    status?: EnumTodoStatusFilter<"TodoItem"> | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFilter<"TodoItem"> | $Enums.TodoPriority
+    startDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    dueDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    estimatedHours?: IntNullableFilter<"TodoItem"> | number | null
+    actualHours?: IntNullableFilter<"TodoItem"> | number | null
+    progress?: IntFilter<"TodoItem"> | number
+    tags?: StringFilter<"TodoItem"> | string
+    isDelayed?: BoolFilter<"TodoItem"> | boolean
+    delayReason?: StringNullableFilter<"TodoItem"> | string | null
+    createdAt?: DateTimeFilter<"TodoItem"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoItem"> | Date | string
+    todoListId?: StringFilter<"TodoItem"> | string
+    assignedToId?: StringNullableFilter<"TodoItem"> | string | null
+    createdById?: StringFilter<"TodoItem"> | string
+    todoList?: XOR<TodoListScalarRelationFilter, TodoListWhereInput>
+    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    dependencies?: TodoDependencyListRelationFilter
+    dependents?: TodoDependencyListRelationFilter
+    attachments?: TodoAttachmentListRelationFilter
+    comments?: TodoCommentListRelationFilter
+  }
+
+  export type TodoItemOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    estimatedHours?: SortOrderInput | SortOrder
+    actualHours?: SortOrderInput | SortOrder
+    progress?: SortOrder
+    tags?: SortOrder
+    isDelayed?: SortOrder
+    delayReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoListId?: SortOrder
+    assignedToId?: SortOrderInput | SortOrder
+    createdById?: SortOrder
+    todoList?: TodoListOrderByWithRelationInput
+    assignedTo?: UserOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+    dependencies?: TodoDependencyOrderByRelationAggregateInput
+    dependents?: TodoDependencyOrderByRelationAggregateInput
+    attachments?: TodoAttachmentOrderByRelationAggregateInput
+    comments?: TodoCommentOrderByRelationAggregateInput
+  }
+
+  export type TodoItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TodoItemWhereInput | TodoItemWhereInput[]
+    OR?: TodoItemWhereInput[]
+    NOT?: TodoItemWhereInput | TodoItemWhereInput[]
+    title?: StringFilter<"TodoItem"> | string
+    description?: StringNullableFilter<"TodoItem"> | string | null
+    status?: EnumTodoStatusFilter<"TodoItem"> | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFilter<"TodoItem"> | $Enums.TodoPriority
+    startDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    dueDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    estimatedHours?: IntNullableFilter<"TodoItem"> | number | null
+    actualHours?: IntNullableFilter<"TodoItem"> | number | null
+    progress?: IntFilter<"TodoItem"> | number
+    tags?: StringFilter<"TodoItem"> | string
+    isDelayed?: BoolFilter<"TodoItem"> | boolean
+    delayReason?: StringNullableFilter<"TodoItem"> | string | null
+    createdAt?: DateTimeFilter<"TodoItem"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoItem"> | Date | string
+    todoListId?: StringFilter<"TodoItem"> | string
+    assignedToId?: StringNullableFilter<"TodoItem"> | string | null
+    createdById?: StringFilter<"TodoItem"> | string
+    todoList?: XOR<TodoListScalarRelationFilter, TodoListWhereInput>
+    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    dependencies?: TodoDependencyListRelationFilter
+    dependents?: TodoDependencyListRelationFilter
+    attachments?: TodoAttachmentListRelationFilter
+    comments?: TodoCommentListRelationFilter
+  }, "id">
+
+  export type TodoItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    startDate?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    estimatedHours?: SortOrderInput | SortOrder
+    actualHours?: SortOrderInput | SortOrder
+    progress?: SortOrder
+    tags?: SortOrder
+    isDelayed?: SortOrder
+    delayReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoListId?: SortOrder
+    assignedToId?: SortOrderInput | SortOrder
+    createdById?: SortOrder
+    _count?: TodoItemCountOrderByAggregateInput
+    _avg?: TodoItemAvgOrderByAggregateInput
+    _max?: TodoItemMaxOrderByAggregateInput
+    _min?: TodoItemMinOrderByAggregateInput
+    _sum?: TodoItemSumOrderByAggregateInput
+  }
+
+  export type TodoItemScalarWhereWithAggregatesInput = {
+    AND?: TodoItemScalarWhereWithAggregatesInput | TodoItemScalarWhereWithAggregatesInput[]
+    OR?: TodoItemScalarWhereWithAggregatesInput[]
+    NOT?: TodoItemScalarWhereWithAggregatesInput | TodoItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TodoItem"> | string
+    title?: StringWithAggregatesFilter<"TodoItem"> | string
+    description?: StringNullableWithAggregatesFilter<"TodoItem"> | string | null
+    status?: EnumTodoStatusWithAggregatesFilter<"TodoItem"> | $Enums.TodoStatus
+    priority?: EnumTodoPriorityWithAggregatesFilter<"TodoItem"> | $Enums.TodoPriority
+    startDate?: DateTimeNullableWithAggregatesFilter<"TodoItem"> | Date | string | null
+    dueDate?: DateTimeNullableWithAggregatesFilter<"TodoItem"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"TodoItem"> | Date | string | null
+    estimatedHours?: IntNullableWithAggregatesFilter<"TodoItem"> | number | null
+    actualHours?: IntNullableWithAggregatesFilter<"TodoItem"> | number | null
+    progress?: IntWithAggregatesFilter<"TodoItem"> | number
+    tags?: StringWithAggregatesFilter<"TodoItem"> | string
+    isDelayed?: BoolWithAggregatesFilter<"TodoItem"> | boolean
+    delayReason?: StringNullableWithAggregatesFilter<"TodoItem"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TodoItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TodoItem"> | Date | string
+    todoListId?: StringWithAggregatesFilter<"TodoItem"> | string
+    assignedToId?: StringNullableWithAggregatesFilter<"TodoItem"> | string | null
+    createdById?: StringWithAggregatesFilter<"TodoItem"> | string
+  }
+
+  export type TodoDependencyWhereInput = {
+    AND?: TodoDependencyWhereInput | TodoDependencyWhereInput[]
+    OR?: TodoDependencyWhereInput[]
+    NOT?: TodoDependencyWhereInput | TodoDependencyWhereInput[]
+    id?: StringFilter<"TodoDependency"> | string
+    type?: EnumDependencyTypeFilter<"TodoDependency"> | $Enums.DependencyType
+    lagDays?: IntFilter<"TodoDependency"> | number
+    createdAt?: DateTimeFilter<"TodoDependency"> | Date | string
+    dependsOnId?: StringFilter<"TodoDependency"> | string
+    blockedById?: StringFilter<"TodoDependency"> | string
+    dependsOn?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    blockedBy?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+  }
+
+  export type TodoDependencyOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    lagDays?: SortOrder
+    createdAt?: SortOrder
+    dependsOnId?: SortOrder
+    blockedById?: SortOrder
+    dependsOn?: TodoItemOrderByWithRelationInput
+    blockedBy?: TodoItemOrderByWithRelationInput
+  }
+
+  export type TodoDependencyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    dependsOnId_blockedById?: TodoDependencyDependsOnIdBlockedByIdCompoundUniqueInput
+    AND?: TodoDependencyWhereInput | TodoDependencyWhereInput[]
+    OR?: TodoDependencyWhereInput[]
+    NOT?: TodoDependencyWhereInput | TodoDependencyWhereInput[]
+    type?: EnumDependencyTypeFilter<"TodoDependency"> | $Enums.DependencyType
+    lagDays?: IntFilter<"TodoDependency"> | number
+    createdAt?: DateTimeFilter<"TodoDependency"> | Date | string
+    dependsOnId?: StringFilter<"TodoDependency"> | string
+    blockedById?: StringFilter<"TodoDependency"> | string
+    dependsOn?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    blockedBy?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+  }, "id" | "dependsOnId_blockedById">
+
+  export type TodoDependencyOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    lagDays?: SortOrder
+    createdAt?: SortOrder
+    dependsOnId?: SortOrder
+    blockedById?: SortOrder
+    _count?: TodoDependencyCountOrderByAggregateInput
+    _avg?: TodoDependencyAvgOrderByAggregateInput
+    _max?: TodoDependencyMaxOrderByAggregateInput
+    _min?: TodoDependencyMinOrderByAggregateInput
+    _sum?: TodoDependencySumOrderByAggregateInput
+  }
+
+  export type TodoDependencyScalarWhereWithAggregatesInput = {
+    AND?: TodoDependencyScalarWhereWithAggregatesInput | TodoDependencyScalarWhereWithAggregatesInput[]
+    OR?: TodoDependencyScalarWhereWithAggregatesInput[]
+    NOT?: TodoDependencyScalarWhereWithAggregatesInput | TodoDependencyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TodoDependency"> | string
+    type?: EnumDependencyTypeWithAggregatesFilter<"TodoDependency"> | $Enums.DependencyType
+    lagDays?: IntWithAggregatesFilter<"TodoDependency"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"TodoDependency"> | Date | string
+    dependsOnId?: StringWithAggregatesFilter<"TodoDependency"> | string
+    blockedById?: StringWithAggregatesFilter<"TodoDependency"> | string
+  }
+
+  export type TodoAttachmentWhereInput = {
+    AND?: TodoAttachmentWhereInput | TodoAttachmentWhereInput[]
+    OR?: TodoAttachmentWhereInput[]
+    NOT?: TodoAttachmentWhereInput | TodoAttachmentWhereInput[]
+    id?: StringFilter<"TodoAttachment"> | string
+    fileName?: StringFilter<"TodoAttachment"> | string
+    fileUrl?: StringFilter<"TodoAttachment"> | string
+    fileSize?: IntFilter<"TodoAttachment"> | number
+    mimeType?: StringFilter<"TodoAttachment"> | string
+    uploadedAt?: DateTimeFilter<"TodoAttachment"> | Date | string
+    todoItemId?: StringFilter<"TodoAttachment"> | string
+    uploadedById?: StringFilter<"TodoAttachment"> | string
+    todoItem?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TodoAttachmentOrderByWithRelationInput = {
+    id?: SortOrder
+    fileName?: SortOrder
+    fileUrl?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    uploadedAt?: SortOrder
+    todoItemId?: SortOrder
+    uploadedById?: SortOrder
+    todoItem?: TodoItemOrderByWithRelationInput
+    uploadedBy?: UserOrderByWithRelationInput
+  }
+
+  export type TodoAttachmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TodoAttachmentWhereInput | TodoAttachmentWhereInput[]
+    OR?: TodoAttachmentWhereInput[]
+    NOT?: TodoAttachmentWhereInput | TodoAttachmentWhereInput[]
+    fileName?: StringFilter<"TodoAttachment"> | string
+    fileUrl?: StringFilter<"TodoAttachment"> | string
+    fileSize?: IntFilter<"TodoAttachment"> | number
+    mimeType?: StringFilter<"TodoAttachment"> | string
+    uploadedAt?: DateTimeFilter<"TodoAttachment"> | Date | string
+    todoItemId?: StringFilter<"TodoAttachment"> | string
+    uploadedById?: StringFilter<"TodoAttachment"> | string
+    todoItem?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type TodoAttachmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    fileName?: SortOrder
+    fileUrl?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    uploadedAt?: SortOrder
+    todoItemId?: SortOrder
+    uploadedById?: SortOrder
+    _count?: TodoAttachmentCountOrderByAggregateInput
+    _avg?: TodoAttachmentAvgOrderByAggregateInput
+    _max?: TodoAttachmentMaxOrderByAggregateInput
+    _min?: TodoAttachmentMinOrderByAggregateInput
+    _sum?: TodoAttachmentSumOrderByAggregateInput
+  }
+
+  export type TodoAttachmentScalarWhereWithAggregatesInput = {
+    AND?: TodoAttachmentScalarWhereWithAggregatesInput | TodoAttachmentScalarWhereWithAggregatesInput[]
+    OR?: TodoAttachmentScalarWhereWithAggregatesInput[]
+    NOT?: TodoAttachmentScalarWhereWithAggregatesInput | TodoAttachmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TodoAttachment"> | string
+    fileName?: StringWithAggregatesFilter<"TodoAttachment"> | string
+    fileUrl?: StringWithAggregatesFilter<"TodoAttachment"> | string
+    fileSize?: IntWithAggregatesFilter<"TodoAttachment"> | number
+    mimeType?: StringWithAggregatesFilter<"TodoAttachment"> | string
+    uploadedAt?: DateTimeWithAggregatesFilter<"TodoAttachment"> | Date | string
+    todoItemId?: StringWithAggregatesFilter<"TodoAttachment"> | string
+    uploadedById?: StringWithAggregatesFilter<"TodoAttachment"> | string
+  }
+
+  export type TodoCommentWhereInput = {
+    AND?: TodoCommentWhereInput | TodoCommentWhereInput[]
+    OR?: TodoCommentWhereInput[]
+    NOT?: TodoCommentWhereInput | TodoCommentWhereInput[]
+    id?: StringFilter<"TodoComment"> | string
+    content?: StringFilter<"TodoComment"> | string
+    createdAt?: DateTimeFilter<"TodoComment"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoComment"> | Date | string
+    todoItemId?: StringFilter<"TodoComment"> | string
+    authorId?: StringFilter<"TodoComment"> | string
+    todoItem?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TodoCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoItemId?: SortOrder
+    authorId?: SortOrder
+    todoItem?: TodoItemOrderByWithRelationInput
+    author?: UserOrderByWithRelationInput
+  }
+
+  export type TodoCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TodoCommentWhereInput | TodoCommentWhereInput[]
+    OR?: TodoCommentWhereInput[]
+    NOT?: TodoCommentWhereInput | TodoCommentWhereInput[]
+    content?: StringFilter<"TodoComment"> | string
+    createdAt?: DateTimeFilter<"TodoComment"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoComment"> | Date | string
+    todoItemId?: StringFilter<"TodoComment"> | string
+    authorId?: StringFilter<"TodoComment"> | string
+    todoItem?: XOR<TodoItemScalarRelationFilter, TodoItemWhereInput>
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type TodoCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoItemId?: SortOrder
+    authorId?: SortOrder
+    _count?: TodoCommentCountOrderByAggregateInput
+    _max?: TodoCommentMaxOrderByAggregateInput
+    _min?: TodoCommentMinOrderByAggregateInput
+  }
+
+  export type TodoCommentScalarWhereWithAggregatesInput = {
+    AND?: TodoCommentScalarWhereWithAggregatesInput | TodoCommentScalarWhereWithAggregatesInput[]
+    OR?: TodoCommentScalarWhereWithAggregatesInput[]
+    NOT?: TodoCommentScalarWhereWithAggregatesInput | TodoCommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TodoComment"> | string
+    content?: StringWithAggregatesFilter<"TodoComment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TodoComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TodoComment"> | Date | string
+    todoItemId?: StringWithAggregatesFilter<"TodoComment"> | string
+    authorId?: StringWithAggregatesFilter<"TodoComment"> | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -11901,6 +19113,11 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11924,6 +19141,11 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUpdateInput = {
@@ -11947,6 +19169,11 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11970,6 +19197,11 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12448,6 +19680,457 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type TodoListCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutTodoListsCreatedInput
+    todos?: TodoItemCreateNestedManyWithoutTodoListInput
+  }
+
+  export type TodoListUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+    todos?: TodoItemUncheckedCreateNestedManyWithoutTodoListInput
+  }
+
+  export type TodoListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutTodoListsCreatedNestedInput
+    todos?: TodoItemUpdateManyWithoutTodoListNestedInput
+  }
+
+  export type TodoListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    todos?: TodoItemUncheckedUpdateManyWithoutTodoListNestedInput
+  }
+
+  export type TodoListCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type TodoListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoItemCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+  }
+
+  export type TodoItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyCreateInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOn: TodoItemCreateNestedOneWithoutDependenciesInput
+    blockedBy: TodoItemCreateNestedOneWithoutDependentsInput
+  }
+
+  export type TodoDependencyUncheckedCreateInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOnId: string
+    blockedById: string
+  }
+
+  export type TodoDependencyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOn?: TodoItemUpdateOneRequiredWithoutDependenciesNestedInput
+    blockedBy?: TodoItemUpdateOneRequiredWithoutDependentsNestedInput
+  }
+
+  export type TodoDependencyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOnId?: StringFieldUpdateOperationsInput | string
+    blockedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyCreateManyInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOnId: string
+    blockedById: string
+  }
+
+  export type TodoDependencyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoDependencyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOnId?: StringFieldUpdateOperationsInput | string
+    blockedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentCreateInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItem: TodoItemCreateNestedOneWithoutAttachmentsInput
+    uploadedBy: UserCreateNestedOneWithoutTodoAttachmentsInput
+  }
+
+  export type TodoAttachmentUncheckedCreateInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItemId: string
+    uploadedById: string
+  }
+
+  export type TodoAttachmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItem?: TodoItemUpdateOneRequiredWithoutAttachmentsNestedInput
+    uploadedBy?: UserUpdateOneRequiredWithoutTodoAttachmentsNestedInput
+  }
+
+  export type TodoAttachmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentCreateManyInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItemId: string
+    uploadedById: string
+  }
+
+  export type TodoAttachmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoAttachmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItem: TodoItemCreateNestedOneWithoutCommentsInput
+    author: UserCreateNestedOneWithoutTodoCommentsInput
+  }
+
+  export type TodoCommentUncheckedCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItemId: string
+    authorId: string
+  }
+
+  export type TodoCommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItem?: TodoItemUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneRequiredWithoutTodoCommentsNestedInput
+  }
+
+  export type TodoCommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentCreateManyInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItemId: string
+    authorId: string
+  }
+
+  export type TodoCommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoCommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -12703,6 +20386,30 @@ export namespace Prisma {
     none?: ActivityWhereInput
   }
 
+  export type TodoListListRelationFilter = {
+    every?: TodoListWhereInput
+    some?: TodoListWhereInput
+    none?: TodoListWhereInput
+  }
+
+  export type TodoItemListRelationFilter = {
+    every?: TodoItemWhereInput
+    some?: TodoItemWhereInput
+    none?: TodoItemWhereInput
+  }
+
+  export type TodoAttachmentListRelationFilter = {
+    every?: TodoAttachmentWhereInput
+    some?: TodoAttachmentWhereInput
+    none?: TodoAttachmentWhereInput
+  }
+
+  export type TodoCommentListRelationFilter = {
+    every?: TodoCommentWhereInput
+    some?: TodoCommentWhereInput
+    none?: TodoCommentWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -12724,6 +20431,22 @@ export namespace Prisma {
   }
 
   export type ActivityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoListOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoAttachmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoCommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13040,6 +20763,299 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type TodoListCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    icon?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type TodoListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    icon?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type TodoListMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    color?: SortOrder
+    icon?: SortOrder
+    isArchived?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type EnumTodoStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoStatus | EnumTodoStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoStatus[]
+    notIn?: $Enums.TodoStatus[]
+    not?: NestedEnumTodoStatusFilter<$PrismaModel> | $Enums.TodoStatus
+  }
+
+  export type EnumTodoPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoPriority | EnumTodoPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoPriority[]
+    notIn?: $Enums.TodoPriority[]
+    not?: NestedEnumTodoPriorityFilter<$PrismaModel> | $Enums.TodoPriority
+  }
+
+  export type TodoListScalarRelationFilter = {
+    is?: TodoListWhereInput
+    isNot?: TodoListWhereInput
+  }
+
+  export type TodoDependencyListRelationFilter = {
+    every?: TodoDependencyWhereInput
+    some?: TodoDependencyWhereInput
+    none?: TodoDependencyWhereInput
+  }
+
+  export type TodoDependencyOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    startDate?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    estimatedHours?: SortOrder
+    actualHours?: SortOrder
+    progress?: SortOrder
+    tags?: SortOrder
+    isDelayed?: SortOrder
+    delayReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoListId?: SortOrder
+    assignedToId?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type TodoItemAvgOrderByAggregateInput = {
+    estimatedHours?: SortOrder
+    actualHours?: SortOrder
+    progress?: SortOrder
+  }
+
+  export type TodoItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    startDate?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    estimatedHours?: SortOrder
+    actualHours?: SortOrder
+    progress?: SortOrder
+    tags?: SortOrder
+    isDelayed?: SortOrder
+    delayReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoListId?: SortOrder
+    assignedToId?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type TodoItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    startDate?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    estimatedHours?: SortOrder
+    actualHours?: SortOrder
+    progress?: SortOrder
+    tags?: SortOrder
+    isDelayed?: SortOrder
+    delayReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoListId?: SortOrder
+    assignedToId?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type TodoItemSumOrderByAggregateInput = {
+    estimatedHours?: SortOrder
+    actualHours?: SortOrder
+    progress?: SortOrder
+  }
+
+  export type EnumTodoStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoStatus | EnumTodoStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoStatus[]
+    notIn?: $Enums.TodoStatus[]
+    not?: NestedEnumTodoStatusWithAggregatesFilter<$PrismaModel> | $Enums.TodoStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTodoStatusFilter<$PrismaModel>
+    _max?: NestedEnumTodoStatusFilter<$PrismaModel>
+  }
+
+  export type EnumTodoPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoPriority | EnumTodoPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoPriority[]
+    notIn?: $Enums.TodoPriority[]
+    not?: NestedEnumTodoPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TodoPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTodoPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTodoPriorityFilter<$PrismaModel>
+  }
+
+  export type EnumDependencyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DependencyType | EnumDependencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DependencyType[]
+    notIn?: $Enums.DependencyType[]
+    not?: NestedEnumDependencyTypeFilter<$PrismaModel> | $Enums.DependencyType
+  }
+
+  export type TodoItemScalarRelationFilter = {
+    is?: TodoItemWhereInput
+    isNot?: TodoItemWhereInput
+  }
+
+  export type TodoDependencyDependsOnIdBlockedByIdCompoundUniqueInput = {
+    dependsOnId: string
+    blockedById: string
+  }
+
+  export type TodoDependencyCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    lagDays?: SortOrder
+    createdAt?: SortOrder
+    dependsOnId?: SortOrder
+    blockedById?: SortOrder
+  }
+
+  export type TodoDependencyAvgOrderByAggregateInput = {
+    lagDays?: SortOrder
+  }
+
+  export type TodoDependencyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    lagDays?: SortOrder
+    createdAt?: SortOrder
+    dependsOnId?: SortOrder
+    blockedById?: SortOrder
+  }
+
+  export type TodoDependencyMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    lagDays?: SortOrder
+    createdAt?: SortOrder
+    dependsOnId?: SortOrder
+    blockedById?: SortOrder
+  }
+
+  export type TodoDependencySumOrderByAggregateInput = {
+    lagDays?: SortOrder
+  }
+
+  export type EnumDependencyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DependencyType | EnumDependencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DependencyType[]
+    notIn?: $Enums.DependencyType[]
+    not?: NestedEnumDependencyTypeWithAggregatesFilter<$PrismaModel> | $Enums.DependencyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDependencyTypeFilter<$PrismaModel>
+    _max?: NestedEnumDependencyTypeFilter<$PrismaModel>
+  }
+
+  export type TodoAttachmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    fileName?: SortOrder
+    fileUrl?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    uploadedAt?: SortOrder
+    todoItemId?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type TodoAttachmentAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type TodoAttachmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fileName?: SortOrder
+    fileUrl?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    uploadedAt?: SortOrder
+    todoItemId?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type TodoAttachmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    fileName?: SortOrder
+    fileUrl?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    uploadedAt?: SortOrder
+    todoItemId?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type TodoAttachmentSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type TodoCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoItemId?: SortOrder
+    authorId?: SortOrder
+  }
+
+  export type TodoCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoItemId?: SortOrder
+    authorId?: SortOrder
+  }
+
+  export type TodoCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    todoItemId?: SortOrder
+    authorId?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -13137,6 +21153,41 @@ export namespace Prisma {
     connect?: ActivityWhereUniqueInput | ActivityWhereUniqueInput[]
   }
 
+  export type TodoListCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput> | TodoListCreateWithoutCreatedByInput[] | TodoListUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoListCreateOrConnectWithoutCreatedByInput | TodoListCreateOrConnectWithoutCreatedByInput[]
+    createMany?: TodoListCreateManyCreatedByInputEnvelope
+    connect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+  }
+
+  export type TodoItemCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput> | TodoItemCreateWithoutCreatedByInput[] | TodoItemUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCreatedByInput | TodoItemCreateOrConnectWithoutCreatedByInput[]
+    createMany?: TodoItemCreateManyCreatedByInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type TodoItemCreateNestedManyWithoutAssignedToInput = {
+    create?: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput> | TodoItemCreateWithoutAssignedToInput[] | TodoItemUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAssignedToInput | TodoItemCreateOrConnectWithoutAssignedToInput[]
+    createMany?: TodoItemCreateManyAssignedToInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type TodoAttachmentCreateNestedManyWithoutUploadedByInput = {
+    create?: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput> | TodoAttachmentCreateWithoutUploadedByInput[] | TodoAttachmentUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutUploadedByInput | TodoAttachmentCreateOrConnectWithoutUploadedByInput[]
+    createMany?: TodoAttachmentCreateManyUploadedByInputEnvelope
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+  }
+
+  export type TodoCommentCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput> | TodoCommentCreateWithoutAuthorInput[] | TodoCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutAuthorInput | TodoCommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: TodoCommentCreateManyAuthorInputEnvelope
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -13184,6 +21235,41 @@ export namespace Prisma {
     connectOrCreate?: ActivityCreateOrConnectWithoutUserInput | ActivityCreateOrConnectWithoutUserInput[]
     createMany?: ActivityCreateManyUserInputEnvelope
     connect?: ActivityWhereUniqueInput | ActivityWhereUniqueInput[]
+  }
+
+  export type TodoListUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput> | TodoListCreateWithoutCreatedByInput[] | TodoListUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoListCreateOrConnectWithoutCreatedByInput | TodoListCreateOrConnectWithoutCreatedByInput[]
+    createMany?: TodoListCreateManyCreatedByInputEnvelope
+    connect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+  }
+
+  export type TodoItemUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput> | TodoItemCreateWithoutCreatedByInput[] | TodoItemUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCreatedByInput | TodoItemCreateOrConnectWithoutCreatedByInput[]
+    createMany?: TodoItemCreateManyCreatedByInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type TodoItemUncheckedCreateNestedManyWithoutAssignedToInput = {
+    create?: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput> | TodoItemCreateWithoutAssignedToInput[] | TodoItemUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAssignedToInput | TodoItemCreateOrConnectWithoutAssignedToInput[]
+    createMany?: TodoItemCreateManyAssignedToInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput = {
+    create?: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput> | TodoAttachmentCreateWithoutUploadedByInput[] | TodoAttachmentUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutUploadedByInput | TodoAttachmentCreateOrConnectWithoutUploadedByInput[]
+    createMany?: TodoAttachmentCreateManyUploadedByInputEnvelope
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+  }
+
+  export type TodoCommentUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput> | TodoCommentCreateWithoutAuthorInput[] | TodoCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutAuthorInput | TodoCommentCreateOrConnectWithoutAuthorInput[]
+    createMany?: TodoCommentCreateManyAuthorInputEnvelope
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -13292,6 +21378,76 @@ export namespace Prisma {
     deleteMany?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
   }
 
+  export type TodoListUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput> | TodoListCreateWithoutCreatedByInput[] | TodoListUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoListCreateOrConnectWithoutCreatedByInput | TodoListCreateOrConnectWithoutCreatedByInput[]
+    upsert?: TodoListUpsertWithWhereUniqueWithoutCreatedByInput | TodoListUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: TodoListCreateManyCreatedByInputEnvelope
+    set?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    disconnect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    delete?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    connect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    update?: TodoListUpdateWithWhereUniqueWithoutCreatedByInput | TodoListUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: TodoListUpdateManyWithWhereWithoutCreatedByInput | TodoListUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: TodoListScalarWhereInput | TodoListScalarWhereInput[]
+  }
+
+  export type TodoItemUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput> | TodoItemCreateWithoutCreatedByInput[] | TodoItemUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCreatedByInput | TodoItemCreateOrConnectWithoutCreatedByInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutCreatedByInput | TodoItemUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: TodoItemCreateManyCreatedByInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutCreatedByInput | TodoItemUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutCreatedByInput | TodoItemUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoItemUpdateManyWithoutAssignedToNestedInput = {
+    create?: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput> | TodoItemCreateWithoutAssignedToInput[] | TodoItemUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAssignedToInput | TodoItemCreateOrConnectWithoutAssignedToInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutAssignedToInput | TodoItemUpsertWithWhereUniqueWithoutAssignedToInput[]
+    createMany?: TodoItemCreateManyAssignedToInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutAssignedToInput | TodoItemUpdateWithWhereUniqueWithoutAssignedToInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutAssignedToInput | TodoItemUpdateManyWithWhereWithoutAssignedToInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoAttachmentUpdateManyWithoutUploadedByNestedInput = {
+    create?: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput> | TodoAttachmentCreateWithoutUploadedByInput[] | TodoAttachmentUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutUploadedByInput | TodoAttachmentCreateOrConnectWithoutUploadedByInput[]
+    upsert?: TodoAttachmentUpsertWithWhereUniqueWithoutUploadedByInput | TodoAttachmentUpsertWithWhereUniqueWithoutUploadedByInput[]
+    createMany?: TodoAttachmentCreateManyUploadedByInputEnvelope
+    set?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    disconnect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    delete?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    update?: TodoAttachmentUpdateWithWhereUniqueWithoutUploadedByInput | TodoAttachmentUpdateWithWhereUniqueWithoutUploadedByInput[]
+    updateMany?: TodoAttachmentUpdateManyWithWhereWithoutUploadedByInput | TodoAttachmentUpdateManyWithWhereWithoutUploadedByInput[]
+    deleteMany?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+  }
+
+  export type TodoCommentUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput> | TodoCommentCreateWithoutAuthorInput[] | TodoCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutAuthorInput | TodoCommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: TodoCommentUpsertWithWhereUniqueWithoutAuthorInput | TodoCommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: TodoCommentCreateManyAuthorInputEnvelope
+    set?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    disconnect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    delete?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    update?: TodoCommentUpdateWithWhereUniqueWithoutAuthorInput | TodoCommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: TodoCommentUpdateManyWithWhereWithoutAuthorInput | TodoCommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -13388,6 +21544,76 @@ export namespace Prisma {
     update?: ActivityUpdateWithWhereUniqueWithoutUserInput | ActivityUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ActivityUpdateManyWithWhereWithoutUserInput | ActivityUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ActivityScalarWhereInput | ActivityScalarWhereInput[]
+  }
+
+  export type TodoListUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput> | TodoListCreateWithoutCreatedByInput[] | TodoListUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoListCreateOrConnectWithoutCreatedByInput | TodoListCreateOrConnectWithoutCreatedByInput[]
+    upsert?: TodoListUpsertWithWhereUniqueWithoutCreatedByInput | TodoListUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: TodoListCreateManyCreatedByInputEnvelope
+    set?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    disconnect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    delete?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    connect?: TodoListWhereUniqueInput | TodoListWhereUniqueInput[]
+    update?: TodoListUpdateWithWhereUniqueWithoutCreatedByInput | TodoListUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: TodoListUpdateManyWithWhereWithoutCreatedByInput | TodoListUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: TodoListScalarWhereInput | TodoListScalarWhereInput[]
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput> | TodoItemCreateWithoutCreatedByInput[] | TodoItemUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCreatedByInput | TodoItemCreateOrConnectWithoutCreatedByInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutCreatedByInput | TodoItemUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: TodoItemCreateManyCreatedByInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutCreatedByInput | TodoItemUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutCreatedByInput | TodoItemUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput = {
+    create?: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput> | TodoItemCreateWithoutAssignedToInput[] | TodoItemUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAssignedToInput | TodoItemCreateOrConnectWithoutAssignedToInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutAssignedToInput | TodoItemUpsertWithWhereUniqueWithoutAssignedToInput[]
+    createMany?: TodoItemCreateManyAssignedToInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutAssignedToInput | TodoItemUpdateWithWhereUniqueWithoutAssignedToInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutAssignedToInput | TodoItemUpdateManyWithWhereWithoutAssignedToInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput = {
+    create?: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput> | TodoAttachmentCreateWithoutUploadedByInput[] | TodoAttachmentUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutUploadedByInput | TodoAttachmentCreateOrConnectWithoutUploadedByInput[]
+    upsert?: TodoAttachmentUpsertWithWhereUniqueWithoutUploadedByInput | TodoAttachmentUpsertWithWhereUniqueWithoutUploadedByInput[]
+    createMany?: TodoAttachmentCreateManyUploadedByInputEnvelope
+    set?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    disconnect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    delete?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    update?: TodoAttachmentUpdateWithWhereUniqueWithoutUploadedByInput | TodoAttachmentUpdateWithWhereUniqueWithoutUploadedByInput[]
+    updateMany?: TodoAttachmentUpdateManyWithWhereWithoutUploadedByInput | TodoAttachmentUpdateManyWithWhereWithoutUploadedByInput[]
+    deleteMany?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+  }
+
+  export type TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput> | TodoCommentCreateWithoutAuthorInput[] | TodoCommentUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutAuthorInput | TodoCommentCreateOrConnectWithoutAuthorInput[]
+    upsert?: TodoCommentUpsertWithWhereUniqueWithoutAuthorInput | TodoCommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: TodoCommentCreateManyAuthorInputEnvelope
+    set?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    disconnect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    delete?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    update?: TodoCommentUpdateWithWhereUniqueWithoutAuthorInput | TodoCommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: TodoCommentUpdateManyWithWhereWithoutAuthorInput | TodoCommentUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAssignedTasksInput = {
@@ -13584,6 +21810,370 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutActivitiesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActivitiesInput, UserUpdateWithoutActivitiesInput>, UserUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type UserCreateNestedOneWithoutTodoListsCreatedInput = {
+    create?: XOR<UserCreateWithoutTodoListsCreatedInput, UserUncheckedCreateWithoutTodoListsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoListsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TodoItemCreateNestedManyWithoutTodoListInput = {
+    create?: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput> | TodoItemCreateWithoutTodoListInput[] | TodoItemUncheckedCreateWithoutTodoListInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutTodoListInput | TodoItemCreateOrConnectWithoutTodoListInput[]
+    createMany?: TodoItemCreateManyTodoListInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type TodoItemUncheckedCreateNestedManyWithoutTodoListInput = {
+    create?: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput> | TodoItemCreateWithoutTodoListInput[] | TodoItemUncheckedCreateWithoutTodoListInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutTodoListInput | TodoItemCreateOrConnectWithoutTodoListInput[]
+    createMany?: TodoItemCreateManyTodoListInputEnvelope
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutTodoListsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutTodoListsCreatedInput, UserUncheckedCreateWithoutTodoListsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoListsCreatedInput
+    upsert?: UserUpsertWithoutTodoListsCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodoListsCreatedInput, UserUpdateWithoutTodoListsCreatedInput>, UserUncheckedUpdateWithoutTodoListsCreatedInput>
+  }
+
+  export type TodoItemUpdateManyWithoutTodoListNestedInput = {
+    create?: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput> | TodoItemCreateWithoutTodoListInput[] | TodoItemUncheckedCreateWithoutTodoListInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutTodoListInput | TodoItemCreateOrConnectWithoutTodoListInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutTodoListInput | TodoItemUpsertWithWhereUniqueWithoutTodoListInput[]
+    createMany?: TodoItemCreateManyTodoListInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutTodoListInput | TodoItemUpdateWithWhereUniqueWithoutTodoListInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutTodoListInput | TodoItemUpdateManyWithWhereWithoutTodoListInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutTodoListNestedInput = {
+    create?: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput> | TodoItemCreateWithoutTodoListInput[] | TodoItemUncheckedCreateWithoutTodoListInput[]
+    connectOrCreate?: TodoItemCreateOrConnectWithoutTodoListInput | TodoItemCreateOrConnectWithoutTodoListInput[]
+    upsert?: TodoItemUpsertWithWhereUniqueWithoutTodoListInput | TodoItemUpsertWithWhereUniqueWithoutTodoListInput[]
+    createMany?: TodoItemCreateManyTodoListInputEnvelope
+    set?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    disconnect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    delete?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    connect?: TodoItemWhereUniqueInput | TodoItemWhereUniqueInput[]
+    update?: TodoItemUpdateWithWhereUniqueWithoutTodoListInput | TodoItemUpdateWithWhereUniqueWithoutTodoListInput[]
+    updateMany?: TodoItemUpdateManyWithWhereWithoutTodoListInput | TodoItemUpdateManyWithWhereWithoutTodoListInput[]
+    deleteMany?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+  }
+
+  export type TodoListCreateNestedOneWithoutTodosInput = {
+    create?: XOR<TodoListCreateWithoutTodosInput, TodoListUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: TodoListCreateOrConnectWithoutTodosInput
+    connect?: TodoListWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTodosAssignedInput = {
+    create?: XOR<UserCreateWithoutTodosAssignedInput, UserUncheckedCreateWithoutTodosAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosAssignedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTodosCreatedInput = {
+    create?: XOR<UserCreateWithoutTodosCreatedInput, UserUncheckedCreateWithoutTodosCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TodoDependencyCreateNestedManyWithoutDependsOnInput = {
+    create?: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput> | TodoDependencyCreateWithoutDependsOnInput[] | TodoDependencyUncheckedCreateWithoutDependsOnInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutDependsOnInput | TodoDependencyCreateOrConnectWithoutDependsOnInput[]
+    createMany?: TodoDependencyCreateManyDependsOnInputEnvelope
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+  }
+
+  export type TodoDependencyCreateNestedManyWithoutBlockedByInput = {
+    create?: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput> | TodoDependencyCreateWithoutBlockedByInput[] | TodoDependencyUncheckedCreateWithoutBlockedByInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutBlockedByInput | TodoDependencyCreateOrConnectWithoutBlockedByInput[]
+    createMany?: TodoDependencyCreateManyBlockedByInputEnvelope
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+  }
+
+  export type TodoAttachmentCreateNestedManyWithoutTodoItemInput = {
+    create?: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput> | TodoAttachmentCreateWithoutTodoItemInput[] | TodoAttachmentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutTodoItemInput | TodoAttachmentCreateOrConnectWithoutTodoItemInput[]
+    createMany?: TodoAttachmentCreateManyTodoItemInputEnvelope
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+  }
+
+  export type TodoCommentCreateNestedManyWithoutTodoItemInput = {
+    create?: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput> | TodoCommentCreateWithoutTodoItemInput[] | TodoCommentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutTodoItemInput | TodoCommentCreateOrConnectWithoutTodoItemInput[]
+    createMany?: TodoCommentCreateManyTodoItemInputEnvelope
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+  }
+
+  export type TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput = {
+    create?: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput> | TodoDependencyCreateWithoutDependsOnInput[] | TodoDependencyUncheckedCreateWithoutDependsOnInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutDependsOnInput | TodoDependencyCreateOrConnectWithoutDependsOnInput[]
+    createMany?: TodoDependencyCreateManyDependsOnInputEnvelope
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+  }
+
+  export type TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput = {
+    create?: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput> | TodoDependencyCreateWithoutBlockedByInput[] | TodoDependencyUncheckedCreateWithoutBlockedByInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutBlockedByInput | TodoDependencyCreateOrConnectWithoutBlockedByInput[]
+    createMany?: TodoDependencyCreateManyBlockedByInputEnvelope
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+  }
+
+  export type TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput = {
+    create?: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput> | TodoAttachmentCreateWithoutTodoItemInput[] | TodoAttachmentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutTodoItemInput | TodoAttachmentCreateOrConnectWithoutTodoItemInput[]
+    createMany?: TodoAttachmentCreateManyTodoItemInputEnvelope
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+  }
+
+  export type TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput = {
+    create?: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput> | TodoCommentCreateWithoutTodoItemInput[] | TodoCommentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutTodoItemInput | TodoCommentCreateOrConnectWithoutTodoItemInput[]
+    createMany?: TodoCommentCreateManyTodoItemInputEnvelope
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+  }
+
+  export type EnumTodoStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TodoStatus
+  }
+
+  export type EnumTodoPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.TodoPriority
+  }
+
+  export type TodoListUpdateOneRequiredWithoutTodosNestedInput = {
+    create?: XOR<TodoListCreateWithoutTodosInput, TodoListUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: TodoListCreateOrConnectWithoutTodosInput
+    upsert?: TodoListUpsertWithoutTodosInput
+    connect?: TodoListWhereUniqueInput
+    update?: XOR<XOR<TodoListUpdateToOneWithWhereWithoutTodosInput, TodoListUpdateWithoutTodosInput>, TodoListUncheckedUpdateWithoutTodosInput>
+  }
+
+  export type UserUpdateOneWithoutTodosAssignedNestedInput = {
+    create?: XOR<UserCreateWithoutTodosAssignedInput, UserUncheckedCreateWithoutTodosAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosAssignedInput
+    upsert?: UserUpsertWithoutTodosAssignedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodosAssignedInput, UserUpdateWithoutTodosAssignedInput>, UserUncheckedUpdateWithoutTodosAssignedInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTodosCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutTodosCreatedInput, UserUncheckedCreateWithoutTodosCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosCreatedInput
+    upsert?: UserUpsertWithoutTodosCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodosCreatedInput, UserUpdateWithoutTodosCreatedInput>, UserUncheckedUpdateWithoutTodosCreatedInput>
+  }
+
+  export type TodoDependencyUpdateManyWithoutDependsOnNestedInput = {
+    create?: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput> | TodoDependencyCreateWithoutDependsOnInput[] | TodoDependencyUncheckedCreateWithoutDependsOnInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutDependsOnInput | TodoDependencyCreateOrConnectWithoutDependsOnInput[]
+    upsert?: TodoDependencyUpsertWithWhereUniqueWithoutDependsOnInput | TodoDependencyUpsertWithWhereUniqueWithoutDependsOnInput[]
+    createMany?: TodoDependencyCreateManyDependsOnInputEnvelope
+    set?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    disconnect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    delete?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    update?: TodoDependencyUpdateWithWhereUniqueWithoutDependsOnInput | TodoDependencyUpdateWithWhereUniqueWithoutDependsOnInput[]
+    updateMany?: TodoDependencyUpdateManyWithWhereWithoutDependsOnInput | TodoDependencyUpdateManyWithWhereWithoutDependsOnInput[]
+    deleteMany?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+  }
+
+  export type TodoDependencyUpdateManyWithoutBlockedByNestedInput = {
+    create?: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput> | TodoDependencyCreateWithoutBlockedByInput[] | TodoDependencyUncheckedCreateWithoutBlockedByInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutBlockedByInput | TodoDependencyCreateOrConnectWithoutBlockedByInput[]
+    upsert?: TodoDependencyUpsertWithWhereUniqueWithoutBlockedByInput | TodoDependencyUpsertWithWhereUniqueWithoutBlockedByInput[]
+    createMany?: TodoDependencyCreateManyBlockedByInputEnvelope
+    set?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    disconnect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    delete?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    update?: TodoDependencyUpdateWithWhereUniqueWithoutBlockedByInput | TodoDependencyUpdateWithWhereUniqueWithoutBlockedByInput[]
+    updateMany?: TodoDependencyUpdateManyWithWhereWithoutBlockedByInput | TodoDependencyUpdateManyWithWhereWithoutBlockedByInput[]
+    deleteMany?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+  }
+
+  export type TodoAttachmentUpdateManyWithoutTodoItemNestedInput = {
+    create?: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput> | TodoAttachmentCreateWithoutTodoItemInput[] | TodoAttachmentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutTodoItemInput | TodoAttachmentCreateOrConnectWithoutTodoItemInput[]
+    upsert?: TodoAttachmentUpsertWithWhereUniqueWithoutTodoItemInput | TodoAttachmentUpsertWithWhereUniqueWithoutTodoItemInput[]
+    createMany?: TodoAttachmentCreateManyTodoItemInputEnvelope
+    set?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    disconnect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    delete?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    update?: TodoAttachmentUpdateWithWhereUniqueWithoutTodoItemInput | TodoAttachmentUpdateWithWhereUniqueWithoutTodoItemInput[]
+    updateMany?: TodoAttachmentUpdateManyWithWhereWithoutTodoItemInput | TodoAttachmentUpdateManyWithWhereWithoutTodoItemInput[]
+    deleteMany?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+  }
+
+  export type TodoCommentUpdateManyWithoutTodoItemNestedInput = {
+    create?: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput> | TodoCommentCreateWithoutTodoItemInput[] | TodoCommentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutTodoItemInput | TodoCommentCreateOrConnectWithoutTodoItemInput[]
+    upsert?: TodoCommentUpsertWithWhereUniqueWithoutTodoItemInput | TodoCommentUpsertWithWhereUniqueWithoutTodoItemInput[]
+    createMany?: TodoCommentCreateManyTodoItemInputEnvelope
+    set?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    disconnect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    delete?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    update?: TodoCommentUpdateWithWhereUniqueWithoutTodoItemInput | TodoCommentUpdateWithWhereUniqueWithoutTodoItemInput[]
+    updateMany?: TodoCommentUpdateManyWithWhereWithoutTodoItemInput | TodoCommentUpdateManyWithWhereWithoutTodoItemInput[]
+    deleteMany?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
+  }
+
+  export type TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput = {
+    create?: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput> | TodoDependencyCreateWithoutDependsOnInput[] | TodoDependencyUncheckedCreateWithoutDependsOnInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutDependsOnInput | TodoDependencyCreateOrConnectWithoutDependsOnInput[]
+    upsert?: TodoDependencyUpsertWithWhereUniqueWithoutDependsOnInput | TodoDependencyUpsertWithWhereUniqueWithoutDependsOnInput[]
+    createMany?: TodoDependencyCreateManyDependsOnInputEnvelope
+    set?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    disconnect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    delete?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    update?: TodoDependencyUpdateWithWhereUniqueWithoutDependsOnInput | TodoDependencyUpdateWithWhereUniqueWithoutDependsOnInput[]
+    updateMany?: TodoDependencyUpdateManyWithWhereWithoutDependsOnInput | TodoDependencyUpdateManyWithWhereWithoutDependsOnInput[]
+    deleteMany?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+  }
+
+  export type TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput = {
+    create?: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput> | TodoDependencyCreateWithoutBlockedByInput[] | TodoDependencyUncheckedCreateWithoutBlockedByInput[]
+    connectOrCreate?: TodoDependencyCreateOrConnectWithoutBlockedByInput | TodoDependencyCreateOrConnectWithoutBlockedByInput[]
+    upsert?: TodoDependencyUpsertWithWhereUniqueWithoutBlockedByInput | TodoDependencyUpsertWithWhereUniqueWithoutBlockedByInput[]
+    createMany?: TodoDependencyCreateManyBlockedByInputEnvelope
+    set?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    disconnect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    delete?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    connect?: TodoDependencyWhereUniqueInput | TodoDependencyWhereUniqueInput[]
+    update?: TodoDependencyUpdateWithWhereUniqueWithoutBlockedByInput | TodoDependencyUpdateWithWhereUniqueWithoutBlockedByInput[]
+    updateMany?: TodoDependencyUpdateManyWithWhereWithoutBlockedByInput | TodoDependencyUpdateManyWithWhereWithoutBlockedByInput[]
+    deleteMany?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+  }
+
+  export type TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput = {
+    create?: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput> | TodoAttachmentCreateWithoutTodoItemInput[] | TodoAttachmentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoAttachmentCreateOrConnectWithoutTodoItemInput | TodoAttachmentCreateOrConnectWithoutTodoItemInput[]
+    upsert?: TodoAttachmentUpsertWithWhereUniqueWithoutTodoItemInput | TodoAttachmentUpsertWithWhereUniqueWithoutTodoItemInput[]
+    createMany?: TodoAttachmentCreateManyTodoItemInputEnvelope
+    set?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    disconnect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    delete?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    connect?: TodoAttachmentWhereUniqueInput | TodoAttachmentWhereUniqueInput[]
+    update?: TodoAttachmentUpdateWithWhereUniqueWithoutTodoItemInput | TodoAttachmentUpdateWithWhereUniqueWithoutTodoItemInput[]
+    updateMany?: TodoAttachmentUpdateManyWithWhereWithoutTodoItemInput | TodoAttachmentUpdateManyWithWhereWithoutTodoItemInput[]
+    deleteMany?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+  }
+
+  export type TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput = {
+    create?: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput> | TodoCommentCreateWithoutTodoItemInput[] | TodoCommentUncheckedCreateWithoutTodoItemInput[]
+    connectOrCreate?: TodoCommentCreateOrConnectWithoutTodoItemInput | TodoCommentCreateOrConnectWithoutTodoItemInput[]
+    upsert?: TodoCommentUpsertWithWhereUniqueWithoutTodoItemInput | TodoCommentUpsertWithWhereUniqueWithoutTodoItemInput[]
+    createMany?: TodoCommentCreateManyTodoItemInputEnvelope
+    set?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    disconnect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    delete?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    connect?: TodoCommentWhereUniqueInput | TodoCommentWhereUniqueInput[]
+    update?: TodoCommentUpdateWithWhereUniqueWithoutTodoItemInput | TodoCommentUpdateWithWhereUniqueWithoutTodoItemInput[]
+    updateMany?: TodoCommentUpdateManyWithWhereWithoutTodoItemInput | TodoCommentUpdateManyWithWhereWithoutTodoItemInput[]
+    deleteMany?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
+  }
+
+  export type TodoItemCreateNestedOneWithoutDependenciesInput = {
+    create?: XOR<TodoItemCreateWithoutDependenciesInput, TodoItemUncheckedCreateWithoutDependenciesInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutDependenciesInput
+    connect?: TodoItemWhereUniqueInput
+  }
+
+  export type TodoItemCreateNestedOneWithoutDependentsInput = {
+    create?: XOR<TodoItemCreateWithoutDependentsInput, TodoItemUncheckedCreateWithoutDependentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutDependentsInput
+    connect?: TodoItemWhereUniqueInput
+  }
+
+  export type EnumDependencyTypeFieldUpdateOperationsInput = {
+    set?: $Enums.DependencyType
+  }
+
+  export type TodoItemUpdateOneRequiredWithoutDependenciesNestedInput = {
+    create?: XOR<TodoItemCreateWithoutDependenciesInput, TodoItemUncheckedCreateWithoutDependenciesInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutDependenciesInput
+    upsert?: TodoItemUpsertWithoutDependenciesInput
+    connect?: TodoItemWhereUniqueInput
+    update?: XOR<XOR<TodoItemUpdateToOneWithWhereWithoutDependenciesInput, TodoItemUpdateWithoutDependenciesInput>, TodoItemUncheckedUpdateWithoutDependenciesInput>
+  }
+
+  export type TodoItemUpdateOneRequiredWithoutDependentsNestedInput = {
+    create?: XOR<TodoItemCreateWithoutDependentsInput, TodoItemUncheckedCreateWithoutDependentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutDependentsInput
+    upsert?: TodoItemUpsertWithoutDependentsInput
+    connect?: TodoItemWhereUniqueInput
+    update?: XOR<XOR<TodoItemUpdateToOneWithWhereWithoutDependentsInput, TodoItemUpdateWithoutDependentsInput>, TodoItemUncheckedUpdateWithoutDependentsInput>
+  }
+
+  export type TodoItemCreateNestedOneWithoutAttachmentsInput = {
+    create?: XOR<TodoItemCreateWithoutAttachmentsInput, TodoItemUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAttachmentsInput
+    connect?: TodoItemWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTodoAttachmentsInput = {
+    create?: XOR<UserCreateWithoutTodoAttachmentsInput, UserUncheckedCreateWithoutTodoAttachmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoAttachmentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TodoItemUpdateOneRequiredWithoutAttachmentsNestedInput = {
+    create?: XOR<TodoItemCreateWithoutAttachmentsInput, TodoItemUncheckedCreateWithoutAttachmentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutAttachmentsInput
+    upsert?: TodoItemUpsertWithoutAttachmentsInput
+    connect?: TodoItemWhereUniqueInput
+    update?: XOR<XOR<TodoItemUpdateToOneWithWhereWithoutAttachmentsInput, TodoItemUpdateWithoutAttachmentsInput>, TodoItemUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTodoAttachmentsNestedInput = {
+    create?: XOR<UserCreateWithoutTodoAttachmentsInput, UserUncheckedCreateWithoutTodoAttachmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoAttachmentsInput
+    upsert?: UserUpsertWithoutTodoAttachmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodoAttachmentsInput, UserUpdateWithoutTodoAttachmentsInput>, UserUncheckedUpdateWithoutTodoAttachmentsInput>
+  }
+
+  export type TodoItemCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<TodoItemCreateWithoutCommentsInput, TodoItemUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCommentsInput
+    connect?: TodoItemWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTodoCommentsInput = {
+    create?: XOR<UserCreateWithoutTodoCommentsInput, UserUncheckedCreateWithoutTodoCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoCommentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TodoItemUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<TodoItemCreateWithoutCommentsInput, TodoItemUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: TodoItemCreateOrConnectWithoutCommentsInput
+    upsert?: TodoItemUpsertWithoutCommentsInput
+    connect?: TodoItemWhereUniqueInput
+    update?: XOR<XOR<TodoItemUpdateToOneWithWhereWithoutCommentsInput, TodoItemUpdateWithoutCommentsInput>, TodoItemUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTodoCommentsNestedInput = {
+    create?: XOR<UserCreateWithoutTodoCommentsInput, UserUncheckedCreateWithoutTodoCommentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodoCommentsInput
+    upsert?: UserUpsertWithoutTodoCommentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodoCommentsInput, UserUpdateWithoutTodoCommentsInput>, UserUncheckedUpdateWithoutTodoCommentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13787,6 +22377,57 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumTodoStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoStatus | EnumTodoStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoStatus[]
+    notIn?: $Enums.TodoStatus[]
+    not?: NestedEnumTodoStatusFilter<$PrismaModel> | $Enums.TodoStatus
+  }
+
+  export type NestedEnumTodoPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoPriority | EnumTodoPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoPriority[]
+    notIn?: $Enums.TodoPriority[]
+    not?: NestedEnumTodoPriorityFilter<$PrismaModel> | $Enums.TodoPriority
+  }
+
+  export type NestedEnumTodoStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoStatus | EnumTodoStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoStatus[]
+    notIn?: $Enums.TodoStatus[]
+    not?: NestedEnumTodoStatusWithAggregatesFilter<$PrismaModel> | $Enums.TodoStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTodoStatusFilter<$PrismaModel>
+    _max?: NestedEnumTodoStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTodoPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TodoPriority | EnumTodoPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TodoPriority[]
+    notIn?: $Enums.TodoPriority[]
+    not?: NestedEnumTodoPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TodoPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTodoPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTodoPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDependencyTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DependencyType | EnumDependencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DependencyType[]
+    notIn?: $Enums.DependencyType[]
+    not?: NestedEnumDependencyTypeFilter<$PrismaModel> | $Enums.DependencyType
+  }
+
+  export type NestedEnumDependencyTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DependencyType | EnumDependencyTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DependencyType[]
+    notIn?: $Enums.DependencyType[]
+    not?: NestedEnumDependencyTypeWithAggregatesFilter<$PrismaModel> | $Enums.DependencyType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDependencyTypeFilter<$PrismaModel>
+    _max?: NestedEnumDependencyTypeFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -13807,6 +22448,11 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13829,6 +22475,11 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13867,6 +22518,11 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13889,6 +22545,11 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -13911,6 +22572,11 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13933,6 +22599,11 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13971,6 +22642,11 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13993,6 +22669,11 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -14236,6 +22917,211 @@ export namespace Prisma {
     data: ActivityCreateManyUserInput | ActivityCreateManyUserInput[]
   }
 
+  export type TodoListCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todos?: TodoItemCreateNestedManyWithoutTodoListInput
+  }
+
+  export type TodoListUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todos?: TodoItemUncheckedCreateNestedManyWithoutTodoListInput
+  }
+
+  export type TodoListCreateOrConnectWithoutCreatedByInput = {
+    where: TodoListWhereUniqueInput
+    create: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type TodoListCreateManyCreatedByInputEnvelope = {
+    data: TodoListCreateManyCreatedByInput | TodoListCreateManyCreatedByInput[]
+  }
+
+  export type TodoItemCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutCreatedByInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type TodoItemCreateManyCreatedByInputEnvelope = {
+    data: TodoItemCreateManyCreatedByInput | TodoItemCreateManyCreatedByInput[]
+  }
+
+  export type TodoItemCreateWithoutAssignedToInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutAssignedToInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutAssignedToInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput>
+  }
+
+  export type TodoItemCreateManyAssignedToInputEnvelope = {
+    data: TodoItemCreateManyAssignedToInput | TodoItemCreateManyAssignedToInput[]
+  }
+
+  export type TodoAttachmentCreateWithoutUploadedByInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItem: TodoItemCreateNestedOneWithoutAttachmentsInput
+  }
+
+  export type TodoAttachmentUncheckedCreateWithoutUploadedByInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItemId: string
+  }
+
+  export type TodoAttachmentCreateOrConnectWithoutUploadedByInput = {
+    where: TodoAttachmentWhereUniqueInput
+    create: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput>
+  }
+
+  export type TodoAttachmentCreateManyUploadedByInputEnvelope = {
+    data: TodoAttachmentCreateManyUploadedByInput | TodoAttachmentCreateManyUploadedByInput[]
+  }
+
+  export type TodoCommentCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItem: TodoItemCreateNestedOneWithoutCommentsInput
+  }
+
+  export type TodoCommentUncheckedCreateWithoutAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItemId: string
+  }
+
+  export type TodoCommentCreateOrConnectWithoutAuthorInput = {
+    where: TodoCommentWhereUniqueInput
+    create: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type TodoCommentCreateManyAuthorInputEnvelope = {
+    data: TodoCommentCreateManyAuthorInput | TodoCommentCreateManyAuthorInput[]
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -14443,6 +23329,152 @@ export namespace Prisma {
     userId?: StringFilter<"Activity"> | string
   }
 
+  export type TodoListUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: TodoListWhereUniqueInput
+    update: XOR<TodoListUpdateWithoutCreatedByInput, TodoListUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<TodoListCreateWithoutCreatedByInput, TodoListUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type TodoListUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: TodoListWhereUniqueInput
+    data: XOR<TodoListUpdateWithoutCreatedByInput, TodoListUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type TodoListUpdateManyWithWhereWithoutCreatedByInput = {
+    where: TodoListScalarWhereInput
+    data: XOR<TodoListUpdateManyMutationInput, TodoListUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type TodoListScalarWhereInput = {
+    AND?: TodoListScalarWhereInput | TodoListScalarWhereInput[]
+    OR?: TodoListScalarWhereInput[]
+    NOT?: TodoListScalarWhereInput | TodoListScalarWhereInput[]
+    id?: StringFilter<"TodoList"> | string
+    name?: StringFilter<"TodoList"> | string
+    description?: StringNullableFilter<"TodoList"> | string | null
+    color?: StringFilter<"TodoList"> | string
+    icon?: StringFilter<"TodoList"> | string
+    isArchived?: BoolFilter<"TodoList"> | boolean
+    createdAt?: DateTimeFilter<"TodoList"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoList"> | Date | string
+    createdById?: StringFilter<"TodoList"> | string
+  }
+
+  export type TodoItemUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: TodoItemWhereUniqueInput
+    update: XOR<TodoItemUpdateWithoutCreatedByInput, TodoItemUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<TodoItemCreateWithoutCreatedByInput, TodoItemUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type TodoItemUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: TodoItemWhereUniqueInput
+    data: XOR<TodoItemUpdateWithoutCreatedByInput, TodoItemUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type TodoItemUpdateManyWithWhereWithoutCreatedByInput = {
+    where: TodoItemScalarWhereInput
+    data: XOR<TodoItemUpdateManyMutationInput, TodoItemUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type TodoItemScalarWhereInput = {
+    AND?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+    OR?: TodoItemScalarWhereInput[]
+    NOT?: TodoItemScalarWhereInput | TodoItemScalarWhereInput[]
+    id?: StringFilter<"TodoItem"> | string
+    title?: StringFilter<"TodoItem"> | string
+    description?: StringNullableFilter<"TodoItem"> | string | null
+    status?: EnumTodoStatusFilter<"TodoItem"> | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFilter<"TodoItem"> | $Enums.TodoPriority
+    startDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    dueDate?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"TodoItem"> | Date | string | null
+    estimatedHours?: IntNullableFilter<"TodoItem"> | number | null
+    actualHours?: IntNullableFilter<"TodoItem"> | number | null
+    progress?: IntFilter<"TodoItem"> | number
+    tags?: StringFilter<"TodoItem"> | string
+    isDelayed?: BoolFilter<"TodoItem"> | boolean
+    delayReason?: StringNullableFilter<"TodoItem"> | string | null
+    createdAt?: DateTimeFilter<"TodoItem"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoItem"> | Date | string
+    todoListId?: StringFilter<"TodoItem"> | string
+    assignedToId?: StringNullableFilter<"TodoItem"> | string | null
+    createdById?: StringFilter<"TodoItem"> | string
+  }
+
+  export type TodoItemUpsertWithWhereUniqueWithoutAssignedToInput = {
+    where: TodoItemWhereUniqueInput
+    update: XOR<TodoItemUpdateWithoutAssignedToInput, TodoItemUncheckedUpdateWithoutAssignedToInput>
+    create: XOR<TodoItemCreateWithoutAssignedToInput, TodoItemUncheckedCreateWithoutAssignedToInput>
+  }
+
+  export type TodoItemUpdateWithWhereUniqueWithoutAssignedToInput = {
+    where: TodoItemWhereUniqueInput
+    data: XOR<TodoItemUpdateWithoutAssignedToInput, TodoItemUncheckedUpdateWithoutAssignedToInput>
+  }
+
+  export type TodoItemUpdateManyWithWhereWithoutAssignedToInput = {
+    where: TodoItemScalarWhereInput
+    data: XOR<TodoItemUpdateManyMutationInput, TodoItemUncheckedUpdateManyWithoutAssignedToInput>
+  }
+
+  export type TodoAttachmentUpsertWithWhereUniqueWithoutUploadedByInput = {
+    where: TodoAttachmentWhereUniqueInput
+    update: XOR<TodoAttachmentUpdateWithoutUploadedByInput, TodoAttachmentUncheckedUpdateWithoutUploadedByInput>
+    create: XOR<TodoAttachmentCreateWithoutUploadedByInput, TodoAttachmentUncheckedCreateWithoutUploadedByInput>
+  }
+
+  export type TodoAttachmentUpdateWithWhereUniqueWithoutUploadedByInput = {
+    where: TodoAttachmentWhereUniqueInput
+    data: XOR<TodoAttachmentUpdateWithoutUploadedByInput, TodoAttachmentUncheckedUpdateWithoutUploadedByInput>
+  }
+
+  export type TodoAttachmentUpdateManyWithWhereWithoutUploadedByInput = {
+    where: TodoAttachmentScalarWhereInput
+    data: XOR<TodoAttachmentUpdateManyMutationInput, TodoAttachmentUncheckedUpdateManyWithoutUploadedByInput>
+  }
+
+  export type TodoAttachmentScalarWhereInput = {
+    AND?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+    OR?: TodoAttachmentScalarWhereInput[]
+    NOT?: TodoAttachmentScalarWhereInput | TodoAttachmentScalarWhereInput[]
+    id?: StringFilter<"TodoAttachment"> | string
+    fileName?: StringFilter<"TodoAttachment"> | string
+    fileUrl?: StringFilter<"TodoAttachment"> | string
+    fileSize?: IntFilter<"TodoAttachment"> | number
+    mimeType?: StringFilter<"TodoAttachment"> | string
+    uploadedAt?: DateTimeFilter<"TodoAttachment"> | Date | string
+    todoItemId?: StringFilter<"TodoAttachment"> | string
+    uploadedById?: StringFilter<"TodoAttachment"> | string
+  }
+
+  export type TodoCommentUpsertWithWhereUniqueWithoutAuthorInput = {
+    where: TodoCommentWhereUniqueInput
+    update: XOR<TodoCommentUpdateWithoutAuthorInput, TodoCommentUncheckedUpdateWithoutAuthorInput>
+    create: XOR<TodoCommentCreateWithoutAuthorInput, TodoCommentUncheckedCreateWithoutAuthorInput>
+  }
+
+  export type TodoCommentUpdateWithWhereUniqueWithoutAuthorInput = {
+    where: TodoCommentWhereUniqueInput
+    data: XOR<TodoCommentUpdateWithoutAuthorInput, TodoCommentUncheckedUpdateWithoutAuthorInput>
+  }
+
+  export type TodoCommentUpdateManyWithWhereWithoutAuthorInput = {
+    where: TodoCommentScalarWhereInput
+    data: XOR<TodoCommentUpdateManyMutationInput, TodoCommentUncheckedUpdateManyWithoutAuthorInput>
+  }
+
+  export type TodoCommentScalarWhereInput = {
+    AND?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
+    OR?: TodoCommentScalarWhereInput[]
+    NOT?: TodoCommentScalarWhereInput | TodoCommentScalarWhereInput[]
+    id?: StringFilter<"TodoComment"> | string
+    content?: StringFilter<"TodoComment"> | string
+    createdAt?: DateTimeFilter<"TodoComment"> | Date | string
+    updatedAt?: DateTimeFilter<"TodoComment"> | Date | string
+    todoItemId?: StringFilter<"TodoComment"> | string
+    authorId?: StringFilter<"TodoComment"> | string
+  }
+
   export type UserCreateWithoutAssignedTasksInput = {
     id?: string
     name?: string | null
@@ -14463,6 +23495,11 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -14485,6 +23522,11 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -14512,6 +23554,11 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutCreatedTasksInput = {
@@ -14534,6 +23581,11 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutCreatedTasksInput = {
@@ -14607,6 +23659,11 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -14629,6 +23686,11 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUpsertWithoutCreatedTasksInput = {
@@ -14662,6 +23724,11 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedTasksInput = {
@@ -14684,6 +23751,11 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type OrderUpsertWithoutTasksInput = {
@@ -14747,6 +23819,11 @@ export namespace Prisma {
     createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -14769,6 +23846,11 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -14883,6 +23965,11 @@ export namespace Prisma {
     createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -14905,6 +23992,11 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type TaskUpsertWithWhereUniqueWithoutOrderInput = {
@@ -14994,6 +24086,11 @@ export namespace Prisma {
     createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -15016,6 +24113,11 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -15095,6 +24197,11 @@ export namespace Prisma {
     createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -15117,6 +24224,11 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateWithoutActivitiesInput = {
@@ -15139,6 +24251,11 @@ export namespace Prisma {
     createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
     orders?: OrderCreateNestedManyWithoutCreatedByInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -15161,6 +24278,11 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
     orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -15199,6 +24321,11 @@ export namespace Prisma {
     createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
     orders?: OrderUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -15221,6 +24348,1414 @@ export namespace Prisma {
     createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
     orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserCreateWithoutTodoListsCreatedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    orders?: OrderCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutTodoListsCreatedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutTodoListsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTodoListsCreatedInput, UserUncheckedCreateWithoutTodoListsCreatedInput>
+  }
+
+  export type TodoItemCreateWithoutTodoListInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutTodoListInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToId?: string | null
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutTodoListInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput>
+  }
+
+  export type TodoItemCreateManyTodoListInputEnvelope = {
+    data: TodoItemCreateManyTodoListInput | TodoItemCreateManyTodoListInput[]
+  }
+
+  export type UserUpsertWithoutTodoListsCreatedInput = {
+    update: XOR<UserUpdateWithoutTodoListsCreatedInput, UserUncheckedUpdateWithoutTodoListsCreatedInput>
+    create: XOR<UserCreateWithoutTodoListsCreatedInput, UserUncheckedCreateWithoutTodoListsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodoListsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodoListsCreatedInput, UserUncheckedUpdateWithoutTodoListsCreatedInput>
+  }
+
+  export type UserUpdateWithoutTodoListsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodoListsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type TodoItemUpsertWithWhereUniqueWithoutTodoListInput = {
+    where: TodoItemWhereUniqueInput
+    update: XOR<TodoItemUpdateWithoutTodoListInput, TodoItemUncheckedUpdateWithoutTodoListInput>
+    create: XOR<TodoItemCreateWithoutTodoListInput, TodoItemUncheckedCreateWithoutTodoListInput>
+  }
+
+  export type TodoItemUpdateWithWhereUniqueWithoutTodoListInput = {
+    where: TodoItemWhereUniqueInput
+    data: XOR<TodoItemUpdateWithoutTodoListInput, TodoItemUncheckedUpdateWithoutTodoListInput>
+  }
+
+  export type TodoItemUpdateManyWithWhereWithoutTodoListInput = {
+    where: TodoItemScalarWhereInput
+    data: XOR<TodoItemUpdateManyMutationInput, TodoItemUncheckedUpdateManyWithoutTodoListInput>
+  }
+
+  export type TodoListCreateWithoutTodosInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutTodoListsCreatedInput
+  }
+
+  export type TodoListUncheckedCreateWithoutTodosInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type TodoListCreateOrConnectWithoutTodosInput = {
+    where: TodoListWhereUniqueInput
+    create: XOR<TodoListCreateWithoutTodosInput, TodoListUncheckedCreateWithoutTodosInput>
+  }
+
+  export type UserCreateWithoutTodosAssignedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    orders?: OrderCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutTodosAssignedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutTodosAssignedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTodosAssignedInput, UserUncheckedCreateWithoutTodosAssignedInput>
+  }
+
+  export type UserCreateWithoutTodosCreatedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    orders?: OrderCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutTodosCreatedInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutTodosCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTodosCreatedInput, UserUncheckedCreateWithoutTodosCreatedInput>
+  }
+
+  export type TodoDependencyCreateWithoutDependsOnInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    blockedBy: TodoItemCreateNestedOneWithoutDependentsInput
+  }
+
+  export type TodoDependencyUncheckedCreateWithoutDependsOnInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    blockedById: string
+  }
+
+  export type TodoDependencyCreateOrConnectWithoutDependsOnInput = {
+    where: TodoDependencyWhereUniqueInput
+    create: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput>
+  }
+
+  export type TodoDependencyCreateManyDependsOnInputEnvelope = {
+    data: TodoDependencyCreateManyDependsOnInput | TodoDependencyCreateManyDependsOnInput[]
+  }
+
+  export type TodoDependencyCreateWithoutBlockedByInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOn: TodoItemCreateNestedOneWithoutDependenciesInput
+  }
+
+  export type TodoDependencyUncheckedCreateWithoutBlockedByInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOnId: string
+  }
+
+  export type TodoDependencyCreateOrConnectWithoutBlockedByInput = {
+    where: TodoDependencyWhereUniqueInput
+    create: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput>
+  }
+
+  export type TodoDependencyCreateManyBlockedByInputEnvelope = {
+    data: TodoDependencyCreateManyBlockedByInput | TodoDependencyCreateManyBlockedByInput[]
+  }
+
+  export type TodoAttachmentCreateWithoutTodoItemInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    uploadedBy: UserCreateNestedOneWithoutTodoAttachmentsInput
+  }
+
+  export type TodoAttachmentUncheckedCreateWithoutTodoItemInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    uploadedById: string
+  }
+
+  export type TodoAttachmentCreateOrConnectWithoutTodoItemInput = {
+    where: TodoAttachmentWhereUniqueInput
+    create: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput>
+  }
+
+  export type TodoAttachmentCreateManyTodoItemInputEnvelope = {
+    data: TodoAttachmentCreateManyTodoItemInput | TodoAttachmentCreateManyTodoItemInput[]
+  }
+
+  export type TodoCommentCreateWithoutTodoItemInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutTodoCommentsInput
+  }
+
+  export type TodoCommentUncheckedCreateWithoutTodoItemInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    authorId: string
+  }
+
+  export type TodoCommentCreateOrConnectWithoutTodoItemInput = {
+    where: TodoCommentWhereUniqueInput
+    create: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput>
+  }
+
+  export type TodoCommentCreateManyTodoItemInputEnvelope = {
+    data: TodoCommentCreateManyTodoItemInput | TodoCommentCreateManyTodoItemInput[]
+  }
+
+  export type TodoListUpsertWithoutTodosInput = {
+    update: XOR<TodoListUpdateWithoutTodosInput, TodoListUncheckedUpdateWithoutTodosInput>
+    create: XOR<TodoListCreateWithoutTodosInput, TodoListUncheckedCreateWithoutTodosInput>
+    where?: TodoListWhereInput
+  }
+
+  export type TodoListUpdateToOneWithWhereWithoutTodosInput = {
+    where?: TodoListWhereInput
+    data: XOR<TodoListUpdateWithoutTodosInput, TodoListUncheckedUpdateWithoutTodosInput>
+  }
+
+  export type TodoListUpdateWithoutTodosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutTodoListsCreatedNestedInput
+  }
+
+  export type TodoListUncheckedUpdateWithoutTodosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUpsertWithoutTodosAssignedInput = {
+    update: XOR<UserUpdateWithoutTodosAssignedInput, UserUncheckedUpdateWithoutTodosAssignedInput>
+    create: XOR<UserCreateWithoutTodosAssignedInput, UserUncheckedCreateWithoutTodosAssignedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodosAssignedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodosAssignedInput, UserUncheckedUpdateWithoutTodosAssignedInput>
+  }
+
+  export type UserUpdateWithoutTodosAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodosAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUpsertWithoutTodosCreatedInput = {
+    update: XOR<UserUpdateWithoutTodosCreatedInput, UserUncheckedUpdateWithoutTodosCreatedInput>
+    create: XOR<UserCreateWithoutTodosCreatedInput, UserUncheckedCreateWithoutTodosCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodosCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodosCreatedInput, UserUncheckedUpdateWithoutTodosCreatedInput>
+  }
+
+  export type UserUpdateWithoutTodosCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodosCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type TodoDependencyUpsertWithWhereUniqueWithoutDependsOnInput = {
+    where: TodoDependencyWhereUniqueInput
+    update: XOR<TodoDependencyUpdateWithoutDependsOnInput, TodoDependencyUncheckedUpdateWithoutDependsOnInput>
+    create: XOR<TodoDependencyCreateWithoutDependsOnInput, TodoDependencyUncheckedCreateWithoutDependsOnInput>
+  }
+
+  export type TodoDependencyUpdateWithWhereUniqueWithoutDependsOnInput = {
+    where: TodoDependencyWhereUniqueInput
+    data: XOR<TodoDependencyUpdateWithoutDependsOnInput, TodoDependencyUncheckedUpdateWithoutDependsOnInput>
+  }
+
+  export type TodoDependencyUpdateManyWithWhereWithoutDependsOnInput = {
+    where: TodoDependencyScalarWhereInput
+    data: XOR<TodoDependencyUpdateManyMutationInput, TodoDependencyUncheckedUpdateManyWithoutDependsOnInput>
+  }
+
+  export type TodoDependencyScalarWhereInput = {
+    AND?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+    OR?: TodoDependencyScalarWhereInput[]
+    NOT?: TodoDependencyScalarWhereInput | TodoDependencyScalarWhereInput[]
+    id?: StringFilter<"TodoDependency"> | string
+    type?: EnumDependencyTypeFilter<"TodoDependency"> | $Enums.DependencyType
+    lagDays?: IntFilter<"TodoDependency"> | number
+    createdAt?: DateTimeFilter<"TodoDependency"> | Date | string
+    dependsOnId?: StringFilter<"TodoDependency"> | string
+    blockedById?: StringFilter<"TodoDependency"> | string
+  }
+
+  export type TodoDependencyUpsertWithWhereUniqueWithoutBlockedByInput = {
+    where: TodoDependencyWhereUniqueInput
+    update: XOR<TodoDependencyUpdateWithoutBlockedByInput, TodoDependencyUncheckedUpdateWithoutBlockedByInput>
+    create: XOR<TodoDependencyCreateWithoutBlockedByInput, TodoDependencyUncheckedCreateWithoutBlockedByInput>
+  }
+
+  export type TodoDependencyUpdateWithWhereUniqueWithoutBlockedByInput = {
+    where: TodoDependencyWhereUniqueInput
+    data: XOR<TodoDependencyUpdateWithoutBlockedByInput, TodoDependencyUncheckedUpdateWithoutBlockedByInput>
+  }
+
+  export type TodoDependencyUpdateManyWithWhereWithoutBlockedByInput = {
+    where: TodoDependencyScalarWhereInput
+    data: XOR<TodoDependencyUpdateManyMutationInput, TodoDependencyUncheckedUpdateManyWithoutBlockedByInput>
+  }
+
+  export type TodoAttachmentUpsertWithWhereUniqueWithoutTodoItemInput = {
+    where: TodoAttachmentWhereUniqueInput
+    update: XOR<TodoAttachmentUpdateWithoutTodoItemInput, TodoAttachmentUncheckedUpdateWithoutTodoItemInput>
+    create: XOR<TodoAttachmentCreateWithoutTodoItemInput, TodoAttachmentUncheckedCreateWithoutTodoItemInput>
+  }
+
+  export type TodoAttachmentUpdateWithWhereUniqueWithoutTodoItemInput = {
+    where: TodoAttachmentWhereUniqueInput
+    data: XOR<TodoAttachmentUpdateWithoutTodoItemInput, TodoAttachmentUncheckedUpdateWithoutTodoItemInput>
+  }
+
+  export type TodoAttachmentUpdateManyWithWhereWithoutTodoItemInput = {
+    where: TodoAttachmentScalarWhereInput
+    data: XOR<TodoAttachmentUpdateManyMutationInput, TodoAttachmentUncheckedUpdateManyWithoutTodoItemInput>
+  }
+
+  export type TodoCommentUpsertWithWhereUniqueWithoutTodoItemInput = {
+    where: TodoCommentWhereUniqueInput
+    update: XOR<TodoCommentUpdateWithoutTodoItemInput, TodoCommentUncheckedUpdateWithoutTodoItemInput>
+    create: XOR<TodoCommentCreateWithoutTodoItemInput, TodoCommentUncheckedCreateWithoutTodoItemInput>
+  }
+
+  export type TodoCommentUpdateWithWhereUniqueWithoutTodoItemInput = {
+    where: TodoCommentWhereUniqueInput
+    data: XOR<TodoCommentUpdateWithoutTodoItemInput, TodoCommentUncheckedUpdateWithoutTodoItemInput>
+  }
+
+  export type TodoCommentUpdateManyWithWhereWithoutTodoItemInput = {
+    where: TodoCommentScalarWhereInput
+    data: XOR<TodoCommentUpdateManyMutationInput, TodoCommentUncheckedUpdateManyWithoutTodoItemInput>
+  }
+
+  export type TodoItemCreateWithoutDependenciesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutDependenciesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutDependenciesInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutDependenciesInput, TodoItemUncheckedCreateWithoutDependenciesInput>
+  }
+
+  export type TodoItemCreateWithoutDependentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutDependentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutDependentsInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutDependentsInput, TodoItemUncheckedCreateWithoutDependentsInput>
+  }
+
+  export type TodoItemUpsertWithoutDependenciesInput = {
+    update: XOR<TodoItemUpdateWithoutDependenciesInput, TodoItemUncheckedUpdateWithoutDependenciesInput>
+    create: XOR<TodoItemCreateWithoutDependenciesInput, TodoItemUncheckedCreateWithoutDependenciesInput>
+    where?: TodoItemWhereInput
+  }
+
+  export type TodoItemUpdateToOneWithWhereWithoutDependenciesInput = {
+    where?: TodoItemWhereInput
+    data: XOR<TodoItemUpdateWithoutDependenciesInput, TodoItemUncheckedUpdateWithoutDependenciesInput>
+  }
+
+  export type TodoItemUpdateWithoutDependenciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutDependenciesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUpsertWithoutDependentsInput = {
+    update: XOR<TodoItemUpdateWithoutDependentsInput, TodoItemUncheckedUpdateWithoutDependentsInput>
+    create: XOR<TodoItemCreateWithoutDependentsInput, TodoItemUncheckedCreateWithoutDependentsInput>
+    where?: TodoItemWhereInput
+  }
+
+  export type TodoItemUpdateToOneWithWhereWithoutDependentsInput = {
+    where?: TodoItemWhereInput
+    data: XOR<TodoItemUpdateWithoutDependentsInput, TodoItemUncheckedUpdateWithoutDependentsInput>
+  }
+
+  export type TodoItemUpdateWithoutDependentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutDependentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemCreateWithoutAttachmentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    comments?: TodoCommentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutAttachmentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    comments?: TodoCommentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutAttachmentsInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutAttachmentsInput, TodoItemUncheckedCreateWithoutAttachmentsInput>
+  }
+
+  export type UserCreateWithoutTodoAttachmentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    orders?: OrderCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoComments?: TodoCommentCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutTodoAttachmentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoComments?: TodoCommentUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutTodoAttachmentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTodoAttachmentsInput, UserUncheckedCreateWithoutTodoAttachmentsInput>
+  }
+
+  export type TodoItemUpsertWithoutAttachmentsInput = {
+    update: XOR<TodoItemUpdateWithoutAttachmentsInput, TodoItemUncheckedUpdateWithoutAttachmentsInput>
+    create: XOR<TodoItemCreateWithoutAttachmentsInput, TodoItemUncheckedCreateWithoutAttachmentsInput>
+    where?: TodoItemWhereInput
+  }
+
+  export type TodoItemUpdateToOneWithWhereWithoutAttachmentsInput = {
+    where?: TodoItemWhereInput
+    data: XOR<TodoItemUpdateWithoutAttachmentsInput, TodoItemUncheckedUpdateWithoutAttachmentsInput>
+  }
+
+  export type TodoItemUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type UserUpsertWithoutTodoAttachmentsInput = {
+    update: XOR<UserUpdateWithoutTodoAttachmentsInput, UserUncheckedUpdateWithoutTodoAttachmentsInput>
+    create: XOR<UserCreateWithoutTodoAttachmentsInput, UserUncheckedCreateWithoutTodoAttachmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodoAttachmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodoAttachmentsInput, UserUncheckedUpdateWithoutTodoAttachmentsInput>
+  }
+
+  export type UserUpdateWithoutTodoAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoComments?: TodoCommentUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodoAttachmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoComments?: TodoCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type TodoItemCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoList: TodoListCreateNestedOneWithoutTodosInput
+    assignedTo?: UserCreateNestedOneWithoutTodosAssignedInput
+    createdBy: UserCreateNestedOneWithoutTodosCreatedInput
+    dependencies?: TodoDependencyCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+    createdById: string
+    dependencies?: TodoDependencyUncheckedCreateNestedManyWithoutDependsOnInput
+    dependents?: TodoDependencyUncheckedCreateNestedManyWithoutBlockedByInput
+    attachments?: TodoAttachmentUncheckedCreateNestedManyWithoutTodoItemInput
+  }
+
+  export type TodoItemCreateOrConnectWithoutCommentsInput = {
+    where: TodoItemWhereUniqueInput
+    create: XOR<TodoItemCreateWithoutCommentsInput, TodoItemUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type UserCreateWithoutTodoCommentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatedByInput
+    orders?: OrderCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentCreateNestedManyWithoutUploadedByInput
+  }
+
+  export type UserUncheckedCreateWithoutTodoCommentsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    password?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    role?: string
+    phone?: string | null
+    avatar?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssignedToInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatedByInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCreatedByInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    todoListsCreated?: TodoListUncheckedCreateNestedManyWithoutCreatedByInput
+    todosCreated?: TodoItemUncheckedCreateNestedManyWithoutCreatedByInput
+    todosAssigned?: TodoItemUncheckedCreateNestedManyWithoutAssignedToInput
+    todoAttachments?: TodoAttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  }
+
+  export type UserCreateOrConnectWithoutTodoCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTodoCommentsInput, UserUncheckedCreateWithoutTodoCommentsInput>
+  }
+
+  export type TodoItemUpsertWithoutCommentsInput = {
+    update: XOR<TodoItemUpdateWithoutCommentsInput, TodoItemUncheckedUpdateWithoutCommentsInput>
+    create: XOR<TodoItemCreateWithoutCommentsInput, TodoItemUncheckedCreateWithoutCommentsInput>
+    where?: TodoItemWhereInput
+  }
+
+  export type TodoItemUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: TodoItemWhereInput
+    data: XOR<TodoItemUpdateWithoutCommentsInput, TodoItemUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type TodoItemUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type UserUpsertWithoutTodoCommentsInput = {
+    update: XOR<UserUpdateWithoutTodoCommentsInput, UserUncheckedUpdateWithoutTodoCommentsInput>
+    create: XOR<UserCreateWithoutTodoCommentsInput, UserUncheckedCreateWithoutTodoCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodoCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodoCommentsInput, UserUncheckedUpdateWithoutTodoCommentsInput>
+  }
+
+  export type UserUpdateWithoutTodoCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUpdateManyWithoutUploadedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodoCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatedByNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCreatedByNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    todoListsCreated?: TodoListUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosCreated?: TodoItemUncheckedUpdateManyWithoutCreatedByNestedInput
+    todosAssigned?: TodoItemUncheckedUpdateManyWithoutAssignedToNestedInput
+    todoAttachments?: TodoAttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -15308,6 +25843,77 @@ export namespace Prisma {
     description?: string | null
     metadata?: string | null
     createdAt?: Date | string
+  }
+
+  export type TodoListCreateManyCreatedByInput = {
+    id?: string
+    name: string
+    description?: string | null
+    color?: string
+    icon?: string
+    isArchived?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TodoItemCreateManyCreatedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    assignedToId?: string | null
+  }
+
+  export type TodoItemCreateManyAssignedToInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoListId: string
+    createdById: string
+  }
+
+  export type TodoAttachmentCreateManyUploadedByInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    todoItemId: string
+  }
+
+  export type TodoCommentCreateManyAuthorInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    todoItemId: string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -15575,6 +26181,237 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TodoListUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todos?: TodoItemUpdateManyWithoutTodoListNestedInput
+  }
+
+  export type TodoListUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todos?: TodoItemUncheckedUpdateManyWithoutTodoListNestedInput
+  }
+
+  export type TodoListUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: StringFieldUpdateOperationsInput | string
+    icon?: StringFieldUpdateOperationsInput | string
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TodoItemUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TodoItemUpdateWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoList?: TodoListUpdateOneRequiredWithoutTodosNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoListId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentUpdateWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItem?: TodoItemUpdateOneRequiredWithoutAttachmentsNestedInput
+  }
+
+  export type TodoAttachmentUncheckedUpdateWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentUncheckedUpdateManyWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItem?: TodoItemUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type TodoCommentUncheckedUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentUncheckedUpdateManyWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    todoItemId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TaskCreateManyOrderInput = {
     id?: string
     title: string
@@ -15689,6 +26526,234 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoItemCreateManyTodoListInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TodoStatus
+    priority?: $Enums.TodoPriority
+    startDate?: Date | string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    estimatedHours?: number | null
+    actualHours?: number | null
+    progress?: number
+    tags?: string
+    isDelayed?: boolean
+    delayReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToId?: string | null
+    createdById: string
+  }
+
+  export type TodoItemUpdateWithoutTodoListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedTo?: UserUpdateOneWithoutTodosAssignedNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutTodosCreatedNestedInput
+    dependencies?: TodoDependencyUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateWithoutTodoListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    dependencies?: TodoDependencyUncheckedUpdateManyWithoutDependsOnNestedInput
+    dependents?: TodoDependencyUncheckedUpdateManyWithoutBlockedByNestedInput
+    attachments?: TodoAttachmentUncheckedUpdateManyWithoutTodoItemNestedInput
+    comments?: TodoCommentUncheckedUpdateManyWithoutTodoItemNestedInput
+  }
+
+  export type TodoItemUncheckedUpdateManyWithoutTodoListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    estimatedHours?: NullableIntFieldUpdateOperationsInput | number | null
+    actualHours?: NullableIntFieldUpdateOperationsInput | number | null
+    progress?: IntFieldUpdateOperationsInput | number
+    tags?: StringFieldUpdateOperationsInput | string
+    isDelayed?: BoolFieldUpdateOperationsInput | boolean
+    delayReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyCreateManyDependsOnInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    blockedById: string
+  }
+
+  export type TodoDependencyCreateManyBlockedByInput = {
+    id?: string
+    type?: $Enums.DependencyType
+    lagDays?: number
+    createdAt?: Date | string
+    dependsOnId: string
+  }
+
+  export type TodoAttachmentCreateManyTodoItemInput = {
+    id?: string
+    fileName: string
+    fileUrl: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    uploadedById: string
+  }
+
+  export type TodoCommentCreateManyTodoItemInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    authorId: string
+  }
+
+  export type TodoDependencyUpdateWithoutDependsOnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockedBy?: TodoItemUpdateOneRequiredWithoutDependentsNestedInput
+  }
+
+  export type TodoDependencyUncheckedUpdateWithoutDependsOnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyUncheckedUpdateManyWithoutDependsOnInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    blockedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyUpdateWithoutBlockedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOn?: TodoItemUpdateOneRequiredWithoutDependenciesNestedInput
+  }
+
+  export type TodoDependencyUncheckedUpdateWithoutBlockedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOnId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoDependencyUncheckedUpdateManyWithoutBlockedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumDependencyTypeFieldUpdateOperationsInput | $Enums.DependencyType
+    lagDays?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dependsOnId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentUpdateWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneRequiredWithoutTodoAttachmentsNestedInput
+  }
+
+  export type TodoAttachmentUncheckedUpdateWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoAttachmentUncheckedUpdateManyWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentUpdateWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutTodoCommentsNestedInput
+  }
+
+  export type TodoCommentUncheckedUpdateWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TodoCommentUncheckedUpdateManyWithoutTodoItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
 

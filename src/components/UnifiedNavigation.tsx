@@ -37,6 +37,7 @@ export function UnifiedNavigation({ activeTab, onTabChange, onNewTask }: Unified
     { id: 'overview', name: 'Overview', icon: ChartBarIcon },
     { id: 'tasks', name: 'Tasks', icon: ClipboardDocumentListIcon },
     { id: 'orders', name: 'Orders', icon: DocumentTextIcon },
+    { id: 'todo', name: 'Todo Lists', icon: ClipboardDocumentListIcon },
     { id: 'dynamic-tables', name: 'Dynamic Tables', icon: Cog6ToothIcon },
   ];
 

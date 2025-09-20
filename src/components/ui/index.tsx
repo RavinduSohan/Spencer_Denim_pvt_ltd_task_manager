@@ -3,6 +3,18 @@
 import React, { ReactNode } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
+// Export new UI components
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './card';
+export { Badge } from './badge';
+export { Progress } from './progress';
+export { 
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from './dropdown-menu';
+
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;

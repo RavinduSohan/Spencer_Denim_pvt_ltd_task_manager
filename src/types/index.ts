@@ -258,3 +258,160 @@ export interface DocumentFilters {
 // Utility types
 export type StatusVariant = 'pending' | 'in-progress' | 'completed' | 'urgent' | 'on-hold';
 export type PriorityVariant = 'low' | 'medium' | 'high' | 'urgent';
+
+// Todo List Types
+export interface TodoList {
+  id: string;
+  name: string;
+  description?: string;
+  color: string;
+  icon: string;
+  isArchived: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  createdById: string;
+  createdBy?: User;
+  todos?: TodoItem[];
+  stats?: {
+    total: number;
+    completed: number;
+    pending: number;
+    inProgress: number;
+    delayed: number;
+  };
+  _count?: {
+    todos: number;
+  };
+}
+
+export interface TodoItem {
+  id: string;
+  title: string;
+  description?: string;
+  status: TodoStatus;
+  priority: TodoPriority;
+  startDate?: Date;
+  dueDate?: Date;
+  completedAt?: Date;
+  estimatedHours?: number;
+  actualHours?: number;
+  progress: number;
+  tags: string[];
+  isDelayed: boolean;
+  delayReason?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  todoListId: string;
+  todoList?: TodoList;
+  assignedToId?: string;
+  assignedTo?: User;
+  createdById: string;
+  createdBy?: User;
+  dependencies?: TodoDependency[];
+  dependents?: TodoDependency[];
+  attachments?: TodoAttachment[];
+  comments?: TodoComment[];
+  _count?: {
+    comments: number;
+    attachments: number;
+  };
+}
+
+export interface TodoDependency {
+  id: string;
+  type: DependencyType;
+  lagDays: number;
+  createdAt: Date;
+  dependsOnId: string;
+  dependsOn?: TodoItem;
+  blockedById: string;
+  blockedBy?: TodoItem;
+}
+
+export interface TodoAttachment {
+  id: string;
+  fileName: string;
+  fileUrl: string;
+  fileSize: number;
+  mimeType: string;
+  uploadedAt: Date;
+  todoItemId: string;
+  todoItem?: TodoItem;
+  uploadedById: string;
+  uploadedBy?: User;
+}
+
+export interface TodoComment {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  todoItemId: string;
+  todoItem?: TodoItem;
+  authorId: string;
+  author?: User;
+}
+
+export enum TodoStatus {
+  PENDING = 'PENDING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  ON_HOLD = 'ON_HOLD',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+  DELAYED = 'DELAYED',
+}
+
+export enum TodoPriority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+  URGENT = 'URGENT',
+  CRITICAL = 'CRITICAL',
+}
+
+export enum DependencyType {
+  FINISH_TO_START = 'FINISH_TO_START',
+  START_TO_START = 'START_TO_START',
+  FINISH_TO_FINISH = 'FINISH_TO_FINISH',
+  START_TO_FINISH = 'START_TO_FINISH',
+}
+
+// Todo List Form Types
+export interface CreateTodoListForm {
+  name: string;
+  description?: string;
+  color?: string;
+  icon?: string;
+}
+
+export interface CreateTodoItemForm {
+  title: string;
+  description?: string;
+  priority?: TodoPriority;
+  startDate?: string;
+  dueDate?: string;
+  estimatedHours?: number;
+  assignedToId?: string;
+  tags?: string[];
+  todoListId: string;
+}
+
+export interface UpdateTodoItemForm extends Partial<CreateTodoItemForm> {
+  status?: TodoStatus;
+  progress?: number;
+  actualHours?: number;
+  isDelayed?: boolean;
+  delayReason?: string;
+}
+
+export interface TodoFilters {
+  todoListId?: string;
+  status?: TodoStatus;
+  priority?: TodoPriority;
+  assignedToId?: string;
+  search?: string;
+  tags?: string[];
+  isDelayed?: boolean;
+  page?: number;
+  limit?: number;
+}

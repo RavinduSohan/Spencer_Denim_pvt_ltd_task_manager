@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
+import { type ClassValue, clsx } from 'clsx';
+
+// Utility function for merging class names
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs);
+}
 
 // Error handling utility
 export function handleError(error: unknown) {
